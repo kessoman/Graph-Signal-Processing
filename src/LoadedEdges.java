@@ -13,7 +13,7 @@ public class LoadedEdges extends Edges {
 		return destinationnode;
 	}
 	
-	 public Edges getEdges() {
+	 public Edges getEdge() {
 	  	  return content;
 	    }
 	

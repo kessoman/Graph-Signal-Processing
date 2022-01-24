@@ -1,13 +1,25 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
+
 
 public class LoadedGraph extends Graph {
 
-	public LoadedGraph (List<Edges> edges,HashMap<String,Node> nodes) {
+	public LoadedGraph (ArrayList<Edges> edges,HashMap<String,Node> nodes) {
 		
 		super (edges,nodes);
 		
 	}
+	
+    public  ArrayList<Edges> getEdges() {
+		 
+		 return edges;
+		 	
+	 }
+	
+    public Stream<Edges> getIncomingEdges(Node destinationnode){
+    	
+    	return getEdges().stream().filter(edge -> edge.getdestination() == destinationnode);
+    	
+    }
 	
 }
