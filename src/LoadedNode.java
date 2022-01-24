@@ -1,7 +1,7 @@
 
-public class LoadNode extends Node {
+public class LoadedNode extends Node {
 
-	public LoadNode(String name, Node node) {
+	public LoadedNode(String name, Node node) {
 		super(name , node);
 	}
     public 	String toString() {

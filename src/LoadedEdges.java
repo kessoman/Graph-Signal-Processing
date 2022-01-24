@@ -1,7 +1,7 @@
 
-public class LoadEdges extends Edges {
+public class LoadedEdges extends Edges {
 
-	public LoadEdges(Node sourcenode, Node destinationnode) {
+	public LoadedEdges(Node sourcenode, Node destinationnode) {
 			super(sourcenode,destinationnode);
 		}	
 	

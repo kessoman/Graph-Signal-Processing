@@ -21,7 +21,7 @@ public class Main   {
 
     	Scanner scanner = new Scanner(file);
          HashMap<String,Node> nodes = new HashMap<String, Node>();
-         List<Edges> edges = new ArrayList<Edges>();
+         ArrayList<Edges> edges = new ArrayList<Edges>();
     	while (scanner.hasNextLine()) {
     		 String[] links = scanner.nextLine().split(",");
     		//String[] newlinks1 = links[links.length - 3];
@@ -30,14 +30,14 @@ public class Main   {
     		Node node1 = nodes.getOrDefault(links[0], null);
     		Node node2 = nodes.getOrDefault(links[1], null);
     		if(node1 == null && node2 == null)
-    			node1 = new LoadNode(links[0] , node1);
-    		    node2 = new LoadNode(links[1] , node2);
+    			node1 = new LoadedNode(links[0] , node1);
+    		    node2 = new LoadedNode(links[1] , node2);
     		    nodes.put(links[0], node1 );
     		    nodes.put(links[1], node2);
     		    //newedge = new LoadEdges(node1,node2);
-    		  Edges  edge1 = new LoadEdges(node1,node2);
+    		  Edges  edge1 = new LoadedEdges(node1,node2);
               edges.add(edge1);
-              Graph graph = new LoadGraph(edges,nodes);
+              Graph graph = new LoadedGraph(edges,nodes);
               System.out.println(graph.nodes);
  
 	
