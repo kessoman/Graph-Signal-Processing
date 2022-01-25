@@ -38,7 +38,7 @@ public class Main   {
     		  Edges  edge1 = new LoadedEdges(node1,node2);
               edges.add(edge1);
               Graph graph = new LoadedGraph(edges,nodes);
-              System.out.println(graph.nodes);
+              System.out.println(graph.getOutgoingEdges(node1));
  
 	
             //System.out.println(edges);  

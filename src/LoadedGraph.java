@@ -22,4 +22,11 @@ public class LoadedGraph extends Graph {
     	
     }
 	
+	 public  Stream<Edges> getOutgoingEdges(Node sourcenode){
+		 
+	    	return getEdges().stream().filter(edge -> edge.getsource() == sourcenode);
+		 
+	 }
+
+    
 }

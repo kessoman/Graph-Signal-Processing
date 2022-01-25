@@ -17,4 +17,10 @@ public class LoadedEdges extends Edges {
 	  	  return content;
 	    }
 	
+	 public String edgeToString() {
+		 
+		 return sourcenode.nodename + destinationnode.nodename ;
+		 
+	 }
+	 
 }

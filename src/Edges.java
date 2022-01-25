@@ -23,4 +23,10 @@ public abstract class Edges   {
         return this.content;
     }
 	
+	public  String edgeToString() {
+		
+		return this.sourcenode.nodename + this.destinationnode.nodename;
+		
+	}
+	
 }
