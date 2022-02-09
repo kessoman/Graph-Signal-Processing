@@ -20,10 +20,10 @@ import java.util.stream.Stream;
 		 	
 	 }
 	 
-	 public abstract Stream<Edges> getIncomingEdges(Node destinationnode);
+	 public abstract ArrayList<Edges> getIncomingEdges(Node destinationnode);
 
 
-	 public abstract Stream<Edges> getOutgoingEdges(Node sourcenode);
+	 public abstract ArrayList<Edges> getOutgoingEdges(Node sourcenode);
  
 	 //public ArrayList<Edges> getEdges() {
 		 

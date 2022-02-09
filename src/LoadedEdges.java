@@ -19,7 +19,7 @@ public class LoadedEdges extends Edges {
 	
 	 public String edgeToString() {
 		 
-		 return sourcenode.nodename + destinationnode.nodename ;
+		 return "Sourcenode :" + sourcenode.toString() + "Destinationnode :" + destinationnode.toString() ;
 		 
 	 }
 	 
