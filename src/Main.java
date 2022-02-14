@@ -23,8 +23,8 @@ public class Main   {
 			Scanner scanner = new Scanner(file);
 			
 			HashMap<String,Node> nodes = new HashMap<String, Node>();
-			ArrayList<Edge> edge = new ArrayList<Edge>();
-			Graph graph = new LoadedGraph(edge,nodes);
+			ArrayList<Edge> edges = new ArrayList<Edge>();
+			Graph graph = new LoadedGraph(edges,nodes);
 
 			while (scanner.hasNextLine()) {
 				String[] links = scanner.nextLine().split(",");
@@ -52,12 +52,15 @@ public class Main   {
 
 				Edge  edge1 = new LoadedEdges(node1,node2);
 
-				edge.add(edge1);
+				edges.add(edge1);
 				
-				Graph graphtest = new LoadedGraph(edge,nodes);
+				Graph graphtest = new LoadedGraph(edges,nodes);
 
-				System.out.println("hi");
-
+               for (Edge newedge1 : graphtest.getOutgoingEdges(node2)) {
+            	   
+            	   System.out.println(newedge1.edgeToString());
+            	   
+               }
 
 				//System.out.println(edges);  
 
