@@ -1,5 +1,5 @@
 
-public class LoadedEdges extends Edges {
+public class LoadedEdges extends Edge {
 
 	public LoadedEdges(Node sourcenode, Node destinationnode) {
 			super(sourcenode,destinationnode);
@@ -13,7 +13,7 @@ public class LoadedEdges extends Edges {
 		return destinationnode;
 	}
 	
-	 public Edges getEdge() {
+	 public Edge getEdge() {
 	  	  return content;
 	    }
 	

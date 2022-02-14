@@ -5,25 +5,27 @@ import java.util.stream.Stream;
 
 	 protected HashMap<String,Node> nodes;
 
-	 protected ArrayList<Edges> edges;
+	 protected ArrayList<Edge> edges;
 	 
-	 public Graph (ArrayList<Edges> edges,HashMap<String,Node> nodes) {
+	 public Graph (ArrayList<Edge> edges,HashMap<String,Node> nodes) {
 		 
 		 this.edges = edges;
 		 this.nodes = nodes;
 		 
 	 }
 	 
-	 public  ArrayList<Edges> getEdges() {
+	 public  ArrayList<Edge> getEdges() {
 		 
-		 return new ArrayList<Edges>(edges);
+		 return new ArrayList<Edge>(edge);
 		 	
 	 }
 	 
-	 public abstract ArrayList<Edges> getIncomingEdges(Node destinationnode);
+	 public abstract void calculateInOutEdges(ArrayList<Edge> edges);
+	 
+	 public abstract ArrayList<Edge> getIncomingEdges(Node destinationnode);
 
 
-	 public abstract ArrayList<Edges> getOutgoingEdges(Node sourcenode);
+	 public abstract ArrayList<Edge> getOutgoingEdges(Node sourcenode);
  
 	 //public ArrayList<Edges> getEdges() {
 		 

@@ -4,59 +4,96 @@ import java.util.stream.Stream;
 
 public class LoadedGraph extends Graph {
 	
-	HashMap<Node,ArrayList<Edges>> ingoingedges = new HashMap<Node,ArrayList<Edges>>();
-	HashMap<Node,ArrayList<Edges>> outgoingedges = new HashMap<Node,ArrayList<Edges>>();
+	private HashMap<Node,ArrayList<Edge>> inGoingEdges = new HashMap<Node,ArrayList<Edge>>();
+	private HashMap<Node,ArrayList<Edge>> outGoingEdges = new HashMap<Node,ArrayList<Edge>>();
   
-	ArrayList<Edges> inedges = new ArrayList<Edges>();
-	ArrayList<Edges> outedges = new ArrayList<Edges>();
+	//private ArrayList<Edge> inEdges = new ArrayList<Edge>();
+	private ArrayList<Edge> outEdges = new ArrayList<Edge>();
 
 	
-	public LoadedGraph (ArrayList<Edges> edges,HashMap<String,Node> nodes) {
+	public LoadedGraph (ArrayList<Edge> edges,HashMap<String,Node> nodes) {
 		
 		super (edges,nodes);
+		calculateInOutEdges(edges);
 		
 	}
 	
-	public void calculateInOutEdges(ArrayList<Edges> edges,HashMap<String,Node> nodes) {
+	public void calculateInOutEdges(ArrayList<Edge> edges) {
 		
-		for(Node key : nodes.values()) {
 			
-			for(Edges edge : edges) {
+			for(Edge newEdge : edges) {
 				
-				if(key.nodename == edge.sourcenode.nodename) {
+				//Ingoing edges
+				
+				if(inGoingEdges.containsKey(newEdge.destinationnode)) {
 					
-					outedges.add(edge);
-					outgoingedges.put(key, outedges);
+					System.out.println("All good");
+					
+				}
+				else {
+					
+					inGoingEdges.put(newEdge.destinationnode, new ArrayList<Edge>());
 					
 				}
 				
-				else if(key.nodename == edge.destinationnode.nodename) {
+				ArrayList<Edge> inEdges = inGoingEdges.get(newEdge.destinationnode); 
+				
+				      if(inEdges == null) {
+				    	  
+				    	  inEdges = new ArrayList<Edge>();
+				    	  inEdges.add(newEdge);
+				    	  inGoingEdges.put(newEdge.destinationnode, inEdges);
+				    	  
+				      }
+				
+				      else {
+				    	  
+				    	  if(!inEdges.contains(newEdge)) {
+				    		  
+				    		  inEdges.add(newEdge);
+				    		  inGoingEdges.put(newEdge.destinationnode, inEdges);
+				    		  
+				    	  }
+				    	  
+				      }
+				  
+				//Outgoing Edges      
+				      
+				if(outGoingEdges.containsKey(newEdge.sourcenode)) {
 					
-					inedges.add(edge);
-					ingoingedges.put(key, inedges);
+					outEdges.add(newEdge);
+					outGoingEdges.put(newEdge.sourcenode, outEdges);
 					
 				}
+				else  {
+					
+					outGoingEdges.put(newEdge.sourcenode, outEdges);
+					outEdges.add(newEdge);
+					outGoingEdges.put(newEdge.sourcenode, outEdges);
+					
+				}
+				
 			}
 			
-		}
+		
 		
 	}
 	
-    public  ArrayList<Edges> getEdges() {
+    public  ArrayList<Edge> getEdges() {
 		 
-		 return edges;
+		 return edge;
 		 	
 	 }
 	
-    public ArrayList<Edges> getIncomingEdges(Node destinationnode){
+    public ArrayList<Edge> getIncomingEdges(Node destinationnode){
     	
-         return ingoingedges.get(destinationnode);
+         return inGoingEdges.get(destinationnode);
     	
     }
 	
-	 public  ArrayList<Edges> getOutgoingEdges(Node sourcenode){
+	 public  ArrayList<Edge> getOutgoingEdges(Node sourcenode){
 		 
-         return outgoingedges.get(sourcenode);
+         return outGoingEdges.get(sourcenode);
 		 
 	 }
 

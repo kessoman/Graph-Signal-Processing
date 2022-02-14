@@ -1,12 +1,12 @@
 	
-public abstract class Edges   {
+public abstract class Edge   {
 	
 	protected Node sourcenode;
 	protected Node destinationnode;
 	
-	public Edges content;
+	public Edge content;
 
-	public Edges (Node sourcenode, Node destinationnode) {
+	public Edge (Node sourcenode, Node destinationnode) {
 		this.sourcenode = sourcenode;
 		this.destinationnode = destinationnode;
 	}
@@ -19,7 +19,7 @@ public abstract class Edges   {
 		return destinationnode;
 	}
 	
-	public Edges getEdge() {
+	public Edge getEdge() {
         return this.content;
     }
 	
