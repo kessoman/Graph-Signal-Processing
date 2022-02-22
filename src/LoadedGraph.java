@@ -26,7 +26,7 @@ public class LoadedGraph extends Graph {
 
 			if (inGoingEdges.containsKey(newEdge.destinationnode)) {
 
-				System.out.println("All good");
+				//System.out.println("All good");
 
 			} else {
 

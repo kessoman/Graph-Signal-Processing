@@ -6,7 +6,7 @@ public class Pagerank extends GraphFilter {
 	protected HashMap<Node, Double > pagerank = new HashMap<Node,Double>();
 	protected HashMap<Node, Double > tempPagerank = new HashMap<Node,Double>();
 
-	public void run(Graph graph) {
+	public void Run(Graph graph) {
 				
 		double initPagerank = 1/(graph.nodes.size()) ;
 		int outGoingLinks ; 
@@ -27,11 +27,13 @@ public class Pagerank extends GraphFilter {
 				else {
 					for(Edge edge : graph.getOutgoingEdges(firstNode)) {
 						if(edge.destinationnode == secondNode) {
-							outGoingLinks += 1 ;
+							outGoingLinks = outGoingLinks+ 1 ;
 						}
+						pagerank.put(firstNode, (tempPagerank.get(secondNode)*(1/outGoingLinks))) ;
+
 					}
 					
-					pagerank.put(firstNode, (tempPagerank.get(secondNode)*(1/outGoingLinks))) ;
+					//pagerank.put(firstNode, (tempPagerank.get(secondNode)*(1/outGoingLinks))) ;
 					
 				}
 			}

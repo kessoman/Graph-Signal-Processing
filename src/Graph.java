@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 	 
 	 public  ArrayList<Edge> getEdges() {
 		 
-		 return new ArrayList<Edge>(edge);
+		 return new ArrayList<Edge>(edges);
 		 	
 	 }
 	 

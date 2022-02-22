@@ -55,12 +55,21 @@ public class Main   {
 				edges.add(edge1);
 				
 				Graph graphtest = new LoadedGraph(edges,nodes);
+				
+				Pagerank p = new Pagerank() ;
+				
+				p.Run(graphtest);
 
-               for (Edge newedge1 : graphtest.getOutgoingEdges(node2)) {
-            	   
-            	   System.out.println(newedge1.edgeToString());
-            	   
+               for(Node testVlue : p.pagerank.keySet()) {
+            	   System.out.println(p.pagerank.get(testVlue));
                }
+				
+               //for (Edge newedge1 : graphtest.getOutgoingEdges(node2)) {
+            	   
+            	   //System.out.println(newedge1.edgeToString());
+
+            	   
+               //}
 
 				//System.out.println(edges);  
 
