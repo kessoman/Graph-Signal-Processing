@@ -60,9 +60,9 @@ public class Main   {
 				
 				p.Run(graphtest);
 
-               for(Node testVlue : p.pagerank.keySet()) {
-            	   System.out.println(p.pagerank.get(testVlue));
-               }
+               //for(Node testVlue : p.pagerank.keySet()) {
+            	  // System.out.println(p.pagerank.get(testVlue));
+               //}
 				
                //for (Edge newedge1 : graphtest.getOutgoingEdges(node2)) {
             	   
