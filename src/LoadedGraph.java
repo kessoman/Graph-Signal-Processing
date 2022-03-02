@@ -59,7 +59,7 @@ public class LoadedGraph extends Graph {
 
 			if (outGoingEdges.containsKey(newEdge.sourcenode)) {
 
-				System.out.println("All good");
+				//System.out.println("All good");
 
 			} else {
 
