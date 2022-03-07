@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.math.*;
 
 public class Pagerank extends GraphFilter {
 
 	//protected HashMap<Node, Double > pagerank = new HashMap<Node,Double>();
 	//protected HashMap<Node, Double > tempPagerank = new HashMap<Node,Double>();
 	protected double dumpingFactor = 0.85 ; 
+	protected double mse = 0 ;            
 
 
 	public void Run(Graph graph) {
@@ -14,6 +16,7 @@ public class Pagerank extends GraphFilter {
 		HashMap<Node, Double > pageRankEven = new HashMap<Node,Double>();
 		double initPagerank = 1/(graph.nodes.size()) ;
 		int iterationStep = 1 ;
+		double result = 0 ;
 		//int currentStep = iterationStep & 2 ;
 		//int outGoingLinks ; 
 		//double dumpingFactor = 0.85 ; 
@@ -54,6 +57,22 @@ public class Pagerank extends GraphFilter {
 					
 		}
 			
+		if(iterationStep == 1) {
+			continue;
+		}
+		
+		else {
+			
+			for(Node mseNode : pageRankOdd.keySet()) {
+				result = result + Math.pow((pageRankOdd.get(mseNode)-pageRankEven.get(mseNode)), 2);
+			}
+			
+			mse = result / (pageRankOdd.size());
+			
+			if (mse < 1e-6) {
+				break ;
+			}
+		}
 		 
 		iterationStep = iterationStep + 1 ;
 		 
