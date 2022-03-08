@@ -8,12 +8,15 @@ public class Pagerank extends GraphFilter {
 	//protected HashMap<Node, Double > tempPagerank = new HashMap<Node,Double>();
 	protected double dumpingFactor = 0.85 ; 
 	protected double mse = 0 ;            
+    protected GraphSignal testSignal ;
 
 
-	public void Run(Graph graph) {
+	public void Run(Graph graph, GraphSignal testSignal) {
 		
+		//GraphSignal tempSignal = new GraphSignal(pageRankOdd) ;
 	    HashMap<Node, Double > pageRankOdd = new HashMap<Node,Double>();
-		HashMap<Node, Double > pageRankEven = new HashMap<Node,Double>();
+		GraphSignal tempSignal = new GraphSignal(pageRankOdd) ;
+		//HashMap<Node, Double > pageRankEven = new HashMap<Node,Double>();
 		double initPagerank = 1/(graph.nodes.size()) ;
 		int iterationStep = 1 ;
 		double result = 0 ;
@@ -24,7 +27,8 @@ public class Pagerank extends GraphFilter {
 		//Initialization
 		
 		for(Node node : graph.nodes.values()) {
-			pageRankEven.put(node, initPagerank);
+			testSignal.setNodescore(node, initPagerank);
+			//pageRankEven.put(node, initPagerank);
 		}
 		
 		while(iterationStep<=20) {
@@ -34,8 +38,9 @@ public class Pagerank extends GraphFilter {
 		   for(Node firstNode : graph.nodes.values()) {
 		 	 			 
 		     for(Edge tempEdge : graph.getOutgoingEdges(firstNode)) {
-		 	 	 
-		 	   pageRankEven.put(firstNode, (1-dumpingFactor)+(dumpingFactor*(pageRankOdd.get(tempEdge.getdestination())*(1/graph.getOutgoingEdges(firstNode).size()))));
+		 	 	
+		    	 testSignal.setNodescore(firstNode, (1-dumpingFactor)+(dumpingFactor*(tempSignal.getNodeScore(tempEdge.getdestination())*(1/graph.getOutgoingEdges(firstNode).size()))));
+		 	   //pageRankEven.put(firstNode, (1-dumpingFactor)+(dumpingFactor*(pageRankOdd.get(tempEdge.getdestination())*(1/graph.getOutgoingEdges(firstNode).size()))));
 		 		 
 		   	 }
 		     
@@ -49,7 +54,8 @@ public class Pagerank extends GraphFilter {
 	 	   		 
 		   	 for(Edge tempEdge : graph.getOutgoingEdges(firstNode)) {
 		  		 
-			   pageRankOdd.put(firstNode, (1-dumpingFactor)+(dumpingFactor*(pageRankEven.get(tempEdge.getdestination())*(1/graph.getOutgoingEdges(firstNode).size()))));
+		   		 tempSignal.setNodescore(firstNode, (1-dumpingFactor)+(dumpingFactor*(testSignal.getNodeScore(tempEdge.getdestination())*(1/graph.getOutgoingEdges(firstNode).size()))));
+			   //pageRankOdd.put(firstNode, (1-dumpingFactor)+(dumpingFactor*(pageRankEven.get(tempEdge.getdestination())*(1/graph.getOutgoingEdges(firstNode).size()))));
 		    
 		     }
 		   
@@ -63,11 +69,11 @@ public class Pagerank extends GraphFilter {
 		
 		else {
 			
-			for(Node mseNode : pageRankOdd.keySet()) {
-				result = result + Math.pow((pageRankOdd.get(mseNode)-pageRankEven.get(mseNode)), 2);
+			for(Node mseNode : testSignal.tempMap.keySet()) {
+				result = result + Math.pow((tempSignal.getNodeScore(mseNode)-testSignal.getNodeScore(mseNode)), 2);
 			}
 			
-			mse = result / (pageRankOdd.size());
+			mse = result / (testSignal.tempMap.size());
 			
 			if (mse < 1e-6) {
 				break ;

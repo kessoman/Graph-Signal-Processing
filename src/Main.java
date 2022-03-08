@@ -56,9 +56,13 @@ public class Main   {
 				
 				Graph graphtest = new LoadedGraph(edges,nodes);
 				
+				HashMap<Node, Double> testingMap = new HashMap<Node, Double>() ;
+				
+				GraphSignal testingSignal = new GraphSignal(testingMap);
+				
 				Pagerank p = new Pagerank() ;
 				
-				p.Run(graphtest);
+				p.Run(graphtest, testingSignal);
 
                //for(Node testVlue : p.pagerank.keySet()) {
             	  // System.out.println(p.pagerank.get(testVlue));

@@ -5,8 +5,7 @@ public class GraphSignal {
 	protected HashMap<Node, Double> tempMap ;
     
 	public GraphSignal(HashMap<Node, Double> tempMap) {
-		
-		
+		this.tempMap = tempMap ;
 	}
 	
 	public double getNodeScore (Node tempNode) {
