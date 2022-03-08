@@ -11,7 +11,7 @@ public class Pagerank extends GraphFilter {
     protected GraphSignal testSignal ;
 
 
-	public void Run(Graph graph, GraphSignal testSignal) {
+	public GraphSignal Run(Graph graph, GraphSignal testSignal) {
 		
 		//GraphSignal tempSignal = new GraphSignal(pageRankOdd) ;
 	    HashMap<Node, Double > pageRankOdd = new HashMap<Node,Double>();
@@ -76,12 +76,17 @@ public class Pagerank extends GraphFilter {
 			mse = result / (testSignal.tempMap.size());
 			
 			if (mse < 1e-6) {
+
 				break ;
+				
 			}
 		}
 		 
 		iterationStep = iterationStep + 1 ;
 		 
 		}
+		
+		return testSignal ;
+		
 	}	
 }
