@@ -30,11 +30,13 @@ public class Pagerank extends GraphFilter {
 		 tempSignal.tempMap.putAll(testSignal.tempMap) ;
 							 	
 		   for(Node firstNode : graph.nodes.values()) {
-		 	 			 
+		 	 
+			 tempSum = 0 ;  
+			   
 		     for(Edge tempEdge : graph.getOutgoingEdges(firstNode)) {
 		 	 	
 		    	 tempSum = tempSum + (tempSignal.getNodeScore(tempEdge.getdestination())*(1/graph.getOutgoingEdges(firstNode).size()));
-		    	 testSignal.setNodeScore(firstNode, (1-dumpingFactor)+(dumpingFactor * tempSum));
+		    	 testSignal.setNodeScore(firstNode, ((1-dumpingFactor / graph.nodes.size()))+(dumpingFactor * tempSum));
 		 		 
 		   	 }
 		     
@@ -44,7 +46,7 @@ public class Pagerank extends GraphFilter {
 			
 		if(iterationStep > 1) {
 			
-		
+		    result = 0 ;
 			
 			for(Node mseNode : testSignal.tempMap.keySet()) {
 				result = result + Math.pow((tempSignal.getNodeScore(mseNode)-testSignal.getNodeScore(mseNode)), 2);
