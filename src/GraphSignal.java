@@ -12,7 +12,7 @@ public class GraphSignal {
 		return tempMap.get(tempNode);
 	}
 
-	public void setNodescore (Node newTempNode,Double tempDpuble) {
+	public void setNodeScore (Node newTempNode,Double tempDpuble) {
 		tempMap.put(newTempNode, tempDpuble);
 	}
 	

@@ -64,10 +64,10 @@ public class Main   {
 				
 				p.Run(graphtest, testingSignal);
 
-               //for(Node testVlue : p.pagerank.keySet()) {
-            	  // System.out.println(p.pagerank.get(testVlue));
+               //for(Node testVlue : testingSignal.tempMap.keySet()) {
+            	   //System.out.println(testingSignal.getNodeScore(testVlue));
                //}
-				
+				System.out.println(p.mse);
                //for (Edge newedge1 : graphtest.getOutgoingEdges(node2)) {
             	   
             	   //System.out.println(newedge1.edgeToString());
