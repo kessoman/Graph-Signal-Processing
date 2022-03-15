@@ -5,6 +5,6 @@ public abstract class GraphFilter {
 	
 	protected Graph graph ;
 
-	public abstract GraphSignal Run(Graph graph, GraphSignal testSignal) ;
+	public abstract GraphSignal run(Graph graph, GraphSignal testSignal) ;
 	
 }

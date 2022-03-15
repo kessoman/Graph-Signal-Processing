@@ -5,11 +5,11 @@ public class LoadedEdges extends Edge {
 			super(sourcenode,destinationnode);
 		}	
 	
-	public Node getsource() {
+	public Node getSource() {
 		return sourcenode;
 	}
 	
-	public Node getdestination() {
+	public Node getDestination() {
 		return destinationnode;
 	}
 	

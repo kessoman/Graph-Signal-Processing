@@ -1,19 +1,27 @@
 import java.util.*;
 
 public class GraphSignal {
-	
-	protected HashMap<Node, Double> tempMap ;
-    
+
+	protected HashMap<Node, Double> tempMap;
+
 	public GraphSignal(HashMap<Node, Double> tempMap) {
-		this.tempMap = tempMap ;
+		this.tempMap = tempMap;
 	}
-	
-	public double getNodeScore (Node tempNode) {
+
+	public double getNodeScore(Node tempNode) {
 		return tempMap.get(tempNode);
 	}
 
-	public void setNodeScore (Node newTempNode,Double tempDpuble) {
+	public void setNodeScore(Node newTempNode, Double tempDpuble) {
 		tempMap.put(newTempNode, tempDpuble);
 	}
 	
+	public int returnSize() {
+		return tempMap.size();
+	}
+	
+	public void copyMaps(GraphSignal secondSignal){
+		secondSignal.tempMap.putAll(tempMap);
+	}
+
 }

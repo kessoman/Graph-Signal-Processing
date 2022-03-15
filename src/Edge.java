@@ -11,11 +11,11 @@ public abstract class Edge   {
 		this.destinationnode = destinationnode;
 	}
 	
-	public Node getsource() {
+	public Node getSource() {
 		return sourcenode;
 	}
 	
-	public Node getdestination() {
+	public Node getDestination() {
 		return destinationnode;
 	}
 	
