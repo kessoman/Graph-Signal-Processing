@@ -34,26 +34,27 @@ public class LoadedGraph extends Graph {
 
 			}
 
-			ArrayList<Edge> inEdges = inGoingEdges.get(newEdge.destinationnode);
+			ArrayList<Edge> inEdges = inGoingEdges.computeIfAbsent(newEdge.destinationnode, k -> new ArrayList<>());
+			//ArrayList<Edge> inEdges = inGoingEdges.get(newEdge.destinationnode);
 
-			if (inEdges == null) {
+			//if (inEdges == null) {
 
-				inEdges = new ArrayList<Edge>();
+				//inEdges = new ArrayList<Edge>();
+				//inEdges.add(newEdge);
+				//inGoingEdges.put(newEdge.sourcenode, inEdges);
+
+			//}
+
+			//else {
+
+			if (!inEdges.contains(newEdge)) {
+
 				inEdges.add(newEdge);
 				inGoingEdges.put(newEdge.sourcenode, inEdges);
 
 			}
 
-			else {
-
-				if (!inEdges.contains(newEdge)) {
-
-					inEdges.add(newEdge);
-					inGoingEdges.put(newEdge.sourcenode, inEdges);
-
-				}
-
-			}
+			//}
 
 			// Outgoing Edges
 

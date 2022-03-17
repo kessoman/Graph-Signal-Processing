@@ -54,7 +54,7 @@ public class Main   {
 			}
 
 			Graph graphtest = new LoadedGraph(edges, nodes);
-
+			
 			HashMap<Node, Double> testingMap = new HashMap<Node, Double>();
 
 			GraphSignal testingSignal = new GraphSignal(testingMap);
@@ -63,7 +63,7 @@ public class Main   {
 
 			p.run(graphtest, testingSignal);
 
-			System.out.println(p.mse);
+			//System.out.println(p.mse);
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
