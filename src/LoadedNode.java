@@ -1,15 +1,7 @@
 
 public class LoadedNode extends Node {
 
-	public LoadedNode(String name, Node node) {
-		super(name , node);
+	public LoadedNode(String name) {
+		super(name);
 	}
-    public 	String toString() {
-    	return nodename;
-    }
-    
-    public Node getNode() {
-  	  return node;
-    }
-    
 }

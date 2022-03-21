@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.math.*;
 
@@ -25,17 +26,17 @@ public class Pagerank extends GraphFilter {
 			System.out.println(node.nodename);
 		}
 		
-		while (iterationStep <= 2) {
+		while (iterationStep <= 20) {
 			
-			System.out.println(iterationStep);
+			//System.out.println(iterationStep);
             //tempSignal.tempMap.putAll(testSignal.tempMap);
 			tempSignal.copyMaps(testSignal);
-			if (iterationStep >= 2) {
-				System.out.println("Temp2");
-				for (Node nullNode : tempSignal.getkeySet()) {
-					System.out.println(tempSignal.getNodeScore(nullNode));
-				}
-			}
+			//if (iterationStep >= 2) {
+				//System.out.println("Temp2");
+				//for (Node nullNode : tempSignal.getkeySet()) {
+					//System.out.println(tempSignal.getNodeScore(nullNode));
+				//}
+			//}
 
 			for (Node firstNode : graph.nodes.values()) {
 
@@ -44,8 +45,10 @@ public class Pagerank extends GraphFilter {
 				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) {
 
 					//tempSignal.tempMap.getOrDefault(tempEdge.getSource(), initPagerank);
-					
-                    //System.out.println(tempSignal.getNodeScore(tempEdge.getSource()));
+					System.out.println("----------------------------------------");
+					for(Node k : tempSignal.getkeySet()) {
+                    System.out.println("" + k.toString() + tempEdge.getSource());
+					}
 					tempSum = tempSum + tempSignal.getNodeScore(tempEdge.getSource());
 					tempSum = tempSum /	(graph.getOutgoingEdges(tempEdge.getSource()).size());
 					// testSignal.setNodeScore(firstNode, ((1-dumpingFactor /
@@ -57,9 +60,9 @@ public class Pagerank extends GraphFilter {
 			}
 			
 			System.out.println("Test");
-			for (Node nullNode : testSignal.getkeySet()) {
-				  System.out.println(testSignal.getNodeScore(nullNode));
-			  }
+			//for (Node nullNode : testSignal.getkeySet()) {
+				  //System.out.println(testSignal.getNodeScore(nullNode));
+			  //}
 			
 			//System.out.println("Check");
 
