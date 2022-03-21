@@ -34,7 +34,7 @@ public class LoadedGraph extends Graph {
 
 			}
 
-			ArrayList<Edge> inEdges = inGoingEdges.computeIfAbsent(newEdge.destinationnode, k -> new ArrayList<>());
+			ArrayList<Edge> inEdges = inGoingEdges.computeIfAbsent(newEdge.destinationnode, k -> new ArrayList<Edge>());
 			//ArrayList<Edge> inEdges = inGoingEdges.get(newEdge.destinationnode);
 
 			//if (inEdges == null) {

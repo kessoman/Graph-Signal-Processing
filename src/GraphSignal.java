@@ -3,7 +3,7 @@ import java.util.*;
 public class GraphSignal {
 
 	protected HashMap<Node, Double> tempMap;
-
+	
 	public GraphSignal(HashMap<Node, Double> tempMap) {
 		this.tempMap = tempMap;
 	}
@@ -16,12 +16,26 @@ public class GraphSignal {
 		tempMap.put(newTempNode, tempDpuble);
 	}
 	
-	public int returnSize() {
+	public int getSize() {
 		return tempMap.size();
 	}
 	
-	public void copyMaps(GraphSignal secondSignal){
-		secondSignal.tempMap.putAll(tempMap);
+	public HashMap<Node, Double> getHashMap (){
+		return tempMap;
+	}
+	
+	public Set<Node> getkeySet(){
+		return tempMap.keySet();
+	}
+	
+	public  void copyMaps(GraphSignal secondSignal){
+		
+        for (HashMap.Entry<Node, Double> entry : secondSignal.getHashMap().entrySet()) {
+        	 
+            tempMap.put(entry.getKey(),
+                           entry.getValue());
+        }
+         
 	}
 
 }
