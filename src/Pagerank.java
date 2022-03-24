@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.math.*;
 
-public class Pagerank extends GraphFilter {
+public class PageRank extends GraphFilter {
 
 	protected double dumpingFactor = 1;
 	protected double mse = 1.E-6;

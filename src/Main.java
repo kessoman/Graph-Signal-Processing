@@ -61,7 +61,7 @@ public class Main   {
 				testingSignal.setNodeScore(node, 1.);
 			
 
-			Pagerank p = new Pagerank();
+			PageRank p = new PageRank();
 
 			p.run(graphtest, testingSignal);
 
