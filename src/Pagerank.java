@@ -5,91 +5,43 @@ import java.math.*;
 
 public class Pagerank extends GraphFilter {
 
-	protected double dumpingFactor = 0.85 ;
-	//protected double initPagerank = 1/(graph.nodes.size()) ;
-	protected double mse = 0 ;            
-    protected GraphSignal testSignal ;
+	protected double dumpingFactor = 1;
+	protected double mse = 1.E-6;
+	protected int maxIterations = 100;
 
-
-	public GraphSignal run(Graph graph, GraphSignal testSignal) {
-		
-	    HashMap<Node, Double > pageRankOdd = new HashMap<Node,Double>();
-		GraphSignal tempSignal = new GraphSignal(pageRankOdd) ;
-		double graphSize = graph.nodes.size();
-		double initPagerank = 1 / graphSize ;
-		int iterationStep = 1 ;
-		
-		//Initialization
-				
-		for(Node node : graph.nodes.values()) {
-			testSignal.setNodeScore(node, initPagerank);
-		}
-		
-		while (iterationStep <= 20) {
-			
-			//System.out.println(iterationStep);
-            //tempSignal.tempMap.putAll(testSignal.tempMap);
-			tempSignal.copyMaps(testSignal);
-			//if (iterationStep >= 2) {
-				//System.out.println("Temp2");
-				//for (Node nullNode : tempSignal.getkeySet()) {
-					//System.out.println(tempSignal.getNodeScore(nullNode));
-				//}
-			//}
-			
-			for (Node firstNode : graph.nodes.values()) {
-
+	public GraphSignal run(Graph graph, GraphSignal inputSignal) {	
+		GraphSignal previousSignal = inputSignal;
+		int iterationStep = 0;
+		// Initialization
+		while (iterationStep < maxIterations) {
+			GraphSignal nextSignal = new GraphSignal();
+			for (Node firstNode : graph.getNodes()) {
 				double tempSum = 0;
-
-				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) {
-					//System.out.println(firstNode.nodename + "" + tempEdge.edgeToString());
-					if(tempEdge.getDestination() != firstNode)
-						throw new RuntimeException();
-
-					//tempSignal.tempMap.getOrDefault(tempEdge.getSource(), initPagerank);
-					//System.out.println(firstNode.nodename + "" + graph.getOutgoingEdges(firstNode).size());
-					tempSum = tempSum + (tempSignal.getNodeScore(tempEdge.getSource())
-					 /	(graph.getOutgoingEdges(tempEdge.getSource()).size()));
-					// testSignal.setNodeScore(firstNode, ((1-dumpingFactor /
-					// graph.nodes.size()))+(dumpingFactor * tempSum));
-
-				}
-				testSignal.setNodeScore(firstNode,
-						((1 - dumpingFactor) / graph.nodes.size()) + (dumpingFactor * tempSum));
+				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) 
+					tempSum = tempSum + (previousSignal.getNodeScore(tempEdge.getSource())
+							/ (graph.getOutgoingEdges(tempEdge.getSource()).size())); 
+				nextSignal.setNodeScore(firstNode, 
+						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSum));				
 			}
-			
-			if (iterationStep > 1) {
-
-				double result = 0;
-				double l1 = 0;
-				
-				for (Node mseNode : testSignal.getkeySet()) {
-					//ystem.out.println(testSignal.getNodeScore(mseNode));
-					//System.out.println(tempSignal.getNodeScore(mseNode));
-					l1 += testSignal.getNodeScore(mseNode);
-					result = result
-							+ Math.pow((tempSignal.getNodeScore(mseNode) - testSignal.getNodeScore(mseNode)), 2);
-				}
-				System.out.println(l1);
-
-
-				mse = result / (testSignal.getSize());
-
-				//System.out.println(iterationStep);
-				//System.out.println(mse);
-
-				if (mse < 1e-6) {
-
-					break;
-
-				}
-			}
-
+			double l1 = 0;
+			for(Node node :nextSignal.getkeySet())
+				l1 += nextSignal.getNodeScore(node);
+			if(l1 != 0)
+				for(Node node :nextSignal.getkeySet())
+					nextSignal.setNodeScore(node, (nextSignal.getNodeScore(node)/l1));
 			iterationStep = iterationStep + 1;
-
+			if (iterationStep <= 1)
+				continue ;
+			double result = 0;
+			for (Node node : nextSignal.getkeySet()) 
+				result += Math.pow((previousSignal.getNodeScore(node) - nextSignal.getNodeScore(node)), 2);
+			double mse = result / (nextSignal.getSize());
+			previousSignal = nextSignal;
+			if (mse < this.mse) 
+				break;			
 		}
-		
-		return testSignal ;
-		
-	}	
+		if(iterationStep == maxIterations)
+			throw new RuntimeException("Needs more iterations to converge");
+		return previousSignal;
+	}
 }

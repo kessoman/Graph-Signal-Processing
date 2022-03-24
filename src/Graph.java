@@ -16,8 +16,12 @@ import java.util.stream.Stream;
 	 
 	 public  ArrayList<Edge> getEdges() {
 		 
-		 return new ArrayList<Edge>(edges);
+		 return edges;
 		 	
+	 }
+	 
+	 public ArrayList<Node> getNodes(){
+		 return new ArrayList<Node>(nodes.values());
 	 }
 	 
 	 public abstract void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String,Node> nodes);

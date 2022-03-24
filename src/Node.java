@@ -1,14 +1,14 @@
 
 public abstract class Node {
 	
-	public String nodename ; 
+	private String nodeName ; 
 		
   public Node(String name) {
-	  this.nodename = name;
+	  this.nodeName = name;
   } ;
   
-  //public String toString() {
-  //return this.nodename;
-  //}
+  public String toString() {
+  return this.nodeName;
+  }
   
 }

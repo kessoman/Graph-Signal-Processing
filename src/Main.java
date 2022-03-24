@@ -48,16 +48,18 @@ public class Main   {
 					node2 = nodes.get(links[1]);
 				}
 				// newedge = new LoadEdges(node1,node2);
-				Edge edge1 = new LoadedEdges(node1, node2);
-				edges.add(edge1);	
+				edges.add(new LoadedEdges(node1, node2));
+				edges.add(new LoadedEdges(node2, node1));	
 			}
 			Graph graphtest = new LoadedGraph(edges, nodes);
 			
 			//System.out.println("Size :" + nodes.size());
 			
-			HashMap<Node, Double> testingMap = new HashMap<Node, Double>();
-
-			GraphSignal testingSignal = new GraphSignal(testingMap);
+			GraphSignal testingSignal = new GraphSignal();
+			
+			for(Node node : graphtest.getNodes()) 
+				testingSignal.setNodeScore(node, 1.);
+			
 
 			Pagerank p = new Pagerank();
 

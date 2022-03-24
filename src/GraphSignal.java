@@ -4,12 +4,12 @@ public class GraphSignal {
 
 	protected HashMap<Node, Double> tempMap;
 	
-	public GraphSignal(HashMap<Node, Double> tempMap) {
-		this.tempMap = tempMap;
+	public GraphSignal() {
+		tempMap = new HashMap<Node, Double>()  ; 
 	}
 
 	public double getNodeScore(Node tempNode) {
-		return tempMap.get(tempNode);
+		return tempMap.getOrDefault(tempNode, 0.);
 	}
 
 	public void setNodeScore(Node newTempNode, Double tempDpuble) {
@@ -27,15 +27,7 @@ public class GraphSignal {
 	public Set<Node> getkeySet(){
 		return tempMap.keySet();
 	}
-	
-	public  void copyMaps(GraphSignal secondSignal){
-		
-        for (HashMap.Entry<Node, Double> entry : secondSignal.getHashMap().entrySet()) {
-        	 
-            tempMap.put(entry.getKey(),
-                           entry.getValue());
-        }
          
-	}
+	
 
 }
