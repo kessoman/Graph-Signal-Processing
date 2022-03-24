@@ -48,7 +48,6 @@ public class Main   {
 					node2 = nodes.get(links[1]);
 				}
 				// newedge = new LoadEdges(node1,node2);
-				System.out.println("" + node1 + node2);
 				Edge edge1 = new LoadedEdges(node1, node2);
 				edges.add(edge1);	
 			}

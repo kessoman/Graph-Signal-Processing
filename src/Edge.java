@@ -19,7 +19,7 @@ public abstract class Edge   {
 	
 	public  String edgeToString() {
 		
-		return "Sourcenode :" + this.sourcenode.toString() + "Destinationnode :" + this.destinationnode.toString();
+		return "Sourcenode :" + this.sourcenode.nodename + "Destinationnode :" + this.destinationnode.nodename;
 		
 	}
 	

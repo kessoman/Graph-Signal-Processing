@@ -23,7 +23,6 @@ public class Pagerank extends GraphFilter {
 				
 		for(Node node : graph.nodes.values()) {
 			testSignal.setNodeScore(node, initPagerank);
-			System.out.println(node.nodename);
 		}
 		
 		while (iterationStep <= 20) {
@@ -37,54 +36,47 @@ public class Pagerank extends GraphFilter {
 					//System.out.println(tempSignal.getNodeScore(nullNode));
 				//}
 			//}
-
+			
 			for (Node firstNode : graph.nodes.values()) {
 
 				double tempSum = 0;
 
 				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) {
+					//System.out.println(firstNode.nodename + "" + tempEdge.edgeToString());
+					if(tempEdge.getDestination() != firstNode)
+						throw new RuntimeException();
 
 					//tempSignal.tempMap.getOrDefault(tempEdge.getSource(), initPagerank);
-					System.out.println("----------------------------------------");
-					for(Node k : tempSignal.getkeySet()) {
-                    System.out.println("" + k.toString() + tempEdge.getSource());
-					}
-					tempSum = tempSum + tempSignal.getNodeScore(tempEdge.getSource());
-					tempSum = tempSum /	(graph.getOutgoingEdges(tempEdge.getSource()).size());
+					//System.out.println(firstNode.nodename + "" + graph.getOutgoingEdges(firstNode).size());
+					tempSum = tempSum + (tempSignal.getNodeScore(tempEdge.getSource())
+					 /	(graph.getOutgoingEdges(tempEdge.getSource()).size()));
 					// testSignal.setNodeScore(firstNode, ((1-dumpingFactor /
 					// graph.nodes.size()))+(dumpingFactor * tempSum));
 
 				}
 				testSignal.setNodeScore(firstNode,
-						((1 - dumpingFactor) / graph.nodes.size()) + (dumpingFactor * tempSum));	
+						((1 - dumpingFactor) / graph.nodes.size()) + (dumpingFactor * tempSum));
 			}
 			
-			System.out.println("Test");
-			//for (Node nullNode : testSignal.getkeySet()) {
-				  //System.out.println(testSignal.getNodeScore(nullNode));
-			  //}
-			
-			//System.out.println("Check");
-
 			if (iterationStep > 1) {
 
 				double result = 0;
+				double l1 = 0;
 				
-				System.out.println("Result");
-
 				for (Node mseNode : testSignal.getkeySet()) {
 					//ystem.out.println(testSignal.getNodeScore(mseNode));
 					//System.out.println(tempSignal.getNodeScore(mseNode));
+					l1 += testSignal.getNodeScore(mseNode);
 					result = result
 							+ Math.pow((tempSignal.getNodeScore(mseNode) - testSignal.getNodeScore(mseNode)), 2);
-				    System.out.println(result);
 				}
+				System.out.println(l1);
 
 
 				mse = result / (testSignal.getSize());
 
-				System.out.println(iterationStep);
-				System.out.println(mse);
+				//System.out.println(iterationStep);
+				//System.out.println(mse);
 
 				if (mse < 1e-6) {
 

@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 		 	
 	 }
 	 
-	 public abstract void calculateInOutEdges(ArrayList<Edge> edges);
+	 public abstract void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String,Node> nodes);
 	 
 	 public abstract ArrayList<Edge> getIncomingEdges(Node destinationnode);
 

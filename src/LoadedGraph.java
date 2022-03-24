@@ -6,75 +6,68 @@ public class LoadedGraph extends Graph {
 	
 	private HashMap<Node,ArrayList<Edge>> inGoingEdges = new HashMap<Node,ArrayList<Edge>>();
 	private HashMap<Node,ArrayList<Edge>> outGoingEdges = new HashMap<Node,ArrayList<Edge>>();
-  
-	//private ArrayList<Edge> inEdges = new ArrayList<Edge>();
-	//private ArrayList<Edge> outEdges = new ArrayList<Edge>();
 
-	
 	public LoadedGraph(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
 
 		super(edges, nodes);
-		calculateInOutEdges(edges);
+		calculateInOutEdges(edges, nodes);
 
 	}
 
-	public void calculateInOutEdges(ArrayList<Edge> edges) {
+	public void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
+
+		for (Node n: nodes.values()	){
+			inGoingEdges.put(n, new ArrayList<Edge>());
+			outGoingEdges.put(n, new ArrayList<Edge>());
+		}
 
 		for (Edge newEdge : edges) {
 
 			// Ingoing edges
 
-			if (inGoingEdges.containsKey(newEdge.destinationnode)) {
-
-				//System.out.println("All good");
-
+			if (inGoingEdges.containsKey(newEdge.getDestination())) {
 			} else {
+				inGoingEdges.put(newEdge.getDestination(), new ArrayList<Edge>());
+			}
 
-				inGoingEdges.put(newEdge.destinationnode, new ArrayList<Edge>());
+			ArrayList<Edge> inEdges = inGoingEdges.computeIfAbsent(newEdge.getDestination(), k -> new ArrayList<Edge>());
+			//ArrayList<Edge> inEdges = inGoingEdges.get(newEdge.destinationnode);
+
+			if (inEdges == null) {
+
+				inEdges = new ArrayList<Edge>();
+				inEdges.add(newEdge);
+				inGoingEdges.put(newEdge.getDestination(), inEdges);
 
 			}
 
-			ArrayList<Edge> inEdges = inGoingEdges.computeIfAbsent(newEdge.destinationnode, k -> new ArrayList<Edge>());
-			//ArrayList<Edge> inEdges = inGoingEdges.get(newEdge.destinationnode);
-
-			//if (inEdges == null) {
-
-				//inEdges = new ArrayList<Edge>();
-				//inEdges.add(newEdge);
-				//inGoingEdges.put(newEdge.sourcenode, inEdges);
-
-			//}
-
-			//else {
+			else {
 
 			if (!inEdges.contains(newEdge)) {
 
 				inEdges.add(newEdge);
-				inGoingEdges.put(newEdge.sourcenode, inEdges);
+				inGoingEdges.put(newEdge.getDestination(), inEdges);
 
 			}
 
-			//}
+			}
 
 			// Outgoing Edges
 
-			if (outGoingEdges.containsKey(newEdge.sourcenode)) {
-
-				//System.out.println("All good");
-
+			if (outGoingEdges.containsKey(newEdge.getSource())) {
 			} else {
 
-				outGoingEdges.put(newEdge.sourcenode, new ArrayList<Edge>());
+				outGoingEdges.put(newEdge.getSource(), new ArrayList<Edge>());
 
 			}
 
-			ArrayList<Edge> outEdges = outGoingEdges.get(newEdge.sourcenode);
+			ArrayList<Edge> outEdges = outGoingEdges.computeIfAbsent(newEdge.getSource(), k -> new ArrayList<Edge>());
 
 			if (outEdges == null) {
 
 				outEdges = new ArrayList<Edge>();
 				outEdges.add(newEdge);
-				outGoingEdges.put(newEdge.destinationnode, outEdges);
+				outGoingEdges.put(newEdge.getSource(), outEdges);
 
 			}
 
@@ -83,7 +76,7 @@ public class LoadedGraph extends Graph {
 				if (!outEdges.contains(newEdge)) {
 
 					outEdges.add(newEdge);
-					outGoingEdges.put(newEdge.destinationnode, outEdges);
+					outGoingEdges.put(newEdge.getSource(), outEdges);
 
 				}
 
