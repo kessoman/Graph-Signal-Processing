@@ -1,10 +1,6 @@
 
-public abstract class GraphFilter {
+public interface GraphFilter {
 	
-	protected GraphSignal testSignal ;
-	
-	protected Graph graph ;
-
-	public abstract GraphSignal run(Graph graph, GraphSignal testSignal) ;
+	public  GraphSignal run(Graph graph, GraphSignal testSignal) ;
 	
 }

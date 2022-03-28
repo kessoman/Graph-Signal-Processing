@@ -1,7 +1,13 @@
 
-public class LoadedNode extends Node {
+public class LoadedNode implements Node{
 
+	String nodeName ;
+	
 	public LoadedNode(String name) {
-		super(name);
+		this.nodeName = name ;
 	}
+	
+	public String toString() {
+		return nodeName ;
+	}	
 }

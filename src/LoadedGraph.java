@@ -2,14 +2,17 @@ import java.util.*;
 import java.util.stream.Stream;
 
 
-public class LoadedGraph extends Graph {
-	
+public class LoadedGraph implements Graph {
+
+	protected HashMap<String, Node> nodes ;
+	protected ArrayList<Edge> edges ;
 	private HashMap<Node,ArrayList<Edge>> inGoingEdges = new HashMap<Node,ArrayList<Edge>>();
 	private HashMap<Node,ArrayList<Edge>> outGoingEdges = new HashMap<Node,ArrayList<Edge>>();
 
 	public LoadedGraph(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
 
-		super(edges, nodes);
+		this.edges = edges;
+		this.nodes = nodes;
 		calculateInOutEdges(edges, nodes);
 
 	}
@@ -91,6 +94,10 @@ public class LoadedGraph extends Graph {
 		return edges;
 
 	}
+	
+	public ArrayList<Node> getNodes(){
+		 return new ArrayList<Node>(nodes.values());
+	 }
 
 	public ArrayList<Edge> getIncomingEdges(Node destinationnode) {
 

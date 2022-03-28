@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.math.*;
 
-public class PageRank extends GraphFilter {
+public class PageRank implements GraphFilter {
 
 	protected double dumpingFactor = 1;
 	protected double mse = 1.E-6;
@@ -14,7 +14,7 @@ public class PageRank extends GraphFilter {
 		int iterationStep = 0;
 		// Initialization
 		while (iterationStep < maxIterations) {
-			GraphSignal nextSignal = new GraphSignal();
+			GraphSignal nextSignal = new LoadedGraphSignal();
 			for (Node firstNode : graph.getNodes()) {
 				double tempSum = 0;
 				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) 
@@ -37,6 +37,7 @@ public class PageRank extends GraphFilter {
 				result += Math.pow((previousSignal.getNodeScore(node) - nextSignal.getNodeScore(node)), 2);
 			double mse = result / (nextSignal.getSize());
 			previousSignal = nextSignal;
+			System.out.println(mse + " \t " + iterationStep + " \t " + l1);
 			if (mse < this.mse) 
 				break;			
 		}

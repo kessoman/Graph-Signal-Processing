@@ -1,14 +1,6 @@
 
-public abstract class Node {
-	
-	private String nodeName ; 
+public interface Node { 	
 		
-  public Node(String name) {
-	  this.nodeName = name;
-  } ;
-  
-  public String toString() {
-  return this.nodeName;
-  }
+  String toString();
   
 }

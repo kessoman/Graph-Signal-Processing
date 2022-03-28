@@ -55,7 +55,7 @@ public class Main   {
 			
 			//System.out.println("Size :" + nodes.size());
 			
-			GraphSignal testingSignal = new GraphSignal();
+			GraphSignal testingSignal = new LoadedGraphSignal();
 			
 			for(Node node : graphtest.getNodes()) 
 				testingSignal.setNodeScore(node, 1.);

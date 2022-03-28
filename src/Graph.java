@@ -1,35 +1,18 @@
 import java.util.*;
 import java.util.stream.Stream;
 
- public abstract class Graph   {
-
-	 protected HashMap<String,Node> nodes;
-
-	 protected ArrayList<Edge> edges;
+ public interface Graph  {
 	 
-	 public Graph (ArrayList<Edge> edges,HashMap<String,Node> nodes) {
-		 
-		 this.edges = edges;
-		 this.nodes = nodes;
-		 
-	 }
+	 public   ArrayList<Edge> getEdges() ;
 	 
-	 public  ArrayList<Edge> getEdges() {
-		 
-		 return edges;
-		 	
-	 }
+	 public  ArrayList<Node> getNodes() ;
 	 
-	 public ArrayList<Node> getNodes(){
-		 return new ArrayList<Node>(nodes.values());
-	 }
+	 public  void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String,Node> nodes);
 	 
-	 public abstract void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String,Node> nodes);
-	 
-	 public abstract ArrayList<Edge> getIncomingEdges(Node destinationnode);
+	 public  ArrayList<Edge> getIncomingEdges(Node destinationnode);
 
 
-	 public abstract ArrayList<Edge> getOutgoingEdges(Node sourcenode);
+	 public  ArrayList<Edge> getOutgoingEdges(Node sourcenode);
  
 	 //public ArrayList<Edges> getEdges() {
 		 
