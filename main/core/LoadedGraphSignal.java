@@ -22,11 +22,7 @@ public class LoadedGraphSignal implements GraphSignal {
 		return tempMap.size();
 	}
 	
-	public HashMap<Node, Double> getHashMap (){
-		return tempMap;
-	}
-	
-	public Set<Node> getkeySet(){
+	public Iterable<Node> getkeySet(){
 		return tempMap.keySet();
 	}
 	

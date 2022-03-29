@@ -1,5 +1,6 @@
 package core;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 
@@ -7,8 +8,8 @@ public class LoadedGraph implements Graph {
 
 	protected HashMap<String, Node> nodes ;
 	protected ArrayList<Edge> edges ;
-	private HashMap<Node,ArrayList<Edge>> inGoingEdges = new HashMap<Node,ArrayList<Edge>>();
-	private HashMap<Node,ArrayList<Edge>> outGoingEdges = new HashMap<Node,ArrayList<Edge>>();
+	private HashMap<Node,ArrayList<Edge>> inGoingEdges = new HashMap<Node, ArrayList<Edge>>();
+	private HashMap<Node,ArrayList<Edge>> outGoingEdges = new HashMap<Node, ArrayList<Edge>>();
 
 	public LoadedGraph(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
 
@@ -18,7 +19,7 @@ public class LoadedGraph implements Graph {
 
 	}
 
-	public void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
+	private void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
 
 		for (Node n: nodes.values()	){
 			inGoingEdges.put(n, new ArrayList<Edge>());
@@ -90,26 +91,36 @@ public class LoadedGraph implements Graph {
 
 	}
 	
-	public ArrayList<Edge> getEdges() {
+	public Iterable<Edge> getEdges() {
 
-		return edges;
+		return edges ;
 
 	}
 	
-	public ArrayList<Node> getNodes(){
-		 return new ArrayList<Node>(nodes.values());
+	public Iterable<Node> getNodes(){
+		 return nodes.values();
 	 }
 
-	public ArrayList<Edge> getIncomingEdges(Node destinationnode) {
-
-		return inGoingEdges.get(destinationnode);
+	public Iterable<Edge> getIncomingEdges(Node destinationnode) {
+		
+        Iterable<Edge> inEdgesIterable = inGoingEdges.get(destinationnode);
+		return inEdgesIterable;
 
 	}
 
-	public ArrayList<Edge> getOutgoingEdges(Node sourcenode) {
+	public Iterable<Edge> getOutgoingEdges(Node sourcenode) {
+		
+		Iterable<Edge> outEdgesIterable = outGoingEdges.get(sourcenode);
+		return outEdgesIterable;
 
-		return outGoingEdges.get(sourcenode);
-
+	}
+	
+	public int getIteratorSize(Iterable sizeIterator) {
+		AtomicInteger count = new AtomicInteger(0);
+        sizeIterator.forEach(element -> {
+            count.incrementAndGet();
+        });
+        return count.get();
 	}
 
 }

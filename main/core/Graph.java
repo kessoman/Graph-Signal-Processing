@@ -4,16 +4,15 @@ import java.util.stream.Stream;
 
  public interface Graph  {
 	 
-	 public   ArrayList<Edge> getEdges() ;
+	 public   Iterable<Edge> getEdges() ;
 	 
-	 public  ArrayList<Node> getNodes() ;
-	 
-	 public  void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String,Node> nodes);
-	 
-	 public  ArrayList<Edge> getIncomingEdges(Node destinationnode);
+	 public  Iterable<Node> getNodes() ;
+	 	 
+	 public  Iterable<Edge> getIncomingEdges(Node destinationnode);
 
-
-	 public  ArrayList<Edge> getOutgoingEdges(Node sourcenode);
+	 public  Iterable<Edge> getOutgoingEdges(Node sourcenode);
+	 
+	 public  int getIteratorSize(Iterable iterator);
  
 	 //public ArrayList<Edges> getEdges() {
 		 

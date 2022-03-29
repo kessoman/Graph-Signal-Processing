@@ -1,5 +1,5 @@
 package core;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.math.*;
@@ -20,7 +20,7 @@ public class PageRank implements GraphFilter {
 				double tempSum = 0;
 				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) 
 					tempSum = tempSum + (previousSignal.getNodeScore(tempEdge.getSource())
-							/ (graph.getOutgoingEdges(tempEdge.getSource()).size())); 
+							/graph.getIteratorSize(graph.getOutgoingEdges(tempEdge.getSource())));
 				nextSignal.setNodeScore(firstNode, 
 						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSum));				
 			}

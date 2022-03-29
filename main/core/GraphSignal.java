@@ -8,9 +8,7 @@ public interface GraphSignal {
 	public void setNodeScore(Node newTempNode, Double tempDpuble) ;
 	
 	public int getSize() ;
-	
-	public HashMap<Node, Double> getHashMap () ;
-	
-	public Set<Node> getkeySet() ;
+		
+	public Iterable<Node> getkeySet() ;
          
 }
