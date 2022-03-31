@@ -1,6 +1,9 @@
-package core;
+package coreloaded;
 import java.util.HashMap;
+
 import java.util.Set;
+
+import core.*;
 
 public class LoadedGraphSignal implements GraphSignal {
 	

@@ -1,7 +1,11 @@
-package core;
+package coreloaded;
 import java.util.*;
+
 import java.util.Arrays;
 import java.util.HashMap;
+
+import core.*;
+
 import java.math.*;
 
 public class PageRank implements GraphFilter {

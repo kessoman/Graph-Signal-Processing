@@ -1,7 +1,5 @@
 package core;
 
 public interface GraphFilter {
-	
-	public  GraphSignal run(Graph graph, GraphSignal testSignal) ;
-	
+	public  GraphSignal run(Graph graph, GraphSignal testSignal) ;	
 }

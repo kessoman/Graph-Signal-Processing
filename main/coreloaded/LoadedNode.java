@@ -1,4 +1,6 @@
-package core;
+package coreloaded;
+
+import core.*;
 
 public class LoadedNode implements Node{
 

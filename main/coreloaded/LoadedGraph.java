@@ -1,7 +1,9 @@
-package core;
+package coreloaded;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
+
+import core.*;
 
 
 public class LoadedGraph implements Graph {
@@ -93,11 +95,16 @@ public class LoadedGraph implements Graph {
 	
 	public Iterable<Edge> getEdges() {
 
+		if(edges == null)
+			throw new IllegalArgumentException("Could not initialize graph without edges");
 		return edges ;
 
 	}
 	
 	public Iterable<Node> getNodes(){
+		
+		if(nodes == null)
+			throw new IllegalArgumentException("Couldnot initialize graph withouth nodes");
 		 return nodes.values();
 	 }
 
@@ -115,7 +122,7 @@ public class LoadedGraph implements Graph {
 
 	}
 	
-	public int getIteratorSize(Iterable sizeIterator) {
+	public int getIteratorSize(Iterable<Edge> sizeIterator) {
 		AtomicInteger count = new AtomicInteger(0);
         sizeIterator.forEach(element -> {
             count.incrementAndGet();
