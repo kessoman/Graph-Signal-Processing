@@ -2,8 +2,8 @@ import org.junit.Assert;
 
 import org.junit.Test;
 
-import coreloaded.LoadedNode;
 import core.Node;
+import core.loaded.LoadedNode;
 
 public class NodeTest {
 

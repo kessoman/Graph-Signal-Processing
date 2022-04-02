@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import core.*;
-import coreloaded.*;
+import core.loaded.*;
 
 public class LoadedGraphTest {
 	
@@ -16,10 +16,6 @@ public class LoadedGraphTest {
 	Node node = new LoadedNode("");
 	Iterable<Edge> incomingEdges = graph.getIncomingEdges(node);
 	
-	@Test(expected = IllegalArgumentException.class)
-	public void nullEdgesTest() {
-		new LoadedEdges(null,null);
-	}
 	@Test(expected = IllegalArgumentException.class)
 	public void nullNodesTest() {
 		new LoadedNode(null);

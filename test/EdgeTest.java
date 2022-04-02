@@ -4,13 +4,13 @@ import org.junit.Test;
 
 import core.Edge;
 import core.Node;
-import coreloaded.LoadedNode;
-import coreloaded.LoadedEdges;
+import core.loaded.LoadedEdges;
+import core.loaded.LoadedNode;
 
 public class EdgeTest {
 	
-	Node sourceNode = new LoadedNode("S");
-	Node destinationNode = new LoadedNode("D");
+	private Node sourceNode = new LoadedNode("S");
+	private Node destinationNode = new LoadedNode("D");
 	
 	@Test
 	public void edgeSource() {

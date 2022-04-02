@@ -1,14 +1,11 @@
-package Experiments;
+package experiments;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.* ;
 import java.util.* ;
 import core.*;
-import coreloaded.*;
-/**
- * 
- */
+import core.loaded.*;
 
 /**
  * @author kesso
@@ -18,7 +15,7 @@ public class Main   {
 
 	public static void main(String[] args) throws IOException {
 		
-		File file = new File("pagetest.csv");
+		File file = new File("links_all.csv");
 
 		try {
 
@@ -28,6 +25,7 @@ public class Main   {
 			ArrayList<Edge> edges = new ArrayList<Edge>();
 			// Graph graph = new LoadedGraph(edges,nodes);
 
+			System.out.println("Importing");
 			while (scanner.hasNextLine()) {
 				String[] links = scanner.nextLine().split(",");
 				
@@ -53,6 +51,9 @@ public class Main   {
 				edges.add(new LoadedEdges(node1, node2));
 				edges.add(new LoadedEdges(node2, node1));	
 			}
+			
+			System.out.println("Creating graph");
+			
 			Graph graphtest = new LoadedGraph(edges, nodes);
 			
 			//System.out.println("Size :" + nodes.size());
@@ -62,6 +63,7 @@ public class Main   {
 			for(Node node : graphtest.getNodes()) 
 				testingSignal.setNodeScore(node, 1.);
 			
+			System.out.println("Calculating Pagerank");
 
 			PageRank p = new PageRank();
 

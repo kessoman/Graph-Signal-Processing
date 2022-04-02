@@ -3,7 +3,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import core.GraphFilter;
-import coreloaded.PageRank;
+import core.loaded.PageRank;
 
 public class PagerankTest {
 

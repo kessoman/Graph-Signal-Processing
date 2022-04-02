@@ -1,4 +1,4 @@
-package coreloaded;
+package core.loaded;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
@@ -12,6 +12,8 @@ public class LoadedGraph implements Graph {
 	protected ArrayList<Edge> edges ;
 	private HashMap<Node,ArrayList<Edge>> inGoingEdges = new HashMap<Node, ArrayList<Edge>>();
 	private HashMap<Node,ArrayList<Edge>> outGoingEdges = new HashMap<Node, ArrayList<Edge>>();
+	public HashMap<Node, Integer> inDegree = new HashMap<Node, Integer>();
+	public HashMap<Node, Integer> outDegree = new HashMap<Node, Integer>();
 
 	public LoadedGraph(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
 
@@ -22,83 +24,24 @@ public class LoadedGraph implements Graph {
 	}
 
 	private void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
-
-		for (Node n: nodes.values()	){
+		for (Node n : nodes.values()) {
 			inGoingEdges.put(n, new ArrayList<Edge>());
 			outGoingEdges.put(n, new ArrayList<Edge>());
+			inDegree.put(n, 0);
+			outDegree.put(n, 0);
 		}
-
 		for (Edge newEdge : edges) {
-
-			// Ingoing edges
-
-			if (inGoingEdges.containsKey(newEdge.getDestination())) {
-			} else {
-				inGoingEdges.put(newEdge.getDestination(), new ArrayList<Edge>());
-			}
-
-			ArrayList<Edge> inEdges = inGoingEdges.computeIfAbsent(newEdge.getDestination(), k -> new ArrayList<Edge>());
-			//ArrayList<Edge> inEdges = inGoingEdges.get(newEdge.destinationnode);
-
-			if (inEdges == null) {
-
-				inEdges = new ArrayList<Edge>();
-				inEdges.add(newEdge);
-				inGoingEdges.put(newEdge.getDestination(), inEdges);
-
-			}
-
-			else {
-
-			if (!inEdges.contains(newEdge)) {
-
-				inEdges.add(newEdge);
-				inGoingEdges.put(newEdge.getDestination(), inEdges);
-
-			}
-
-			}
-
-			// Outgoing Edges
-
-			if (outGoingEdges.containsKey(newEdge.getSource())) {
-			} else {
-
-				outGoingEdges.put(newEdge.getSource(), new ArrayList<Edge>());
-
-			}
-
-			ArrayList<Edge> outEdges = outGoingEdges.computeIfAbsent(newEdge.getSource(), k -> new ArrayList<Edge>());
-
-			if (outEdges == null) {
-
-				outEdges = new ArrayList<Edge>();
-				outEdges.add(newEdge);
-				outGoingEdges.put(newEdge.getSource(), outEdges);
-
-			}
-
-			else {
-
-				if (!outEdges.contains(newEdge)) {
-
-					outEdges.add(newEdge);
-					outGoingEdges.put(newEdge.getSource(), outEdges);
-
-				}
-
-			}
-
+			inGoingEdges.get(newEdge.getDestination()).add(newEdge);
+			inDegree.put(newEdge.getDestination(),inDegree.get(newEdge.getDestination()) + 1) ;
+			outGoingEdges.get(newEdge.getSource()).add(newEdge);
+			outDegree.put(newEdge.getSource(), outDegree.get(newEdge.getSource()) + 1) ;
 		}
-
 	}
 	
 	public Iterable<Edge> getEdges() {
-
 		if(edges == null)
 			throw new IllegalArgumentException("Could not initialize graph without edges");
 		return edges ;
-
 	}
 	
 	public Iterable<Node> getNodes(){
@@ -120,6 +63,14 @@ public class LoadedGraph implements Graph {
 		Iterable<Edge> outEdgesIterable = outGoingEdges.get(sourcenode);
 		return outEdgesIterable;
 
+	}
+	
+	public Integer getInDegree(Node destinationNode) {
+		return inDegree.get(destinationNode);
+	}
+	
+	public Integer getOutDegree(Node sourceNode) {
+		return outDegree.get(sourceNode);
 	}
 	
 	public int getIteratorSize(Iterable<Edge> sizeIterator) {

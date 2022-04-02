@@ -3,15 +3,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import core.Edge;
-import coreloaded.LoadedEdges;
 import core.Node;
-import coreloaded.LoadedNode;
+import core.loaded.LoadedEdges;
+import core.loaded.LoadedNode;
 
 public class LoadedEdgeTest{
 	
-	 Node sourceNode = new LoadedNode("sourceNode");
-	 Node destinationNode = new LoadedNode("destinationNode");
-	 Edge newEdge = new LoadedEdges(sourceNode, destinationNode);
+	 private Node sourceNode = new LoadedNode("sourceNode");
+	 private Node destinationNode = new LoadedNode("destinationNode");
+	 private Edge newEdge = new LoadedEdges(sourceNode, destinationNode);
 
 		@Test
 		public void testLoadedEdgesConstructor() {
@@ -26,5 +26,8 @@ public class LoadedEdgeTest{
 		public void testLoadedEdgesConstructorNullDestinationNodes() {
 			new LoadedEdges(sourceNode, null);
 		}
-	
+		@Test(expected = IllegalArgumentException.class)
+		public void nullEdgesTest() {
+			new LoadedEdges(null,null);
+		}
 }

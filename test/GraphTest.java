@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import core.*;
-import coreloaded.*;
+import core.loaded.*;
 
 public class GraphTest {
 

@@ -1,4 +1,4 @@
-package coreloaded;
+package core.loaded;
 import java.util.*;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.math.*;
 public class PageRank implements GraphFilter {
 
 	protected double dumpingFactor = 1;
-	protected double mse = 1.E-6;
+	protected double msqrt = 1.E-6;
 	protected int maxIterations = 100;
 
 	public GraphSignal run(Graph graph, GraphSignal inputSignal) {	
@@ -24,7 +24,7 @@ public class PageRank implements GraphFilter {
 				double tempSum = 0;
 				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) 
 					tempSum = tempSum + (previousSignal.getNodeScore(tempEdge.getSource())
-							/graph.getIteratorSize(graph.getOutgoingEdges(tempEdge.getSource())));
+							/graph.getOutDegree(tempEdge.getSource()));
 				nextSignal.setNodeScore(firstNode, 
 						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSum));				
 			}
@@ -40,10 +40,10 @@ public class PageRank implements GraphFilter {
 			double result = 0;
 			for (Node node : nextSignal.getkeySet()) 
 				result += Math.pow((previousSignal.getNodeScore(node) - nextSignal.getNodeScore(node)), 2);
-			double mse = result / (nextSignal.getSize());
+			double msqrt = Math.pow (result / (nextSignal.getSize()), 0.5);
 			previousSignal = nextSignal;
-			System.out.println(mse + " \t " + iterationStep + " \t " + l1);
-			if (mse < this.mse) 
+			System.out.println(msqrt + " \t " + iterationStep + " \t " + l1);
+			if (msqrt < this.msqrt) 
 				break;			
 		}
 		if(iterationStep == maxIterations)

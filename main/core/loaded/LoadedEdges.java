@@ -1,4 +1,4 @@
-package coreloaded;
+package core.loaded;
 
 import core.*;
 
@@ -10,7 +10,7 @@ public class LoadedEdges implements Edge {
 	public LoadedEdges(Node sourcenode, Node destinationnode) {
 		if(sourcenode == null)
 			throw new IllegalArgumentException("Edge without sourceNode") ;
-		else if(destinationnode == null)
+		if(destinationnode == null)
 			throw new IllegalArgumentException("Edge without destinationNode") ;			
 		this.sourcenode = sourcenode ;
 		this.destinationnode = destinationnode;

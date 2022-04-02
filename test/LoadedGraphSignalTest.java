@@ -3,7 +3,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import core.GraphSignal;
-import coreloaded.LoadedGraphSignal;
+import core.loaded.LoadedGraphSignal;
 
 public class LoadedGraphSignalTest {
 
