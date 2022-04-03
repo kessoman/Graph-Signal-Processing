@@ -5,7 +5,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
         NodeTest.class,
-        LoadedNodeTest.class
         })
 
 public class AllTests {

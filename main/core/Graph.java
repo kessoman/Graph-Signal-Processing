@@ -9,5 +9,7 @@ import java.util.stream.Stream;
 	 public  Iterable<Edge> getOutgoingEdges(Node sourcenode);
 	 public  Integer getInDegree (Node destinationNode);
 	 public  Integer getOutDegree (Node sourceNode);
-	 public  int getIteratorSize(Iterable<Edge> iterator);	 
+	 public  int getNumberOfNodes();
+	 public  int getNumberOfEdges();
+	 public  void addEdge(Node sourceNode, Node destinationNode);
 }

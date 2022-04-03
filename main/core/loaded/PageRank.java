@@ -12,7 +12,7 @@ public class PageRank implements GraphFilter {
 
 	protected double dumpingFactor = 1;
 	protected double msqrt = 1.E-6;
-	protected int maxIterations = 100;
+	protected int maxIterations = 1000;
 
 	public GraphSignal run(Graph graph, GraphSignal inputSignal) {	
 		GraphSignal previousSignal = inputSignal;

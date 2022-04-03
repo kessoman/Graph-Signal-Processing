@@ -22,6 +22,39 @@ public class LoadedGraph implements Graph {
 		calculateInOutEdges(edges, nodes);
 
 	}
+	
+	public LoadedGraph() {
+		this.nodes = new HashMap<String, Node>() ;
+		this.edges = new ArrayList<Edge>() ;
+	}
+	
+	 public  int getNumberOfNodes(){
+		 return nodes.size();
+	 }
+	 
+	 public  int getNumberOfEdges() {
+		 return edges.size();
+	 }
+	
+	public void addEdge(Node sourceNode, Node destinationNode) {
+		Edge edge =  new LoadedEdges(sourceNode, destinationNode);
+		if(!edges.contains(edge))
+			edges.add(edge);
+		if(!nodes.containsValue(edge.getSource()))
+			nodes.put(edge.getSource().toString(), edge.getSource());
+		if(!nodes.containsValue(edge.getDestination()))
+			nodes.put(edge.getDestination().toString(), edge.getDestination());
+		for (Node n : nodes.values()) {
+			inGoingEdges.put(n, new ArrayList<Edge>());
+			outGoingEdges.put(n, new ArrayList<Edge>());
+			inDegree.put(n, 0);
+			outDegree.put(n, 0);
+		}
+		inGoingEdges.get(edge.getDestination()).add(edge);
+		inDegree.put(edge.getDestination(),inDegree.get(edge.getDestination()) + 1) ;
+		outGoingEdges.get(edge.getSource()).add(edge);
+		outDegree.put(edge.getSource(), outDegree.get(edge.getSource()) + 1) ;
+	}
 
 	private void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
 		for (Node n : nodes.values()) {
@@ -72,13 +105,4 @@ public class LoadedGraph implements Graph {
 	public Integer getOutDegree(Node sourceNode) {
 		return outDegree.get(sourceNode);
 	}
-	
-	public int getIteratorSize(Iterable<Edge> sizeIterator) {
-		AtomicInteger count = new AtomicInteger(0);
-        sizeIterator.forEach(element -> {
-            count.incrementAndGet();
-        });
-        return count.get();
-	}
-
 }
