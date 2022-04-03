@@ -11,15 +11,20 @@ public class GraphTest {
 	HashMap<String, Node> nodes = new HashMap<String, Node>();
 	ArrayList<Edge> edges = new ArrayList<Edge>();
 	Graph graph = new LoadedGraph(edges, nodes);
-	Node node1 = new LoadedNode("A");
-	Node node2 = new LoadedNode("B");
-	Node node3 = new LoadedNode("c");
+	Node node = new LoadedNode("node");
 	Iterable<Node> nodeIterable = graph.getNodes();
 	Iterable<Edge> edgeIterable = graph.getEdges();
-	Iterable<Edge> incomingEdges = graph.getIncomingEdges(node1);
-	Iterable<Edge> outgoingEdges = graph.getOutgoingEdges(node2);
+	Iterable<Edge> incomingEdges = graph.getIncomingEdges(node);
+	Iterable<Edge> outgoingEdges = graph.getOutgoingEdges(node);
 	
-	public void createGraph() {
+	public GraphTest (){
+		
+	}
+	
+	public Graph createGraph() {
+		Node node1 = new LoadedNode("A");
+		Node node2 = new LoadedNode("B");
+		Node node3 = new LoadedNode("c");
 		Graph graph = new LoadedGraph();
 		graph.addEdge(node1, node2);
 		graph.addEdge(node1, node3);
@@ -27,6 +32,7 @@ public class GraphTest {
 		graph.addEdge(node2, node3);
 		graph.addEdge(node3, node1);
 		graph.addEdge(node3, node2);
+		return graph ;
 	}
 	
 	@Test

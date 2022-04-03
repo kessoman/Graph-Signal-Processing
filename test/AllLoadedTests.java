@@ -9,18 +9,31 @@ import core.*;
 import core.loaded.*;
 public class AllLoadedTests {
 	
-	//Edge
-	 private Node sourceNode = new LoadedNode("sourceNode");
-	 private Node destinationNode = new LoadedNode("destinationNode");
-	 private Edge newEdge = new LoadedEdges(sourceNode, destinationNode);
-	
-	//Graph
+	// Edge
+	private Node sourceNode = new LoadedNode("sourceNode");
+	private Node destinationNode = new LoadedNode("destinationNode");
+	private Edge newEdge = new LoadedEdges(sourceNode, destinationNode);
+
+	// Graph
 	HashMap<String, Node> nodes = new HashMap<String, Node>();
 	ArrayList<Edge> edges = new ArrayList<Edge>();
 	Graph graph = new LoadedGraph(edges, nodes);
 	Node node = new LoadedNode("");
 	Iterable<Edge> incomingEdges = graph.getIncomingEdges(node);
 	
+	//@Test
+	//public void testPagerankAlgorithms() {
+	//GraphTest graphTest = new GraphTest();
+	//Graph newGraph = graphTest.createGraph();
+	//GraphSignal graphSignal = new LoadedGraphSignal();
+	//for(Node node : newGraph.getNodes())
+		//graphSignal.setNodeScore(node, 1.);
+	//PageRank p = new PageRank();
+	//NewPageRank np = new NewPageRank();
+	//p.run(newGraph, graphSignal);
+	//np.run(newGraph, graphSignal);
+	//}
+
 	//Nodes
 	@Test
 	public void testLoadedNodeConstructor() {
