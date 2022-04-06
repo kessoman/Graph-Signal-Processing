@@ -34,6 +34,11 @@ public class AllLoadedTests {
 	//np.run(newGraph, graphSignal);
 	//}
 
+	@Test
+	public void testPagerankAlgorithms() {
+		GraphTest graphTest = new GraphTest();
+		Graph newGraph = graphTest.createGraph();
+	}
 	//Nodes
 	@Test
 	public void testLoadedNodeConstructor() {
@@ -70,10 +75,35 @@ public class AllLoadedTests {
 		new LoadedEdges(null,null);
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void nullIncomingEdges() {
+	 Graph graph = new LoadedGraph();
+	 graph.getIncomingEdges(null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void nullOutgoingEdges() {
+	 Graph graph = new LoadedGraph();
+	 graph.getOutgoingEdges(null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void nullInDegree() {
+	 Graph graph = new LoadedGraph();
+	 graph.getInDegree(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void nullOutDegree() {
+	 Graph graph = new LoadedGraph();
+	 graph.getOutDegree(null);
+	}
+	
 	//Graph
 	@Test
 	public void testIncomingEdges() {
 		Assert.assertEquals(incomingEdges, graph.getIncomingEdges(node));
 	}
+	
 
 }

@@ -10,7 +10,7 @@ import java.math.*;
 
 public class PageRank implements GraphFilter {
 
-	protected double dumpingFactor = 1;
+	protected double dumpingFactor = 0.85;
 	protected double msqrt = 1.E-6;
 	protected int maxIterations = 1000;
 
@@ -22,11 +22,14 @@ public class PageRank implements GraphFilter {
 			GraphSignal nextSignal = new LoadedGraphSignal();
 			for (Node firstNode : graph.getNodes()) {
 				double tempSum = 0;
-				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) 
+				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) { 
 					tempSum = tempSum + (previousSignal.getNodeScore(tempEdge.getSource())
 							/graph.getOutDegree(tempEdge.getSource()));
+				}
+				//System.out.println(firstNode.toString() + " " + tempSum + " " + " " + dumpingFactor + " " + inputSignal.getNodeScore(firstNode));
 				nextSignal.setNodeScore(firstNode, 
-						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSum));				
+						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSum));	
+				//System.out.println(nextSignal.getNodeScore(firstNode));
 			}
 			double l1 = 0;
 			for(Node node :nextSignal.getkeySet())
@@ -34,6 +37,9 @@ public class PageRank implements GraphFilter {
 			if(l1 != 0)
 				for(Node node :nextSignal.getkeySet())
 					nextSignal.setNodeScore(node, (nextSignal.getNodeScore(node)/l1));
+			l1 = 0;
+			for(Node node :nextSignal.getkeySet())
+				l1 += nextSignal.getNodeScore(node);
 			iterationStep = iterationStep + 1;
 			if (iterationStep <= 1)
 				continue ;
@@ -46,6 +52,8 @@ public class PageRank implements GraphFilter {
 			if (msqrt < this.msqrt) 
 				break;			
 		}
+		for (Node node : previousSignal.getkeySet())
+			//System.out.println(node.toString() + " " + previousSignal.getNodeScore(node));
 		if(iterationStep == maxIterations)
 			throw new RuntimeException("Needs more iterations to converge");
 		return previousSignal;

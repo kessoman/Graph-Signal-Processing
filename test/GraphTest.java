@@ -24,7 +24,7 @@ public class GraphTest {
 	public Graph createGraph() {
 		Node node1 = new LoadedNode("A");
 		Node node2 = new LoadedNode("B");
-		Node node3 = new LoadedNode("c");
+		Node node3 = new LoadedNode("C");
 		Graph graph = new LoadedGraph();
 		graph.addEdge(node1, node2);
 		graph.addEdge(node1, node3);
@@ -51,6 +51,33 @@ public class GraphTest {
 	public void testGetOutgoingEdges() {
 		Assert.assertEquals(outgoingEdges, graph.getOutgoingEdges(new LoadedNode("A")));
 	}
+	@Test
+	public void testCreateGraph() {
+		GraphTest graph = new GraphTest();
+		Graph newGraph = graph.createGraph();
+		Node node1 = new LoadedNode("A");
+		Node node2 = new LoadedNode("B");
+		Node node3 = new LoadedNode("C");
+		Node node4 = new LoadedNode("D");
+		newGraph.addEdge(node1, node2);
+		newGraph.addEdge(node1, node3);
+		newGraph.addEdge(node2, node1);
+		newGraph.addEdge(node2, node3);
+		newGraph.addEdge(node3, node1);
+		newGraph.addEdge(node3, node2);
+		newGraph.addEdge(node3, node4);
+		int inDegree = newGraph.getInDegree(node1);
+		int outDegree = newGraph.getOutDegree(node2);
+		Graph testGraph = new LoadedGraph();
+		testGraph.addEdge(node1, node2);
+		testGraph.addEdge(node1, node3);
+		ArrayList<Edge> list = new ArrayList<Edge>();
+		newGraph.getOutgoingEdges(node3).forEach(list :: add);
+		Assert.assertEquals(inDegree, 2);
+		Assert.assertEquals(outDegree, 2);
+		Assert.assertEquals((int)newGraph.getOutDegree(node3), list.size());
+		
+    }
 	
 	
 }

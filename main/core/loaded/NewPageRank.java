@@ -10,7 +10,7 @@ import java.math.*;
 
 public class NewPageRank implements GraphFilter {
 
-	protected double dumpingFactor = 1;
+	protected double dumpingFactor = 0.85;
 	protected double msqrt = 1.E-6;
 	protected int maxIterations = 1000;
 
@@ -19,14 +19,15 @@ public class NewPageRank implements GraphFilter {
 		int iterationStep = 0;
 		// Initialization
 		while (iterationStep < maxIterations) {
-			GraphSignal nextSignal = new LoadedGraphSignal();
-			for (Node firstNode : graph.getNodes()) {
 				double tempSum = 0;
-				for (Edge tempEdge : graph.getEdges()) {
-					if(tempEdge.getDestination() == firstNode)
-					tempSum = tempSum + (previousSignal.getNodeScore(tempEdge.getSource())
-							/graph.getOutDegree(tempEdge.getSource()));
+			GraphSignal tempSignal = new LoadedGraphSignal();	
+			for (Edge tempEdge : graph.getEdges()) {
+				Node v = tempEdge.getSource();
+				tempSignal.setNodeScore(v, previousSignal.getNodeScore(v) /graph.getOutDegree(v));
+					
 			}
+			GraphSignal nextSignal = new LoadedGraphSignal();
+			for (Node firstNode : graph.getNodes()) {	
 				nextSignal.setNodeScore(firstNode, 
 						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSum));				
 			}
@@ -36,6 +37,9 @@ public class NewPageRank implements GraphFilter {
 			if(l1 != 0)
 				for(Node node :nextSignal.getkeySet())
 					nextSignal.setNodeScore(node, (nextSignal.getNodeScore(node)/l1));
+			l1 = 0 ;
+			for(Node node :nextSignal.getkeySet())
+				l1 += nextSignal.getNodeScore(node);
 			iterationStep = iterationStep + 1;
 			if (iterationStep <= 1)
 				continue ;
