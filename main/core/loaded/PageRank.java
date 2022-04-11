@@ -28,12 +28,13 @@ public class PageRank implements GraphFilter {
 				}
 				//System.out.println(firstNode.toString() + " " + tempSum + " " + " " + dumpingFactor + " " + inputSignal.getNodeScore(firstNode));
 				nextSignal.setNodeScore(firstNode, 
-						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSum));	
-				//System.out.println(nextSignal.getNodeScore(firstNode));
+						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSum));
+				//System.out.println(iterationStep + " " + nextSignal.getNodeScore(firstNode));
 			}
 			double l1 = 0;
-			for(Node node :nextSignal.getkeySet())
+			for(Node node :nextSignal.getkeySet()) {
 				l1 += nextSignal.getNodeScore(node);
+			}
 			if(l1 != 0)
 				for(Node node :nextSignal.getkeySet())
 					nextSignal.setNodeScore(node, (nextSignal.getNodeScore(node)/l1));
@@ -52,10 +53,10 @@ public class PageRank implements GraphFilter {
 			if (msqrt < this.msqrt) 
 				break;			
 		}
-		for (Node node : previousSignal.getkeySet())
-			//System.out.println(node.toString() + " " + previousSignal.getNodeScore(node));
 		if(iterationStep == maxIterations)
 			throw new RuntimeException("Needs more iterations to converge");
+		for(Node node : previousSignal.getkeySet())
+			System.out.println(previousSignal.getNodeScore(node));
 		return previousSignal;
 	}
 }

@@ -73,9 +73,14 @@ public class GraphTest {
 		testGraph.addEdge(node1, node3);
 		ArrayList<Edge> list = new ArrayList<Edge>();
 		newGraph.getOutgoingEdges(node3).forEach(list :: add);
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		newGraph.getNodes().forEach(nodes :: add);
 		Assert.assertEquals(inDegree, 2);
 		Assert.assertEquals(outDegree, 2);
 		Assert.assertEquals((int)newGraph.getOutDegree(node3), list.size());
+		Assert.assertTrue(nodes.contains(node4));
+		for(Edge edge : list)
+			Assert.assertEquals(edge.getSource(), node3);
 		
     }
 	

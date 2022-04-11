@@ -16,20 +16,23 @@ public class NewPageRank implements GraphFilter {
 
 	public GraphSignal run(Graph graph, GraphSignal inputSignal) {	
 		GraphSignal previousSignal = inputSignal;
+		//for(Node node : previousSignal.getkeySet())
+			//System.out.println(previousSignal.getNodeScore(node));
 		int iterationStep = 0;
 		// Initialization
 		while (iterationStep < maxIterations) {
-				double tempSum = 0;
-			GraphSignal tempSignal = new LoadedGraphSignal();	
+			GraphSignal tempSignal = new LoadedGraphSignal();
 			for (Edge tempEdge : graph.getEdges()) {
-				Node v = tempEdge.getSource();
-				tempSignal.setNodeScore(v, previousSignal.getNodeScore(v) /graph.getOutDegree(v));
-					
+				Node s = tempEdge.getSource();
+				Node d = tempEdge.getDestination();
+				tempSignal.setNodeScore(d, (tempSignal.getNodeScore(d) + 
+						(previousSignal.getNodeScore(s) /graph.getOutDegree(s))));
 			}
 			GraphSignal nextSignal = new LoadedGraphSignal();
 			for (Node firstNode : graph.getNodes()) {	
 				nextSignal.setNodeScore(firstNode, 
-						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSum));				
+						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSignal.getNodeScore(firstNode)));	
+				//System.out.println(iterationStep + " " + nextSignal.getNodeScore(firstNode));
 			}
 			double l1 = 0;
 			for(Node node :nextSignal.getkeySet())
@@ -54,6 +57,8 @@ public class NewPageRank implements GraphFilter {
 		}
 		if(iterationStep == maxIterations)
 			throw new RuntimeException("Needs more iterations to converge");
+		//for(Node node : previousSignal.getkeySet())
+			//System.out.println(previousSignal.getNodeScore(node));
 		return previousSignal;
 	}
 }
