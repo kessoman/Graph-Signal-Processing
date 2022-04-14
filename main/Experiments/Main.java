@@ -6,6 +6,7 @@ import java.io.* ;
 import java.util.* ;
 import core.*;
 import core.loaded.*;
+import disc.*;
 
 /**
  * @author kesso
@@ -47,56 +48,23 @@ public class Main   {
 				else {
 					node2 = nodes.get(links[1]);
 				}
-				// newedge = new LoadEdges(node1,node2);
 				edges.add(new LoadedEdges(node1, node2));
 				edges.add(new LoadedEdges(node2, node1));	
 			}
-			
 			System.out.println("Creating graph");
-			
 			Graph graphtest = new LoadedGraph(edges, nodes);
-			
-			//System.out.println("Size :" + nodes.size());
-			
 			GraphSignal testingSignal = new LoadedGraphSignal();
-			
 			for(Node node : graphtest.getNodes()) 
 				testingSignal.setNodeScore(node, 1.);
-			
 			System.out.println("Calculating Pagerank");
-
 			PageRank p = new PageRank();
-
 			p.run(graphtest, testingSignal);
-
-			//System.out.println(p.mse);
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
-	}
-
-	//catch (Exception e)
-	//{
-	// System.err.println(e.getMessage()); // handle exception
-	//}
-	//finally {
-	//if (br != null) { try { br.close(); } catch(Throwable t) { /* ensure close happens */ } }
-	//if (r != null) { try { r.close(); } catch(Throwable t) { /* ensure close happens */ } }
-	//if (ins != null) { try { ins.close(); } catch(Throwable t) { /* ensure close happens */ } }
-
-	//}
-
-	//public void read(File links_all.csv) throws IOException{
-	//Scanner scanner = new Scanner("links_all.csv");
-
-	//while(scanner.hasNext()){
-	//String[] links = scanner.nextLine().split(",");
-	//String last = links[links.length - 1];
-	//System.out.println(last);
-	//}
-
+		DiscEdgeList edgesList = new DiscEdgeList();
+		edgesList.iterator();
+	 }
     }
 
 
