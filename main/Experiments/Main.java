@@ -62,8 +62,10 @@ public class Main   {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		DiscEdgeList edgesList = new DiscEdgeList();
-		edgesList.iterator();
+		DiscGraph discGraph = new DiscGraph();
+		Iterable<Edge> edgeList = discGraph.getEdges();
+		for(Edge edge : edgeList)
+			System.out.println(edge.toString());
 	 }
     }
 
