@@ -5,12 +5,16 @@ import core.*;
 import core.loaded.*;
 
 public class DiscGraph implements Graph{
+	protected  DiscEdgeList edgesList = new DiscEdgeList();
 	 public  Iterable<Edge> getEdges(){
-		 DiscEdgeList edgesList = new DiscEdgeList();
 		 return edgesList ;
 	 }
 	 public  Iterable<Node> getNodes() {
-		 throw new RuntimeException();
+		 Graph graph = new LoadedGraph();
+		 for(Edge edge: edgesList)
+			 graph.addEdge(edge.getSource(), edge.getDestination());
+		 return graph.getNodes();
+		//throw new RuntimeException();
 	 }
 	 public  Iterable<Edge> getIncomingEdges(Node destinationnode){
 		 throw new RuntimeException();

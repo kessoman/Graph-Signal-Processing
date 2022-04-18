@@ -33,14 +33,9 @@ public class DiscEdgeList implements Iterable<Edge>{
 		   String[] nodes = scanner.nextLine().split(",");
 		   nodes[0] = nodes[0].strip();
 		   nodes[1] = nodes[1].strip();
-		   Graph graph = new LoadedGraph();
-		   graph.addEdge(new LoadedNode(nodes[0]), new LoadedNode(nodes[1]));
+		   //Graph graph = new LoadedGraph();
+		   //graph.addEdge(new LoadedNode(nodes[0]), new LoadedNode(nodes[1]));
 		   return new LoadedEdges(new LoadedNode(nodes[0]), new LoadedNode(nodes[1]));
 	   }
    }
-	public Iterable<Edge> getEdges(){
-		for(Edge edge: edgeList)
-			System.out.println(edge.toString());
-		return edgeList ;
-	}
 }

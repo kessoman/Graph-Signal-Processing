@@ -66,6 +66,8 @@ public class Main   {
 		Iterable<Edge> edgeList = discGraph.getEdges();
 		for(Edge edge : edgeList)
 			System.out.println(edge.toString());
+		for(Node node : discGraph.getNodes())
+			System.out.println(node.toString());
 	 }
     }
 
