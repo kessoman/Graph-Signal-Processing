@@ -12,8 +12,8 @@ public class DiscGraph implements Graph{
 	public DiscGraph(String fileName) {
 		this.fileName = fileName;
 		edgesList = new DiscEdgeList(fileName);
-		getNodes();
 		calcualateInOutDegree();
+		getNodes();
 	}
 	public  Iterable<Edge> getEdges(){
 		 return edgesList ;
@@ -22,13 +22,12 @@ public class DiscGraph implements Graph{
 		 return edgesList.getIteratorNodes().values();
 		//throw new RuntimeException();
 		 }
-	 public void calcualateInOutDegree() { 
-		 for(Node node : getNodes()) {
-			 inDegree.put(node, 0) ;
-		     outDegree.put(node, 0) ;
-		 }
+	 private void calcualateInOutDegree() { 
 		 for(Edge edge : edgesList) {
-			 System.out.println("SourceNode : " + " " + edge.getSource().toString());
+			 if(!inDegree.containsKey(edge.getDestination()))
+				 inDegree.put(edge.getDestination(), 0) ;
+			 if(!outDegree.containsKey(edge.getSource()))
+				 outDegree.put(edge.getSource(), 0) ;
 			 inDegree.put(edge.getDestination(), inDegree.get(edge.getDestination()) + 1);
 			 outDegree.put(edge.getSource(), outDegree.get(edge.getSource()) + 1);
 		 }
@@ -90,8 +89,8 @@ class DiscEdgeList implements Iterable<Edge>{
 		   catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-		   while(scanner.hasNextLine())
-			   next();
+		   //while(scanner.hasNextLine())
+			   //next();
 	   }
 	   public boolean hasNext() {
 		  if(scanner.hasNextLine())
