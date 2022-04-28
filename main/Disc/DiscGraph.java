@@ -62,23 +62,19 @@ public class DiscGraph implements Graph{
 }
 class DiscEdgeList implements Iterable<Edge>{
     protected String fileName ;
-    protected EdgeIterator edgeIterator ;
+	public HashMap<String, Node> discNodes = new HashMap<String, Node>();
     public DiscEdgeList(String fileName) {
     	this.fileName = fileName ;
-    	edgeIterator = new EdgeIterator(fileName);
     }
 	public Iterator<Edge> iterator(){
-		return edgeIterator ;
+		return new EdgeIterator(fileName) ;
 	}
 	public HashMap<String,Node> getIteratorNodes(){
-		return edgeIterator.getMap();
-	}
-}	
+		return discNodes ;
+	}	
  class EdgeIterator implements Iterator<Edge>{
 	   protected String fileName ;
 	   protected Scanner scanner ;
-	   public HashMap<String, Node> discNodes = new HashMap<String, Node>();
-
 	   int current = 0 ;
 	   public EdgeIterator(String fileName) {
 		   this.fileName = fileName ;
@@ -89,8 +85,6 @@ class DiscEdgeList implements Iterable<Edge>{
 		   catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-		   //while(scanner.hasNextLine())
-			   //next();
 	   }
 	   public boolean hasNext() {
 		  if(scanner.hasNextLine())
@@ -108,8 +102,6 @@ class DiscEdgeList implements Iterable<Edge>{
 			   discNodes.put(nodes[1], new LoadedNode(nodes[1]));
 		   return new LoadedEdges(new LoadedNode(nodes[0]), new LoadedNode(nodes[1]));
 	   }
-	   public HashMap<String, Node> getMap(){
-		   return discNodes ;
-	   }
    }
+ }
 
