@@ -49,14 +49,14 @@ public class PageRank implements GraphFilter {
 				result += Math.pow((previousSignal.getNodeScore(node) - nextSignal.getNodeScore(node)), 2);
 			double msqrt = Math.pow (result / (nextSignal.getSize()), 0.5);
 			previousSignal = nextSignal;
-			System.out.println(msqrt + " \t " + iterationStep + " \t " + l1);
+			//System.out.println(msqrt + " \t " + iterationStep + " \t " + l1);
 			if (msqrt < this.msqrt) 
 				break;			
 		}
 		if(iterationStep == maxIterations)
 			throw new RuntimeException("Needs more iterations to converge");
-		for(Node node : previousSignal.getkeySet())
-			System.out.println(previousSignal.getNodeScore(node));
+		//for(Node node : previousSignal.getkeySet())
+			//System.out.println(previousSignal.getNodeScore(node));
 		return previousSignal;
 	}
 }

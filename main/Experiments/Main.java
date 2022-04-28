@@ -62,12 +62,11 @@ public class Main   {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		DiscGraph discGraph = new DiscGraph();
+		DiscGraph discGraph = new DiscGraph("pagetest.csv");
 		Iterable<Edge> edgeList = discGraph.getEdges();
-		for(Edge edge : edgeList)
-			System.out.println(edge.toString());
+		//System.out.println(discGraph.getNumberOfNodes());
 		for(Node node : discGraph.getNodes())
-			System.out.println(node.toString());
+			System.out.println(node.toString() + " " + discGraph.getOutDegree(node));			
 	 }
     }
 
