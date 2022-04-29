@@ -75,7 +75,7 @@ class DiscEdgeList implements Iterable<Edge>{
  class EdgeIterator implements Iterator<Edge>{
 	   protected String fileName ;
 	   protected Scanner scanner ;
-	   int current = 0 ;
+	   //int current = 0 ;
 	   public EdgeIterator(String fileName) {
 		   this.fileName = fileName ;
 		   File file = new File(fileName);
@@ -100,7 +100,7 @@ class DiscEdgeList implements Iterable<Edge>{
 			   discNodes.put(nodes[0], new LoadedNode(nodes[0]));
 		   if(!discNodes.containsKey(nodes[1]))
 			   discNodes.put(nodes[1], new LoadedNode(nodes[1]));
-		   return new LoadedEdges(new LoadedNode(nodes[0]), new LoadedNode(nodes[1]));
+		   return new LoadedEdges(discNodes.get(nodes[0]), discNodes.get(nodes[1]));
 	   }
    }
  }
