@@ -15,13 +15,13 @@ public class DiscGraph implements Graph{
 		calcualateInOutDegree();
 		getNodes();
 	}
-	public  Iterable<Edge> getEdges(){
-		 return edgesList ;
-	 }
-	 public  Iterable<Node> getNodes() {
-		 return edgesList.getIteratorNodes().values();
-		//throw new RuntimeException();
-		 }
+	public Iterable<Edge> getEdges() {
+		return edgesList;
+	}
+	public Iterable<Node> getNodes() {
+		return edgesList.getIteratorNodes().values();
+		// throw new RuntimeException();
+	}
 	 private void calcualateInOutDegree() { 
 		 for(Edge edge : edgesList) {
 			 if(!inDegree.containsKey(edge.getDestination()))

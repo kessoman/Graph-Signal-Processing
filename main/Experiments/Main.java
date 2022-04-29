@@ -64,9 +64,7 @@ public class Main   {
 		}
 		DiscGraph discGraph = new DiscGraph("pagetest.csv");
 		Iterable<Edge> edgeList = discGraph.getEdges();
-		System.out.println(discGraph.getNumberOfEdges());
-		for(Edge edge : discGraph.getEdges())
-			System.out.println(edge.toString());			
+		System.out.println(discGraph.getNumberOfNodes());
 	 }
     }
 
