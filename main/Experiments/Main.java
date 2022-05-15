@@ -5,8 +5,8 @@ import java.io.InputStreamReader;
 import java.io.* ;
 import java.util.* ;
 import core.*;
-import core.loaded.*;
 import disc.*;
+import loaded.*;
 
 /**
  * @author kesso
@@ -55,13 +55,15 @@ public class Main   {
 		//} catch (FileNotFoundException e) {
 			//e.printStackTrace();
 		//}
-		DiscGraph discGraph = new DiscGraph("links_all.csv");
+		DiscGraph discGraph = new DiscGraph("pagetest.csv");
 		GraphSignal graphSignal = new LoadedGraphSignal();
 		for(Node node : discGraph.getNodes()) 
 			graphSignal.setNodeScore(node, 1.);
 		System.out.println("Calculating Pagerank");
-		NewPageRank np = new NewPageRank();
-		np.run(discGraph, graphSignal);
+		PageRank np = new PageRank();
+		//np.run(discGraph, graphSignal);
+		for(Node node : discGraph.getNodes())
+			System.out.println(discGraph.getOut	Degree(node));
 		}
 	 }
   

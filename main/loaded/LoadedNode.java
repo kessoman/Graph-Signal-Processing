@@ -1,4 +1,4 @@
-package core.loaded;
+package loaded;
 
 import core.*;
 

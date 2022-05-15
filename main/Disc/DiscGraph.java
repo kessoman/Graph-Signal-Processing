@@ -2,7 +2,7 @@ package disc;
 import java.io.* ;
 import java.util.* ;
 import core.*;
-import core.loaded.*;
+import loaded.*;
 
 public class DiscGraph implements Graph{
 	protected String fileName ;
@@ -28,8 +28,8 @@ public class DiscGraph implements Graph{
 				 inDegree.put(edge.getDestination(), 0) ;
 			 if(!outDegree.containsKey(edge.getSource()))
 				 outDegree.put(edge.getSource(), 0) ;
-			 inDegree.put(edge.getDestination(), inDegree.get(edge.getDestination()) + 1);
-			 outDegree.put(edge.getSource(), outDegree.get(edge.getSource()) + 1);
+			 inDegree.put(edge.getDestination(), inDegree.get(edge.getDestination()) + edge.getEdgeWeight());
+			 outDegree.put(edge.getSource(), outDegree.get(edge.getSource()) + edge.getEdgeWeight());
 		 }
 	 }
 	 public  Iterable<Edge> getIncomingEdges(Node destinationnode){

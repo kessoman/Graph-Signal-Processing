@@ -1,4 +1,4 @@
-package core.loaded;
+package loaded;
 import java.util.HashMap;
 
 import java.util.Set;

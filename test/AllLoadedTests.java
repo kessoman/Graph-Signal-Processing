@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import core.*;
-import core.loaded.*;
+import loaded.*;
 public class AllLoadedTests {
 	
 	// Edge

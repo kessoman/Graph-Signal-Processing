@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import core.Edge;
 import core.Node;
-import core.loaded.LoadedEdges;
-import core.loaded.LoadedNode;
+import loaded.LoadedEdges;
+import loaded.LoadedNode;
 
 public class EdgeTest {
 	
