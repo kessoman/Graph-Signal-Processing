@@ -55,17 +55,19 @@ public class Main   {
 		//} catch (FileNotFoundException e) {
 			//e.printStackTrace();
 		//}
-		DiscGraph discGraph = new DiscGraph("pagetest.csv");
+		DiscGraph discGraph = new DiscGraph("links_all.csv");
 		GraphSignal graphSignal = new LoadedGraphSignal();
-		for(Node node : discGraph.getNodes()) 
+		for(Node node : discGraph.getNodes()) {
+		  //if(node.toString().contains("org.apache")) {
+			//if(Math.random()< 0.5)
 			graphSignal.setNodeScore(node, 1.);
+		 // }	
+		}
 		System.out.println("Calculating Pagerank");
 		PageRank np = new PageRank();
-		//np.run(discGraph, graphSignal);
-		for(Node node : discGraph.getNodes())
-			System.out.println(discGraph.getOut	Degree(node));
-		}
+		np.run(discGraph, graphSignal);
 	 }
+}
   
 
 

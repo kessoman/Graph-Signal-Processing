@@ -6,7 +6,7 @@ public class LoadedEdges implements Edge {
 	
 	protected Node sourcenode;
 	protected Node destinationnode;
-	protected int edgeWeight = 0;
+	protected double edgeWeight ;
 
 	public LoadedEdges(Node sourcenode, Node destinationnode) {
 		if(sourcenode == null)
@@ -16,7 +16,12 @@ public class LoadedEdges implements Edge {
 		this.sourcenode = sourcenode ;
 		this.destinationnode = destinationnode;
 		edgeWeight = 1 ;
-		}	
+		}
+	public LoadedEdges(Node sourcenode, Node destinationnode, double edgeWeight) {
+		this.sourcenode = sourcenode ;
+		this.destinationnode = destinationnode;
+		this.edgeWeight = edgeWeight ;
+	}
 	 
 	public Node getSource() {
 		return sourcenode;
@@ -29,7 +34,7 @@ public class LoadedEdges implements Edge {
 	public String toString() {
 		return "Sourcenode : " + this.sourcenode.toString() + "Destinationnode : " + this.destinationnode.toString();
 	}
-	public int getEdgeWeight() {
+	public double getEdgeWeight() {
 		return edgeWeight ;
 	}
 }

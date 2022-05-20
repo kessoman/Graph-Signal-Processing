@@ -66,8 +66,8 @@ public class GraphTest {
 		newGraph.addEdge(node3, node1);
 		newGraph.addEdge(node3, node2);
 		newGraph.addEdge(node3, node4);
-		int inDegree = newGraph.getInDegree(node1);
-		int outDegree = newGraph.getOutDegree(node2);
+		double inDegree = newGraph.getInDegree(node1);
+		double outDegree = newGraph.getOutDegree(node2);
 		Graph testGraph = new LoadedGraph();
 		testGraph.addEdge(node1, node2);
 		testGraph.addEdge(node1, node3);
@@ -77,7 +77,7 @@ public class GraphTest {
 		newGraph.getNodes().forEach(nodes :: add);
 		Assert.assertEquals(inDegree, 2);
 		Assert.assertEquals(outDegree, 2);
-		Assert.assertEquals((int)newGraph.getOutDegree(node3), list.size());
+		Assert.assertEquals((double)newGraph.getOutDegree(node3), list.size());
 		Assert.assertTrue(nodes.contains(node4));
 		for(Edge edge : list)
 			Assert.assertEquals(edge.getSource(), node3);

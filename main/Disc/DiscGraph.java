@@ -7,8 +7,8 @@ import loaded.*;
 public class DiscGraph implements Graph{
 	protected String fileName ;
 	protected  DiscEdgeList edgesList ;
-	public HashMap<Node, Integer> inDegree = new HashMap<Node, Integer>();
-	public HashMap<Node, Integer> outDegree = new HashMap<Node, Integer>();
+	public HashMap<Node, Double> inDegree = new HashMap<Node, Double>();
+	public HashMap<Node, Double> outDegree = new HashMap<Node, Double>();
 	public DiscGraph(String fileName) {
 		this.fileName = fileName;
 		edgesList = new DiscEdgeList(fileName);
@@ -25,9 +25,9 @@ public class DiscGraph implements Graph{
 	 private void calcualateInOutDegree() { 
 		 for(Edge edge : edgesList) {
 			 if(!inDegree.containsKey(edge.getDestination()))
-				 inDegree.put(edge.getDestination(), 0) ;
+				 inDegree.put(edge.getDestination(), 0.0) ;
 			 if(!outDegree.containsKey(edge.getSource()))
-				 outDegree.put(edge.getSource(), 0) ;
+				 outDegree.put(edge.getSource(), 0.0) ;
 			 inDegree.put(edge.getDestination(), inDegree.get(edge.getDestination()) + edge.getEdgeWeight());
 			 outDegree.put(edge.getSource(), outDegree.get(edge.getSource()) + edge.getEdgeWeight());
 		 }
@@ -38,11 +38,11 @@ public class DiscGraph implements Graph{
 	 public  Iterable<Edge> getOutgoingEdges(Node sourcenode){
 		 throw new RuntimeException();
 	 }
-	 public  Integer getInDegree (Node destinationNode){
+	 public  Double getInDegree (Node destinationNode){
 		 return inDegree.get(destinationNode);
 		 //throw new RuntimeException();
 	 }
-	 public  Integer getOutDegree (Node sourceNode){
+	 public  Double getOutDegree (Node sourceNode){
 		 return outDegree.get(sourceNode);
 		 //throw new RuntimeException();
 	 }
