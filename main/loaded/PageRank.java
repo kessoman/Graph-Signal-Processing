@@ -3,7 +3,7 @@ import java.util.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
-
+import normalizations.*;
 import core.*;
 import metrics.*;
 import java.math.*;
@@ -16,18 +16,26 @@ public class PageRank implements GraphFilter {
 
 	public GraphSignal run(Graph graph, GraphSignal inputSignal) {	
 		GraphSignal previousSignal = inputSignal;
+		GraphNorm graphNorm = new GraphNorm(graph) ;
+
 		//for(Node node : previousSignal.getkeySet())
 			//System.out.println(previousSignal.getNodeScore(node));
 		int iterationStep = 0;
 		// Initialization
 		while (iterationStep < maxIterations) {
 			GraphSignal tempSignal = new LoadedGraphSignal();
-			for (Edge tempEdge : graph.getEdges()) {
-				Node s = tempEdge.getSource();
-				Node d = tempEdge.getDestination();
-				tempSignal.setNodeScore(d, (tempSignal.getNodeScore(d) + 
-						(previousSignal.getNodeScore(s) /graph.getOutDegree(s))));
+			for(Edge edge : graphNorm.getEdges()) {
+				Node s = edge.getSource();
+				Node d = edge.getDestination();
+				tempSignal.setNodeScore(d, (tempSignal.getNodeScore(d) +
+						(previousSignal.getNodeScore(s) * edge.getEdgeWeight())));
 			}
+			//for (Edge tempEdge : graph.getEdges()) {
+				//Node s = tempEdge.getSource();
+				//Node d = tempEdge.getDestination();
+				//tempSignal.setNodeScore(d, (tempSignal.getNodeScore(d) + 
+						//(previousSignal.getNodeScore(s) /graph.getOutDegree(s))));
+			//}
 			GraphSignal nextSignal = new LoadedGraphSignal();
 			for (Node firstNode : graph.getNodes()) {	
 				nextSignal.setNodeScore(firstNode, 
@@ -52,7 +60,7 @@ public class PageRank implements GraphFilter {
 			//double msqrt = Math.pow (result / (nextSignal.getSize()), 0.5);
 			Msqrt msqrt = new Msqrt() ;
 			//previousSignal = nextSignal;
-			System.out.println(msqrt.calculate(nextSignal, previousSignal));
+			//System.out.println(msqrt.calculate(nextSignal, previousSignal));
 			//System.out.println(msqrt + " \t " + iterationStep + " \t " + l1);
 			if (msqrt.calculate(nextSignal, previousSignal) < this.msqrt) 
 				break;		

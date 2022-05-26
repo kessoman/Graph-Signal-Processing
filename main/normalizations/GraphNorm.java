@@ -13,7 +13,6 @@ public class GraphNorm implements Graph {
 		this.graph = graph ;
 		getNodes();
 		getEdges();
-		calculateInOutEdges();
 	}
 	 public  Iterable<Edge> getEdges(){
 		 ArrayList <Edge> weightedEdges = new ArrayList<Edge>();
@@ -25,18 +24,7 @@ public class GraphNorm implements Graph {
 		 return graph.getNodes();
 	 }
 	 private void calculateInOutEdges() {
-			for (Node n : getNodes()) {
-				//inGoingEdges.put(n, new ArrayList<Edge>());
-				//outGoingEdges.put(n, new ArrayList<Edge>());
-				inDegree.put(n, 0.0);
-				outDegree.put(n, 0.0);
-			}
-			for (Edge edge : getEdges()) {
-				//inGoingEdges.get(newEdge.getDestination()).add(newEdge);
-				inDegree.put(edge.getDestination(),inDegree.get(edge.getDestination()) +  edge.getEdgeWeight()) ;
-				//outGoingEdges.get(edge.getSource()).add(newEdge);
-				outDegree.put(edge.getSource(), outDegree.get(edge.getSource()) +  edge.getEdgeWeight()) ;
-			}
+		 throw new RuntimeException();
 		}
 	 public  Iterable<Edge> getIncomingEdges(Node destinationnode){
 		 throw new RuntimeException();
