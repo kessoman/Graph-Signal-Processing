@@ -17,19 +17,29 @@ public class DiscMain {
 		DiscGraph discGraph = new DiscGraph("links_all.csv");
 		GraphSignal graphSignal = new LoadedGraphSignal();
 		GraphSignal randomSignal = new LoadedGraphSignal();
+		GraphSignal secondSignal = new LoadedGraphSignal();
 		for(Node node : discGraph.getNodes()) {
 			randomSignal.setNodeScore(node, Math.random());
+			graphSignal.setNodeScore(node, 0.);
 		  if(node.toString().contains("org.apache")) {
 			if(Math.random()< 0.5)
 			graphSignal.setNodeScore(node, 1.);
 		  }	
 		}
+		for(Node node : graphSignal.getkeySet()) {
+			if(graphSignal.getNodeScore(node) == 0) 
+				secondSignal.setNodeScore(node, 1.);
+			else
+				secondSignal.setNodeScore(node, 0.);
+		}
 		System.out.println("Calculating Pagerank");
 		PageRank np = new PageRank();
 		GraphSignal outputSignal = np.run(discGraph, graphSignal);
-		np.run(discGraph, graphSignal);
+		//np.run(discGraph, graphSignal);
 		Msqrt msqrt = new Msqrt();
-		System.out.println(msqrt.calculate(outputSignal, randomSignal));
+		Msqrt randomMsqrt = new Msqrt();
+		//System.out.println(msqrt.calculate(outputSignal, secondSignal));
+		//System.out.println(msqrt.calculate(randomSignal, secondSignal));
 		//GraphNorm graphNorm = new GraphNorm(discGraph);
 	}
 
