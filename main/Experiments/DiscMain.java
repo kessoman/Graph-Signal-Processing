@@ -34,12 +34,13 @@ public class DiscMain {
 		}
 		System.out.println("Calculating Pagerank");
 		PageRank np = new PageRank();
-		GraphSignal outputSignal = np.run(discGraph, graphSignal);
+		GraphNorm graphNorm = new GraphNorm(discGraph);
+		GraphSignal outputSignal = np.run(graphNorm, graphSignal);
 		//np.run(discGraph, graphSignal);
 		Msqrt msqrt = new Msqrt();
-		Msqrt randomMsqrt = new Msqrt();
-		//System.out.println(msqrt.calculate(outputSignal, secondSignal));
-		//System.out.println(msqrt.calculate(randomSignal, secondSignal));
+		//Msqrt randomMsqrt = new Msqrt();
+		System.out.println(msqrt.calculate(outputSignal, secondSignal));
+		System.out.println(msqrt.calculate(randomSignal, secondSignal));
 		//GraphNorm graphNorm = new GraphNorm(discGraph);
 	}
 

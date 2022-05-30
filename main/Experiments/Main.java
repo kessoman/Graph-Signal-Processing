@@ -48,14 +48,12 @@ public class Main   {
 			Graph graphtest = new LoadedGraph(edges, nodes);
 			GraphSignal testingSignal = new LoadedGraphSignal();
 			for(Node node : graphtest.getNodes()) { 
-				if(node.toString().contains("org.apache")) {
-					if(Math.random()< 0.5)
 					testingSignal.setNodeScore(node, 1.);
-				  }
 			}
+			//GraphNorm graphNorm = new GraphNorm(graphTest);
 			System.out.println("Calculating Pagerank");
 			PageRank p = new PageRank();
-			p.run(graphtest, testingSignal);
+			//p.run(graphtest, testingSignal);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

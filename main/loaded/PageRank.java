@@ -14,9 +14,9 @@ public class PageRank implements GraphFilter {
 	protected double msqrt = 1.E-6;
 	protected int maxIterations = 1000;
 
-	public GraphSignal run(Graph graph, GraphSignal inputSignal) {	
+	public GraphSignal run(GraphNorm graphNorm, GraphSignal inputSignal) {	
 		GraphSignal previousSignal = inputSignal;
-		GraphNorm graphNorm = new GraphNorm(graph) ;
+		//GraphNorm graphNorm = new GraphNorm(graph) ;
 
 		//for(Node node : previousSignal.getkeySet())
 			//System.out.println(previousSignal.getNodeScore(node));
@@ -37,7 +37,7 @@ public class PageRank implements GraphFilter {
 						//(previousSignal.getNodeScore(s) /graph.getOutDegree(s))));
 			//}
 			GraphSignal nextSignal = new LoadedGraphSignal();
-			for (Node firstNode : graph.getNodes()) {	
+			for (Node firstNode : graphNorm.getNodes()) {	
 				nextSignal.setNodeScore(firstNode, 
 						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSignal.getNodeScore(firstNode)));	
 				//System.out.println(iterationStep + " " + nextSignal.getNodeScore(firstNode));

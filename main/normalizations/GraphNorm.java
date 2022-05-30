@@ -11,14 +11,36 @@ public class GraphNorm implements Graph {
 	public HashMap<Node, Double> outDegree = new HashMap<Node, Double>();
 	public GraphNorm(Graph graph) {
 		this.graph = graph ;
+		//edgeeIterator();
 		getNodes();
 		getEdges();
 	}
 	 public  Iterable<Edge> getEdges(){
-		 ArrayList <Edge> weightedEdges = new ArrayList<Edge>();
-		 for(Edge edge : graph.getEdges())
-			 weightedEdges.add(new LoadedEdges(edge.getSource(), edge.getDestination(), 1/graph.getOutDegree(edge.getSource())));
-		 return weightedEdges ;
+		 return new Iterable <Edge> () {
+			 @Override
+			 public Iterator<Edge> iterator(){
+			 Iterator <Edge> graphEdgeIterator = graph.getEdges().iterator();
+	    	 Iterator <Edge> newEdgeIterator = new Iterator <Edge>() { 
+	       	  @Override 
+	       	  public boolean hasNext() {
+	       		  if(graphEdgeIterator.hasNext())
+	       			  return true ;
+	       		  else
+	       			  return false;
+	       	  }
+	          @Override
+	          public Edge next() {
+	        	  Edge edge = graphEdgeIterator.next();
+	            	 return new LoadedEdges(edge.getSource(), edge.getDestination(), 1/graph.getOutDegree(edge.getSource()));
+	             }
+	       	};
+	       	 return newEdgeIterator ;
+			 }
+		 };
+		 //ArrayList <Edge> weightedEdges = new ArrayList<Edge>();
+		 //for(Edge edge : graph.getEdges())
+			// weightedEdges.add(new LoadedEdges(edge.getSource(), edge.getDestination(), 1/graph.getOutDegree(edge.getSource())));
+		 //return weightedEdges ;
 	 }
 	 public  Iterable<Node> getNodes(){
 		 return graph.getNodes();
