@@ -2,5 +2,5 @@ package core;
 import normalizations.*;
 
 public interface GraphFilter {
-	public  GraphSignal run(GraphNorm graphNorm, GraphSignal testSignal) ;	
+	public  GraphSignal run(Graph graph, GraphSignal testSignal) ;	
 }

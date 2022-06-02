@@ -14,7 +14,7 @@ public class PageRank implements GraphFilter {
 	protected double msqrt = 1.E-6;
 	protected int maxIterations = 1000;
 
-	public GraphSignal run(GraphNorm graphNorm, GraphSignal inputSignal) {	
+	public GraphSignal run(Graph graph, GraphSignal inputSignal) {	
 		GraphSignal previousSignal = inputSignal;
 		//GraphNorm graphNorm = new GraphNorm(graph) ;
 
@@ -24,7 +24,7 @@ public class PageRank implements GraphFilter {
 		// Initialization
 		while (iterationStep < maxIterations) {
 			GraphSignal tempSignal = new LoadedGraphSignal();
-			for(Edge edge : graphNorm.getEdges()) {
+			for(Edge edge : graph.getEdges()) {
 				Node s = edge.getSource();
 				Node d = edge.getDestination();
 				tempSignal.setNodeScore(d, (tempSignal.getNodeScore(d) +
@@ -37,39 +37,32 @@ public class PageRank implements GraphFilter {
 						//(previousSignal.getNodeScore(s) /graph.getOutDegree(s))));
 			//}
 			GraphSignal nextSignal = new LoadedGraphSignal();
-			for (Node firstNode : graphNorm.getNodes()) {	
+			for (Node firstNode : graph.getNodes()) {	
 				nextSignal.setNodeScore(firstNode, 
 						((1 - dumpingFactor)*inputSignal.getNodeScore(firstNode)) + (dumpingFactor * tempSignal.getNodeScore(firstNode)));	
 				//System.out.println(iterationStep + " " + nextSignal.getNodeScore(firstNode));
 			}
 			double l1 = 0;
-			for(Node node :nextSignal.getkeySet())
+			for(Node node :graph.getNodes())
 				l1 += nextSignal.getNodeScore(node);
 			if(l1 != 0)
-				for(Node node :nextSignal.getkeySet())
+				for(Node node :graph.getNodes())
 					nextSignal.setNodeScore(node, (nextSignal.getNodeScore(node)/l1));
 			l1 = 0 ;
-			for(Node node :nextSignal.getkeySet())
+			for(Node node :graph.getNodes())
 				l1 += nextSignal.getNodeScore(node);
 			iterationStep = iterationStep + 1;
 			if (iterationStep <= 1)
 				continue ;
-			//double result = 0;
-			//for (Node node : nextSignal.getkeySet()) 
-				//result += Math.pow((previousSignal.getNodeScore(node) - nextSignal.getNodeScore(node)), 2);
-			//double msqrt = Math.pow (result / (nextSignal.getSize()), 0.5);
-			Msqrt msqrt = new Msqrt() ;
+			Msqrt msqrt = new Msqrt() ; 
 			//previousSignal = nextSignal;
-			//System.out.println(msqrt.calculate(nextSignal, previousSignal));
-			//System.out.println(msqrt + " \t " + iterationStep + " \t " + l1);
+			System.out.println(msqrt.calculate(nextSignal, previousSignal) + " \t " + iterationStep + " \t " + l1);
 			if (msqrt.calculate(nextSignal, previousSignal) < this.msqrt) 
 				break;		
 			previousSignal = nextSignal;
 		}
 		if(iterationStep == maxIterations)
 			throw new RuntimeException("Needs more iterations to converge");
-		//for(Node node : previousSignal.getkeySet())
-			//System.out.println(previousSignal.getNodeScore(node));
 		return previousSignal;
 	}
 }
