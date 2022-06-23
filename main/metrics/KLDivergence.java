@@ -11,7 +11,7 @@ public class KLDivergence implements Metrics{
 	
 	public double calculate(GraphSignal trainSignal, GraphSignal testSignal) {
 		double result = 0 ;
-		for(Node node : trainSignal.getkeySet()) {
+		for(Node node : trainSignal.getkeySet()) {	
 			double division = (trainSignal.getNodeScore(node)/(testSignal.getNodeScore(node) + constant)) + constant ;
 			result += trainSignal.getNodeScore(node) * Math.log(division);
 		}

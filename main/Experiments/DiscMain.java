@@ -54,8 +54,10 @@ public class DiscMain {
 		Msqrt msqrt = new Msqrt();
 		//System.out.println(s1);
 		KLDivergence klDivergence = new KLDivergence();
-	    System.out.println(klDivergence.calculate(outputSignal, secondSignal));
-		System.out.println(klDivergence.calculate(randomSignal, secondSignal));
+		MannUTest mannUTest = new MannUTest();
+		System.out.println(mannUTest.calculate(outputSignal, secondSignal));
+	    //System.out.println(klDivergence.calculate(outputSignal, secondSignal));
+		//System.out.println(klDivergence.calculate(randomSignal, secondSignal));
 		//System.out.println(msqrt.calculate(outputSignal, secondSignal));
 		//System.out.println(msqrt.calculate(randomSignal, secondSignal));
 		//GraphNorm graphNorm = new GraphNorm(discGraph);

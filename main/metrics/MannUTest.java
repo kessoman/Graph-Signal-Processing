@@ -1,4 +1,4 @@
-package experiments;
+package metrics;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -9,46 +9,22 @@ import disc.*;
 import loaded.*;
 import metrics.*;
 import normalizations.*;
+import core.GraphSignal;
 
-public class RandomExperiments {
-	public static void main(String[] args) {
-		//System.out.println("Creating graph");
-		//DiscGraph discGraph = new DiscGraph("pagetest.csv");
-		//GraphNorm graphNorm = new GraphNorm(discGraph);
-		//PageRank p = new PageRank();
-		//GraphSignal graphSignal = new LoadedGraphSignal();
-		//for(Node node : discGraph.getNodes()) {
-			//graphSignal.setNodeScore(node, 1.);
-		//}
-		//p.run(graphNorm, graphSignal);
-		//for(Edge edge : graphNorm.getEdges())
-			//System.out.println(edge.toString() + " " + edge.getEdgeWeight());
+public class MannUTest implements Metrics {
+	public double calculate(GraphSignal firstSignal, GraphSignal secondSignal) {
 		ArrayList<Double> sample1 = new ArrayList<Double>();
 		ArrayList<Double> sample2 = new ArrayList<Double>();
-		sample1.add(3.);
-		sample1.add(2.);
-		sample1.add(4.);
-		sample1.add(1.);
-		sample2.add(6.);
-		sample2.add(7.);
-		sample2.add(4.);
-		sample2.add(5.);
-		for(int i=0; i<4; i++) {
-			System.out.println("Sample 1 :" + " " + sample1.get(i));
-		}
-		for(int j=0; j<4; j++) {
-			System.out.println("Sample 2 :" + " " + sample2.get(j));
+		for(Node node : firstSignal.getkeySet()) {
+			if(secondSignal.getNodeScore(node) == 1)
+				sample1.add(firstSignal.getNodeScore(node));
+			else
+				sample2.add(firstSignal.getNodeScore(node));
 		}
 		MergeSort sortedSample1 = new MergeSort(sample1);
 		MergeSort sortedSample2 = new MergeSort(sample2);
 		sortedSample1.sortGivenArray();
 		sortedSample2.sortGivenArray();
-		for(double z : sortedSample1.getSortedArray()) {
-			System.out.println("Sample 1 sorted : " + " " + z);
-		}
-		for(double z : sortedSample2.getSortedArray()) {
-			System.out.println("Sample 2 sorted : " + " " + z);
-		}
 		int i = 0, j = 0, k = 0;
 	    ArrayList<Double> newSample1 = sortedSample1.getSortedArray();
 	    ArrayList<Double> newSample2 = sortedSample2.getSortedArray();
@@ -81,24 +57,18 @@ public class RandomExperiments {
     		
 	    }
 	    mergedSamples.add(0.);
-	    for(double z : mergedSamples) {
-			System.out.println("Samples merged : " + " " + z);
-		}
 	    ArrayList<Integer> tempRanks = new ArrayList<Integer>();
 	    ArrayList<Double> finalRanks = new ArrayList<Double>();
 	    for(int z=1; z<mergedSamples.size(); z++) {
 	    	tempRanks.add(z);
 	    	if(mergedSamples.get(z-1).doubleValue() != mergedSamples.get(z).doubleValue()) {
 	    		double mean = calculateMean(tempRanks);
-	    		System.out.println("Mean : " + " " + mean);
 	    		for(int y=0; y<tempRanks.size(); y++) {
 	    			finalRanks.add(mean);
 	    		}
 		    	tempRanks.clear();
 	    	}
 	    }
-	    for(int z=0; z<finalRanks.size(); z++)
-	    	System.out.println(finalRanks.get(z));
 	    double sum = 0 ;
 	    for(int z=0; z<finalRanks.size(); z++) {
 	    	if(ids.get(z)==1) {
@@ -110,6 +80,7 @@ public class RandomExperiments {
 	    double u1 = sum - tempVal ;
 	    //System.out.println(u1);
 	    double auc = u1/(sample1.size()*sample2.size());
+	    return auc;
 	    //System.out.println(auc);
 	    }
     public static double calculateMean(ArrayList<Integer> means) {
@@ -118,6 +89,7 @@ public class RandomExperiments {
     		sum+=means.get(i);
     	return sum/means.size();
 	}
-	
-}
-	
+	}
+
+
+
