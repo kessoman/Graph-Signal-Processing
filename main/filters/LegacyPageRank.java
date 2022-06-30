@@ -1,10 +1,11 @@
-package loaded;
+package filters;
 import java.util.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
 import core.*;
+import loaded.LoadedGraphSignal;
 
 import java.math.*;
 

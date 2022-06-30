@@ -10,10 +10,11 @@ import loaded.*;
 import metrics.*;
 import normalizations.*;
 import experiments.*;
+import filters.LegacyPageRank;
+
 import org.junit.Test;
 
 import core.GraphFilter;
-import loaded.LegacyPageRank;
 
 public class PagerankTest {
 	@Test

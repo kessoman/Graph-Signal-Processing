@@ -16,11 +16,12 @@ public class MannUTest implements Metrics {
 		ArrayList<Double> sample1 = new ArrayList<Double>();
 		ArrayList<Double> sample2 = new ArrayList<Double>();
 		for(Node node : firstSignal.getkeySet()) {
-			if(secondSignal.getNodeScore(node) == 1)
+			if(secondSignal.getNodeScore(node) == 1.)
 				sample1.add(firstSignal.getNodeScore(node));
-			else
+			else 
 				sample2.add(firstSignal.getNodeScore(node));
 		}
+		System.out.println("Sample 1 size :" + " " + sample1.size() + " " + "Sample 2 size : " + " " + sample2.size());
 		MergeSort sortedSample1 = new MergeSort(sample1);
 		MergeSort sortedSample2 = new MergeSort(sample2);
 		sortedSample1.sortGivenArray();

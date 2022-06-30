@@ -6,6 +6,7 @@ import java.io.* ;
 import java.util.* ;
 import core.*;
 import disc.*;
+import filters.PageRank;
 import loaded.*;
 import metrics.*;
 import normalizations.*;
@@ -28,12 +29,12 @@ public class DiscMain {
 			if(graphSignal.getNodeScore(node) == 0 && node.toString().contains("org.apache.velocity")) 
 				secondSignal.setNodeScore(node, 1.);
 		}
-		double s1 = 0;
-		for(Node node :discGraph.getNodes())
-			s1 += secondSignal.getNodeScore(node);
-		if(s1 != 0)
-			for(Node node :discGraph.getNodes())
-			 secondSignal.setNodeScore(node, (secondSignal.getNodeScore(node)/s1));
+		//double s1 = 0;
+		//for(Node node :discGraph.getNodes())
+			//s1 += secondSignal.getNodeScore(node);
+		//if(s1 != 0)
+			//for(Node node :discGraph.getNodes())
+			 //secondSignal.setNodeScore(node, (secondSignal.getNodeScore(node)/s1));
 		//s1 = 0 ;
 		//for(Node node :discGraph.getNodes())
 			//s1 += secondSignal.getNodeScore(node);

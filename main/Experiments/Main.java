@@ -6,6 +6,7 @@ import java.io.* ;
 import java.util.* ;
 import core.*;
 import disc.*;
+import filters.PageRank;
 import loaded.*;
 import normalizations.*;
 /**
