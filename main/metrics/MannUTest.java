@@ -11,7 +11,7 @@ import metrics.*;
 import normalizations.*;
 import core.GraphSignal;
 
-public class MannUTest implements Metrics {
+public class MannUTest implements Metric {
 	public double calculate(GraphSignal firstSignal, GraphSignal secondSignal) {
 		ArrayList<Double> sample1 = new ArrayList<Double>();
 		ArrayList<Double> sample2 = new ArrayList<Double>();
@@ -76,10 +76,8 @@ public class MannUTest implements Metrics {
 	    		sum += finalRanks.get(z);
 	    	}
 	    }
-	    //System.out.println(sum);
 	    double tempVal = (sample1.size()*(sample1.size() + 1))/2;
 	    double u1 = sum - tempVal ;
-	    //System.out.println(u1);
 	    double auc = u1/(sample1.size()*sample2.size());
 	    return auc;
 	    //System.out.println(auc);

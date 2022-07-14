@@ -5,6 +5,6 @@ import core.*;
 import disc.*;
 import loaded.*;
 
-public interface Metrics {
+public interface Metric {
 	public double calculate(GraphSignal nextSignal, GraphSignal previousSignal) ;
 }

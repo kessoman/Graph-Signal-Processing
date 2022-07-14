@@ -6,7 +6,7 @@ import java.io.* ;
 import java.util.* ;
 import core.*;
 import disc.*;
-import filters.PageRank;
+import filters.*;
 import loaded.*;
 import metrics.*;
 import normalizations.*;
@@ -21,10 +21,11 @@ public class DiscMain {
 		GraphSignal secondSignal = new LoadedGraphSignal();
 		for(Node node : discGraph.getNodes()) {
 			randomSignal.setNodeScore(node, Math.random());
-		  if(node.toString().contains("org.apache.velocity") && Math.random()< 0.5) {
+		   if(node.toString().contains("org.apache.velocity") && Math.random()< 0.5) {
 			graphSignal.setNodeScore(node, 1.);
-		  }	
+		  }
 		}
+		
 		for(Node node : discGraph.getNodes()) {
 			if(graphSignal.getNodeScore(node) == 0 && node.toString().contains("org.apache.velocity")) 
 				secondSignal.setNodeScore(node, 1.);
@@ -49,18 +50,21 @@ public class DiscMain {
 			//r1 += secondSignal.getNodeScore(node);
 		System.out.println("Calculating Pagerank");
 		PageRank np = new PageRank();
+		HeatKernels hk = new HeatKernels();
 		GraphNorm graphNorm = new GraphNorm(discGraph);
-		GraphSignal outputSignal = np.run(graphNorm, graphSignal);
+		GraphSignal outputSignal = hk.run(discGraph, graphSignal);
+		//GraphSignal outputSignal = np.run(graphNorm, graphSignal);
 		//np.run(discGraph, graphSignal);
 		Msqrt msqrt = new Msqrt();
 		//System.out.println(s1);
 		KLDivergence klDivergence = new KLDivergence();
 		MannUTest mannUTest = new MannUTest();
-		System.out.println(mannUTest.calculate(outputSignal, secondSignal));
+		//System.out.println(mannUTest.calculate(outputSignal, secondSignal));
+		//System.out.println(mannUTest.calculate(randomSignal, secondSignal));
 	    //System.out.println(klDivergence.calculate(outputSignal, secondSignal));
 		//System.out.println(klDivergence.calculate(randomSignal, secondSignal));
-		//System.out.println(msqrt.calculate(outputSignal, secondSignal));
-		//System.out.println(msqrt.calculate(randomSignal, secondSignal));
+		System.out.println(msqrt.calculate(outputSignal, secondSignal));
+		System.out.println(msqrt.calculate(randomSignal, secondSignal));
 		//GraphNorm graphNorm = new GraphNorm(discGraph);
 	}
 
