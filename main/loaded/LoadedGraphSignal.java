@@ -5,7 +5,7 @@ import java.util.Set;
 
 import core.*;
 
-public class LoadedGraphSignal implements GraphSignal {
+public class LoadedGraphSignal extends GraphSignal {
 	
 	protected HashMap<Node, Double> tempMap ;
 

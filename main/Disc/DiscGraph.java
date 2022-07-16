@@ -4,7 +4,7 @@ import java.util.* ;
 import core.*;
 import loaded.*;
 
-public class DiscGraph implements Graph{
+public class DiscGraph extends  Graph{
 	protected String fileName ;
 	protected  DiscEdgeList edgesList ;
 	public HashMap<Node, Double> inDegree = new HashMap<Node, Double>();

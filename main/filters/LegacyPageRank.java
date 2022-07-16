@@ -9,7 +9,7 @@ import loaded.LoadedGraphSignal;
 
 import java.math.*;
 
-public class LegacyPageRank implements GraphFilter {
+public class LegacyPageRank extends GraphFilter {
 
 	protected double dumpingFactor = 0.85;
 	protected double msqrt = 1.E-6;

@@ -11,7 +11,7 @@ import metrics.*;
 import normalizations.*;
 import core.GraphSignal;
 
-public class MannUTest implements Metric {
+public class MannUTest extends Metric {
 	public double calculate(GraphSignal firstSignal, GraphSignal secondSignal) {
 		ArrayList<Double> sample1 = new ArrayList<Double>();
 		ArrayList<Double> sample2 = new ArrayList<Double>();

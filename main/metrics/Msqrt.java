@@ -6,7 +6,7 @@ import disc.*;
 import loaded.*;
 import core.*;
 
-public class Msqrt implements Metric {
+public class Msqrt extends Metric {
 	public double calculate(GraphSignal nextSignal, GraphSignal previousSignal) {
 		double result = 0;
 		for (Node node : nextSignal.getkeySet()) 

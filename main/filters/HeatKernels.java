@@ -9,7 +9,7 @@ import loaded.LoadedGraphSignal;
 import metrics.*;
 import java.math.*;
 
-public class HeatKernels implements GraphFilter{
+public class HeatKernels extends GraphFilter{
 	protected int temperature = 3 ;
 	protected int k = 20 ;
 	protected double msqrt = 1.E-6;

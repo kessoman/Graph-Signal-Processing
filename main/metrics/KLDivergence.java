@@ -5,7 +5,7 @@ import core.*;
 import disc.*;
 import loaded.*;
 
-public class KLDivergence implements Metric{
+public class KLDivergence extends Metric{
 	
 	protected double constant = 1.E-12;
 	

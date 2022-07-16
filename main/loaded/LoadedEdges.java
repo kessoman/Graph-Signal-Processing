@@ -2,7 +2,7 @@ package loaded;
 
 import core.*;
 
-public class LoadedEdges implements Edge {
+public class LoadedEdges extends Edge {
 	
 	protected Node sourcenode;
 	protected Node destinationnode;

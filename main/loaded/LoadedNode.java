@@ -2,7 +2,7 @@ package loaded;
 
 import core.*;
 
-public class LoadedNode implements Node{
+public class LoadedNode extends Node{
 
 	String nodeName ;
 	

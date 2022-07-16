@@ -21,13 +21,17 @@ public class DiscMain {
 		GraphSignal secondSignal = new LoadedGraphSignal();
 		for(Node node : discGraph.getNodes()) {
 			randomSignal.setNodeScore(node, Math.random());
-		   if(node.toString().contains("org.apache.velocity") && Math.random()< 0.5) {
+		   if(node.toString().contains("org.apache.mina") && Math.random()< 0.5) {
 			graphSignal.setNodeScore(node, 1.);
 		  }
 		}
 		
 		for(Node node : discGraph.getNodes()) {
-			if(graphSignal.getNodeScore(node) == 0 && node.toString().contains("org.apache.velocity")) 
+			//if(Math.random() < 0.5)
+				//secondSignal.setNodeScore(node, 1.);
+			//else
+				//secondSignal.setNodeScore(node, 0.);
+			if(graphSignal.getNodeScore(node) == 0 && node.toString().contains("org.apache.mina")) 
 				secondSignal.setNodeScore(node, 1.);
 		}
 		//double s1 = 0;
@@ -51,20 +55,20 @@ public class DiscMain {
 		System.out.println("Calculating Pagerank");
 		PageRank np = new PageRank();
 		HeatKernels hk = new HeatKernels();
-		GraphNorm graphNorm = new GraphNorm(discGraph);
-		GraphSignal outputSignal = hk.run(discGraph, graphSignal);
-		//GraphSignal outputSignal = np.run(graphNorm, graphSignal);
+		GraphNormalization graphNorm = new GraphNorm(discGraph);
+		//GraphSignal outputSignal = hk.run(graphNorm, graphSignal);
+		GraphSignal outputSignal = np.run(graphNorm, graphSignal);
 		//np.run(discGraph, graphSignal);
 		Msqrt msqrt = new Msqrt();
 		//System.out.println(s1);
 		KLDivergence klDivergence = new KLDivergence();
 		MannUTest mannUTest = new MannUTest();
 		//System.out.println(mannUTest.calculate(outputSignal, secondSignal));
-		//System.out.println(mannUTest.calculate(randomSignal, secondSignal));
+		//System.out.println(mannUTest.calculate(secondSignal, secondSignal));
 	    //System.out.println(klDivergence.calculate(outputSignal, secondSignal));
 		//System.out.println(klDivergence.calculate(randomSignal, secondSignal));
-		System.out.println(msqrt.calculate(outputSignal, secondSignal));
-		System.out.println(msqrt.calculate(randomSignal, secondSignal));
+		//System.out.println(msqrt.calculate(outputSignal, secondSignal));
+		//System.out.println(msqrt.calculate(randomSignal, secondSignal));
 		//GraphNorm graphNorm = new GraphNorm(discGraph);
 	}
 

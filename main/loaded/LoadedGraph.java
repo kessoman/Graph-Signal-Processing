@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import core.*;
 
 
-public class LoadedGraph implements Graph {
+public class LoadedGraph extends Graph {
 
 	protected HashMap<String, Node> nodes ;
 	protected ArrayList<Edge> edges ;

@@ -2,14 +2,14 @@ package core;
 import java.util.*;
 import java.util.stream.Stream;
 
- public interface Graph  {
-	 public  Iterable<Edge> getEdges() ;
-	 public  Iterable<Node> getNodes() ;
-	 public  Iterable<Edge> getIncomingEdges(Node destinationnode);
-	 public  Iterable<Edge> getOutgoingEdges(Node sourcenode);
-	 public  Double getInDegree (Node destinationNode);
-	 public  Double getOutDegree (Node sourceNode);
-	 public  int getNumberOfNodes();
-	 public  int getNumberOfEdges();
-	 public  void addEdge(Node sourceNode, Node destinationNode);
+ public abstract class Graph  {
+	 public abstract  Iterable<Edge> getEdges() ;
+	 public abstract  Iterable<Node> getNodes() ;
+	 public abstract  Iterable<Edge> getIncomingEdges(Node destinationnode);
+	 public abstract  Iterable<Edge> getOutgoingEdges(Node sourcenode);
+	 public abstract  Double getInDegree (Node destinationNode);
+	 public abstract  Double getOutDegree (Node sourceNode);
+	 public abstract  int getNumberOfNodes();
+	 public abstract  int getNumberOfEdges();
+	 public abstract  void addEdge(Node sourceNode, Node destinationNode);
 }

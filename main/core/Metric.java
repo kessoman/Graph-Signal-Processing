@@ -5,6 +5,6 @@ import core.*;
 import disc.*;
 import loaded.*;
 
-public interface Metric {
-	public double calculate(GraphSignal nextSignal, GraphSignal previousSignal) ;
+public abstract class Metric {
+	public abstract double calculate(GraphSignal nextSignal, GraphSignal previousSignal) ;
 }

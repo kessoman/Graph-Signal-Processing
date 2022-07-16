@@ -9,7 +9,7 @@ import loaded.LoadedGraphSignal;
 import metrics.*;
 import java.math.*;
 
-public class PageRank implements GraphFilter {
+public class PageRank extends GraphFilter {
 
 	protected double dumpingFactor = 0.85;
 	protected double msqrt = 1.E-6;

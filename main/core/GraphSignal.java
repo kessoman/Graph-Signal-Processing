@@ -1,9 +1,9 @@
 package core;
 import java.util.*;
 
-public interface GraphSignal {
-	public double getNodeScore(Node tempNode) ;
-	public void setNodeScore(Node newTempNode, Double tempDpuble) ;	
-	public int getSize() ;		
-	public Iterable<Node> getkeySet() ;     
+public abstract class GraphSignal {
+	public abstract double getNodeScore(Node tempNode) ;
+	public abstract void setNodeScore(Node newTempNode, Double tempDpuble) ;	
+	public abstract int getSize() ;		
+	public abstract Iterable<Node> getkeySet() ;     
 }
