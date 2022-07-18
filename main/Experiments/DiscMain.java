@@ -16,9 +16,9 @@ public class DiscMain {
 	public static void main(String[] args) {
 		System.out.println("Creating graph");
 		DiscGraph discGraph = new DiscGraph("links_all.csv");
-		GraphSignal graphSignal = new LoadedGraphSignal();
-		GraphSignal randomSignal = new LoadedGraphSignal();
-		GraphSignal secondSignal = new LoadedGraphSignal();
+		GraphSignal graphSignal = new LoadedGraphSignal(discGraph);
+		GraphSignal randomSignal = new LoadedGraphSignal(discGraph);
+		GraphSignal secondSignal = new LoadedGraphSignal(discGraph);
 		for(Node node : discGraph.getNodes()) {
 			randomSignal.setNodeScore(node, Math.random());
 		   if(node.toString().contains("org.apache.mina") && Math.random()< 0.5) {
@@ -43,12 +43,12 @@ public class DiscMain {
 		//s1 = 0 ;
 		//for(Node node :discGraph.getNodes())
 			//s1 += secondSignal.getNodeScore(node);
-		double r1 = 0;
-		for(Node node :discGraph.getNodes())
-			r1 += randomSignal.getNodeScore(node);
-		if(r1 != 0)
-			for(Node node :discGraph.getNodes())
-				randomSignal.setNodeScore(node, (randomSignal.getNodeScore(node)/r1));
+		//double r1 = 0;
+		//for(Node node :discGraph.getNodes())
+			//r1 += randomSignal.getNodeScore(node);
+		//if(r1 != 0)
+			//for(Node node :discGraph.getNodes())
+				//randomSignal.setNodeScore(node, (randomSignal.getNodeScore(node)/r1));
 	    //r1 = 0 ;
 		//for(Node node :discGraph.getNodes())
 			//r1 += secondSignal.getNodeScore(node);
@@ -56,18 +56,17 @@ public class DiscMain {
 		PageRank np = new PageRank();
 		HeatKernels hk = new HeatKernels();
 		GraphNormalization graphNorm = new GraphNorm(discGraph);
-		//GraphSignal outputSignal = hk.run(graphNorm, graphSignal);
-		GraphSignal outputSignal = np.run(graphNorm, graphSignal);
-		//np.run(discGraph, graphSignal);
+		GraphNormalization degreeAquared = new DegreesSquared(discGraph);
+		GraphSignal heatKernelsSignal = hk.run(degreeAquared, graphSignal);
+		//GraphSignal outputSignal = np.run(graphNorm, graphSignal);
 		Msqrt msqrt = new Msqrt();
-		//System.out.println(s1);
 		KLDivergence klDivergence = new KLDivergence();
 		MannUTest mannUTest = new MannUTest();
-		//System.out.println(mannUTest.calculate(outputSignal, secondSignal));
-		//System.out.println(mannUTest.calculate(secondSignal, secondSignal));
+		System.out.println(mannUTest.calculate(heatKernelsSignal, secondSignal));
+		System.out.println(mannUTest.calculate(randomSignal, secondSignal));
 	    //System.out.println(klDivergence.calculate(outputSignal, secondSignal));
 		//System.out.println(klDivergence.calculate(randomSignal, secondSignal));
-		//System.out.println(msqrt.calculate(outputSignal, secondSignal));
+		//System.out.println(msqrt.calculate(heatKernelsSignal, secondSignal));
 		//System.out.println(msqrt.calculate(randomSignal, secondSignal));
 		//GraphNorm graphNorm = new GraphNorm(discGraph);
 	}

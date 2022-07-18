@@ -15,7 +15,7 @@ public class HeatKernels extends GraphFilter{
 	protected double msqrt = 1.E-6;
 	
 	public GraphSignal run(Graph graph, GraphSignal graphSignal) {
-		GraphSignal outputSignal = new LoadedGraphSignal();
+		GraphSignal outputSignal = new LoadedGraphSignal(graph);
 		outputSignal = graphSignal ;
 		for(int k = 0 ; k < this.k; k++) {
 			for(Edge edge : graph.getEdges()) {

@@ -8,9 +8,11 @@ import core.*;
 public class LoadedGraphSignal extends GraphSignal {
 	
 	protected HashMap<Node, Double> tempMap ;
+	protected Graph graph ;
 
-	public LoadedGraphSignal() {
-		tempMap = new HashMap<Node, Double>()  ; 
+	public LoadedGraphSignal(Graph graph) {
+		tempMap = new HashMap<Node, Double>()  ;
+		this.graph = graph ;
 	}
 
 	public double getNodeScore(Node tempNode) {
@@ -26,7 +28,7 @@ public class LoadedGraphSignal extends GraphSignal {
 	}
 	
 	public Iterable<Node> getkeySet(){
-		return tempMap.keySet();
+		return graph.getNodes();
 	}
 	
 }

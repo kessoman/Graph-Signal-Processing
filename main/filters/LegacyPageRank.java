@@ -20,7 +20,7 @@ public class LegacyPageRank extends GraphFilter {
 		int iterationStep = 0;
 		// Initialization
 		while (iterationStep < maxIterations) {
-			GraphSignal nextSignal = new LoadedGraphSignal();
+			GraphSignal nextSignal = new LoadedGraphSignal(graph);
 			for (Node firstNode : graph.getNodes()) {
 				double tempSum = 0;
 				for (Edge tempEdge : graph.getIncomingEdges(firstNode)) { 
