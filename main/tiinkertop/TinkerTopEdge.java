@@ -12,10 +12,9 @@ public class TinkerTopEdge extends Edge{
 	private Node sourceNode ;
 	private Node destinationNode ;
 	private double edgeWeight ;
-	public TinkerTopEdge(Node sourceNode, Node destinationNode, Double edgeWeight) {
+	public TinkerTopEdge(Node sourceNode, Node destinationNode) {
 		this.sourceNode = sourceNode ;
 		this.destinationNode = destinationNode ;
-		this.edgeWeight = edgeWeight;
 	}
 	public Node getSource() {
 		return sourceNode;
