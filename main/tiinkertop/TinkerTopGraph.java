@@ -17,7 +17,6 @@ import static org.apache.tinkerpop.gremlin.process.traversal.AnonymousTraversalS
 
 public class TinkerTopGraph extends core.Graph{
 	public Graph graph ;
-	private Iterable<TinkerTopEdge> edgeIterable ;
 	private HashMap<String, Node> nodes = new HashMap<String, Node>();
 	private HashMap<Node, Double> inDegree = new HashMap<Node, Double>();
 	private HashMap<Node, Double> outDegree = new HashMap<Node, Double>();
@@ -26,7 +25,6 @@ public class TinkerTopGraph extends core.Graph{
 		this.graph = graph;
 		graph = TinkerGraph.open();
 		g = traversal().withEmbedded(graph);
-		getEdges();
 	}
 	public  void addEdge(Node sourceNode, Node destinationNode){
 		Vertex sourceVertex = g.addV(sourceNode.toString()).next();
@@ -37,7 +35,9 @@ public class TinkerTopGraph extends core.Graph{
 		return new Iterable<core.Edge>() {
 			@Override
 			public Iterator<core.Edge> iterator() {
-				Iterator<Edge> graphEdgeIterator = g.E("connects to").iterate();
+				Iterable<Edge> edgeIterable = g.E().toList();
+				Iterator<Edge> graphEdgeIterator = edgeIterable.iterator();
+				//Iterator<Edge> graphEdgeIterator = g.E("connects to").toList().iterator();
 				Iterator<core.Edge> newEdgeIterator = new Iterator<core.Edge>() {
 					@Override
 					public boolean hasNext() {
@@ -78,10 +78,7 @@ public class TinkerTopGraph extends core.Graph{
 		 throw new RuntimeException();
 	 }
 	 public  int getNumberOfNodes() {
-		 int nodeCounter = 0 ;
-		 for(Node node : getNodes())
-			 nodeCounter++ ;
-		 return nodeCounter ;
+		 return nodes.size();
 	 }
 	 public  int getNumberOfEdges(){
 		 int edgeCounter = 0 ;

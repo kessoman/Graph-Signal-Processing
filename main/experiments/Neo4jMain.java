@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import org.apache.tinkerpop.gremlin.*;
 import org.apache.tinkerpop.gremlin.structure.Graph;
@@ -19,8 +20,6 @@ import tiinkertop.TinkerTopGraph;
 
 import java.lang.Iterable;
 import static org.apache.tinkerpop.gremlin.process.traversal.AnonymousTraversalSource.traversal;
-import org.apache.tinkerpop.gremlin.driver.remote.DriverRemoteConnection;
-import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversal;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 
 public class Neo4jMain {
@@ -36,12 +35,12 @@ public class Neo4jMain {
 				links[0] = links[0].strip();
 				Node node1 = new LoadedNode(links[0]);
 				Node node2 = new LoadedNode(links[1]);
-				coreGraph.addEdge(node1, node2);
-			}	
+				coreGraph.addEdge(node1, node2);				
+			}
+			System.out.println(coreGraph.getNumberOfEdges());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println(coreGraph.getNumberOfNodes());
 	}
 }
 
