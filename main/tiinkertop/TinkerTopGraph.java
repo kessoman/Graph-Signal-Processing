@@ -17,12 +17,13 @@ import static org.apache.tinkerpop.gremlin.process.traversal.AnonymousTraversalS
 
 public class TinkerTopGraph extends core.Graph{
 	public Graph graph ;
-	private HashMap<String, Node> nodes = new HashMap<String, Node>();
+	private HashMap<String, Node> nodes ;
 	private HashMap<Node, Double> inDegree = new HashMap<Node, Double>();
 	private HashMap<Node, Double> outDegree = new HashMap<Node, Double>();
 	private GraphTraversalSource g ;
 	public TinkerTopGraph(Graph graph) {
 		this.graph = graph;
+		this.nodes = new HashMap<String, Node>();
 		graph = TinkerGraph.open();
 		g = traversal().withEmbedded(graph);
 	}
@@ -30,6 +31,10 @@ public class TinkerTopGraph extends core.Graph{
 		Vertex sourceVertex = g.addV(sourceNode.toString()).next();
 		Vertex destinationVertex = g.addV(destinationNode.toString()).next();
 		g.V(sourceVertex).addE("connects to").to(destinationVertex).iterate();
+		if(!nodes.containsKey(destinationVertex.label()))
+			   nodes.put(destinationVertex.label(), new TinkerTopNode(destinationVertex));
+		if(!nodes.containsKey(sourceVertex.label()))
+			   nodes.put(sourceVertex.label(),  new TinkerTopNode(sourceVertex));
 	 }
 	public Iterable<core.Edge> getEdges() {
 		return new Iterable<core.Edge>() {
@@ -50,10 +55,6 @@ public class TinkerTopGraph extends core.Graph{
 					@Override
 					public core.Edge next() {
 						Edge edge = graphEdgeIterator.next();
-						if(!nodes.containsKey(edge.outVertex().label()))
-							   nodes.put(edge.outVertex().label(), new TinkerTopNode(edge.outVertex()));
-						if(!nodes.containsKey(edge.inVertex().label()))
-							   nodes.put(edge.inVertex().label(),  new TinkerTopNode(edge.inVertex()));
 						return new TinkerTopEdge(nodes.get(edge.inVertex().label()), nodes.get(edge.outVertex().label()));
 					}
 				};
