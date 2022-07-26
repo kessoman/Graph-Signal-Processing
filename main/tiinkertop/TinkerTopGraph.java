@@ -4,6 +4,7 @@ import java.util.* ;
 import core.*;
 import loaded.*;
 import org.apache.tinkerpop.gremlin.*;
+import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversal;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
@@ -12,7 +13,7 @@ import org.apache.tinkerpop.gremlin.tinkergraph.*;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
 import org.neo4j.cypher.internal.compiler.eagerUpdateStrategy;
 import org.neo4j.internal.recordstorage.RelationshipCreator.NodeDataLookup;
-
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.*;
 import static org.apache.tinkerpop.gremlin.process.traversal.AnonymousTraversalSource.traversal;
 
 public class TinkerTopGraph extends core.Graph{
@@ -30,7 +31,9 @@ public class TinkerTopGraph extends core.Graph{
 	public  void addEdge(Node sourceNode, Node destinationNode){
 		Vertex sourceVertex = g.addV(sourceNode.toString()).next();
 		Vertex destinationVertex = g.addV(destinationNode.toString()).next();
-		g.V(sourceVertex).addE("connects to").to(destinationVertex).iterate();
+		g.addE("connects to").from(sourceVertex).to(destinationVertex).iterate();
+		//g.V(sourceVertex).addE("connects to").to(destinationVertex).iterate();
+		g.V().group().by().by(inE().count());
 		if(!nodes.containsKey(destinationVertex.label()))
 			   nodes.put(destinationVertex.label(), new TinkerTopNode(destinationVertex));
 		if(!nodes.containsKey(sourceVertex.label()))
@@ -76,9 +79,12 @@ public class TinkerTopGraph extends core.Graph{
 		 throw new RuntimeException();
 	 }
 	 public  Double getOutDegree (Node sourceNode){
-		 throw new RuntimeException();
+		 double d =g.V(sourceNode.toString()).group().by().by(inE().count()).toList().size();
+		return	d ;
+		 //throw new RuntimeException();
 	 }
 	 public  int getNumberOfNodes() {
+		 System.out.println(g.V().toList().size());
 		 return nodes.size();
 	 }
 	 public  int getNumberOfEdges(){
