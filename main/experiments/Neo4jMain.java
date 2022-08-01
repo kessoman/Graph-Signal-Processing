@@ -37,7 +37,7 @@ public class Neo4jMain {
 				Node node2 = new LoadedNode(links[1]);
 				coreGraph.addEdge(node1, node2);				
 			}
-			System.out.println(coreGraph.getNumberOfNodes());
+			System.out.println(coreGraph.getNumberOfEdges());
 			//for(Node node : coreGraph.getNodes())
 				//System.out.println("NodeName" + " " + node.toString() + " " + coreGraph.getOutDegree(node));
 		} catch (FileNotFoundException e) {
