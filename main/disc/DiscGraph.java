@@ -61,12 +61,12 @@ public class DiscGraph extends  Graph{
 		 return counter ;
 	 }
 	 public  void addEdge(Node sourceNode, Node destinationNode){
-			Path p = Paths.get(fileName);
+		 Path p = Paths.get(fileName);
 			String s = System.lineSeparator() + sourceNode.toString() + " , " + destinationNode.toString();
 			try {
-				Files.write(p, s.getBytes(), StandardOpenOption.APPEND);
+			    Files.write(p, s.getBytes(), StandardOpenOption.APPEND);
 			} catch (IOException e) {
-				System.err.println(e);
+			    System.err.println(e);
 			}
 	 }
 }

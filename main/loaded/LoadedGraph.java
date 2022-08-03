@@ -57,6 +57,13 @@ public class LoadedGraph extends Graph {
 				outDegree.put(newEdge.getSource(), outDegree.get(newEdge.getSource()) + 1);
 			}
 		}
+	public void removeEdge(Node sourceNode, Node destinationNode) {
+		for(Edge edge : edges) {
+			if(edge.getSource().toString() == sourceNode.toString() && edge.getDestination().toString() == destinationNode.toString()) {
+				edges.remove(edge);
+			}
+		}
+	}	
 
 	private void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
 		for (Node n : nodes.values()) {
