@@ -68,6 +68,8 @@ public class DiscGraph extends  Graph{
 			} catch (IOException e) {
 			    System.err.println(e);
 			}
+			outDegree.put(sourceNode, outDegree.get(sourceNode) + 1);
+			inDegree.put(destinationNode, inDegree.get(destinationNode) + 1);
 	 }
 	 public void removeEdge(Node sourceNode , Node destinationNode) {
 			try {
@@ -118,6 +120,8 @@ public class DiscGraph extends  Graph{
 			    catch (IOException ex) {
 			      ex.printStackTrace();
 			    }
+			outDegree.put(sourceNode, outDegree.get(sourceNode) - 1);
+			inDegree.put(destinationNode, inDegree.get(destinationNode) - 1);
 		}
 }
 class DiscEdgeList implements Iterable<Edge>{

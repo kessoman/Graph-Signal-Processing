@@ -22,14 +22,24 @@ import org.apache.commons.io.FileUtils;
 public class PartialDiscGraph extends Graph{
 	private File file ;
 	public HashMap<String, Node> nodes = new HashMap<String, Node>();
+	public HashMap<Node, Double> inDegree = new HashMap<Node, Double>();
+	public HashMap<Node, Double> outDegree = new HashMap<Node, Double>();
 	public PartialDiscGraph(File file) {
 		this.file = file;
 	}
 	public void addEdge(Node sourceNode, Node destinationNode) {
-		if(!nodes.containsKey(sourceNode.toString()))
+		if(!nodes.containsKey(sourceNode.toString())) {
 			nodes.put(sourceNode.toString(), sourceNode);
-		if(!!nodes.containsKey(destinationNode.toString()))
+			outDegree.put(sourceNode, 0.);
+			inDegree.put(sourceNode, 0.);
+		}
+		if(!!nodes.containsKey(destinationNode.toString())) {
 			nodes.put(destinationNode.toString(), destinationNode);
+			outDegree.put(destinationNode, 0.);
+			inDegree.put(destinationNode, 0.);
+		}
+		inDegree.put(destinationNode, inDegree.get(destinationNode) + 1);
+		outDegree.put(sourceNode, outDegree.get(sourceNode) + 1);
 		File nodeFile = new File(file + "\\" + sourceNode.toString() + ".neighbours");
 		String s = System.lineSeparator() + sourceNode.toString() + " , " + destinationNode.toString();
 		boolean result;
@@ -111,6 +121,8 @@ public class PartialDiscGraph extends Graph{
 		    catch (IOException ex) {
 		      ex.printStackTrace();
 		    }
+		outDegree.put(sourceNode, outDegree.get(sourceNode) - 1);
+		inDegree.put(destinationNode, inDegree.get(destinationNode) - 1);
 	}
 	public Iterable<Edge> getIncomingEdges(Node destinationnode) {
 		throw new RuntimeException();

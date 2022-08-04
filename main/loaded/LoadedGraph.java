@@ -63,6 +63,8 @@ public class LoadedGraph extends Graph {
 				edges.remove(edge);
 			}
 		}
+		outDegree.put(sourceNode, outDegree.get(sourceNode) - 1);
+		inDegree.put(destinationNode, inDegree.get(destinationNode) - 1);
 	}	
 
 	private void calculateInOutEdges(ArrayList<Edge> edges, HashMap<String, Node> nodes) {
