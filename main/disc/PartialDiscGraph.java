@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -33,7 +34,7 @@ public class PartialDiscGraph extends Graph{
 			outDegree.put(sourceNode, 0.);
 			inDegree.put(sourceNode, 0.);
 		}
-		if(!!nodes.containsKey(destinationNode.toString())) {
+		if(!nodes.containsKey(destinationNode.toString())) {
 			nodes.put(destinationNode.toString(), destinationNode);
 			outDegree.put(destinationNode, 0.);
 			inDegree.put(destinationNode, 0.);
@@ -73,21 +74,19 @@ public class PartialDiscGraph extends Graph{
 		return nodes.values();
 	}
 	public void removeEdge(Node sourceNode , Node destinationNode) {
+		
+		outDegree.put(sourceNode, outDegree.get(sourceNode) - 1);
+		inDegree.put(destinationNode, inDegree.get(destinationNode) - 1);
 		try {
-
 		      File inFile = new File(file + "\\" + sourceNode.toString() + ".neighbours");
-
 		      if (!inFile.isFile()) {
 		        System.out.println("Parameter is not an existing file");
 		        return;
 		      }
-
 		      //Construct the new file that will later be renamed to the original filename.
 		      File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
-
 		      BufferedReader br = new BufferedReader(new FileReader(file + "\\" + sourceNode.toString() + ".neighbours"));
 		      PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
-
 		      String line = null;
 		      String lineToRemove = sourceNode.toString() + " , " + destinationNode.toString();
 
@@ -121,8 +120,6 @@ public class PartialDiscGraph extends Graph{
 		    catch (IOException ex) {
 		      ex.printStackTrace();
 		    }
-		outDegree.put(sourceNode, outDegree.get(sourceNode) - 1);
-		inDegree.put(destinationNode, inDegree.get(destinationNode) - 1);
 	}
 	public Iterable<Edge> getIncomingEdges(Node destinationnode) {
 		throw new RuntimeException();
@@ -161,22 +158,33 @@ class PartialDiscEdgeList implements Iterable<Edge>{
 	   protected Scanner scanner ;
 	   protected Iterator<File> it ;
 	   public PartialEdgeIterator(File file) {
-		   this.file = file ;
-		   it = FileUtils.iterateFiles(file, null, null);
-	   }
-	   public boolean hasNext() {
-		   if(it.hasNext())
-			   return true ;
-		   else
-			   return false ;
-	   }
-	   public Edge next(){
+		   this.file = file ; 
+		   Collection<File> listFiles = FileUtils.listFiles(file, null, true);
+		   for(File f : listFiles) 
+		   it = listFiles.iterator();
 		   try {
 			   scanner = new Scanner(it.next());
 		   }
 		   catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
+	   }
+	   public boolean hasNext() {
+		   if(scanner.hasNext())
+			   return true ;
+		   else
+			   return false ;
+	   }
+	   public Edge next(){
+		   //if(!scanner.hasNextLine()) {
+			  // scanner.close();
+			   //try {
+				  // scanner = new Scanner(it.next());
+			   //}
+			   //catch (FileNotFoundException e) {
+					//e.printStackTrace();
+			 //}		   
+		   //}
 		   String[] stringNodes = scanner.nextLine().split(",");
 		   stringNodes[0] = stringNodes[0].strip();
 		   stringNodes[1] = stringNodes[1].strip();

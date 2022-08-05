@@ -20,8 +20,13 @@ public class TextExperiment {
 		//Path p = Paths.get("pagetest.csv");
 		Node sourceNode = new LoadedNode("Q");
 		Node destinationNode = new LoadedNode("S");
-		//graph.addEdge(sourceNode, destinationNode);
-		graph.removeEdge(sourceNode, destinationNode);
+		graph.addEdge(sourceNode, destinationNode);
+		for(Edge edge : graph.getEdges())
+			System.out.println(edge.toString());
+		long tic = System.currentTimeMillis();
+		//graph.removeEdge(sourceNode, destinationNode);
+		long toc = System.currentTimeMillis();
+		System.out.println((toc - tic)/1000);
 		//File file = new File("C:\\Users\\kesso\\Documents\\Edges\\" + sourceNode.toString() + ".neighbours");
 		//String s = System.lineSeparator() + sourceNode.toString() + " , " + destinationNode.toString();
 		//boolean result;  
