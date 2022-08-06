@@ -31,22 +31,9 @@ public class TinkerTopGraph extends core.Graph{
 		g = graph.traversal();
 				}
 	public  void addEdge(Node sourceNode, Node destinationNode){
-		//g.V().has("link", "name", sourceNode.toString()).fold().coalesce(unfold() , addV("link").property
-				//("name", sourceNode.toString()));
-		//if(!nodes.containsKey(sourceNode.toString())) {	
-			//Vertex v1 = g.addV(sourceNode.toString()).next();
-			  // nodes.put(v1.label(), new TinkerTopNode(v1));
-		//}	   
-		//if(!nodes.containsKey(destinationNode.toString())) {
-			//Vertex v2 = g.addV(destinationNode.toString()).next();
-			//nodes.put(v2.label(),  new TinkerTopNode(v2));
-		//}
-		Vertex v1 = graph.addVertex(sourceNode.toString());
-		Vertex v2 = graph.addVertex(destinationNode.toString());
-		//g.addE("connects").from(V(sourceNode.toString())).to(V(destinationNode.toString())).iterate();
-		//Vertex v1 = g.V(sourceNode.toString()).next();
-		//Vertex v2 = g.V(destinationNode.toString()).next();
-		//g.addE("connects").from(v1).to(v2).iterate();
+		List<Vertex> v1 =  g.V().hasLabel(sourceNode.toString()).fold().coalesce(unfold(),addV(sourceNode.toString())).toList();
+		List<Vertex> v2 =  g.V().hasLabel(destinationNode.toString()).fold().coalesce(unfold(),addV(destinationNode.toString())).toList();
+		g.addE("connexts to").from(V().hasLabel(sourceNode.toString())).to(V().hasLabel(destinationNode.toString())).iterate();
 	 }
 	public Iterable<core.Edge> getEdges() {
 		return new Iterable<core.Edge>() {
@@ -93,6 +80,7 @@ public class TinkerTopGraph extends core.Graph{
 		 //throw new RuntimeException();
 	 }
 	 public  int getNumberOfNodes() {
+		 System.out.println(g.V().toList().size());
 		 return nodes.size();
 	 }
 	 public  int getNumberOfEdges(){

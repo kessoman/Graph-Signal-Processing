@@ -96,16 +96,15 @@ public class PartialDiscGraph extends Graph{
 
 		        if (!line.trim().equals(lineToRemove)) {
 
-		          pw.println(line);
+		          pw.println(line); // if has next add /n else nothing
 		          pw.flush();
 		        }
 		      }
 		      pw.close();
 		      br.close();
-
 		      //Delete the original file
 		      if (!inFile.delete()) {
-		        System.out.println("Could not delete file");
+		        System.out.println("Could not delete file"); //anti gia system.out system.err
 		        return;
 		      }
 
@@ -160,7 +159,6 @@ class PartialDiscEdgeList implements Iterable<Edge>{
 	   public PartialEdgeIterator(File file) {
 		   this.file = file ; 
 		   Collection<File> listFiles = FileUtils.listFiles(file, null, true);
-		   for(File f : listFiles) 
 		   it = listFiles.iterator();
 		   try {
 			   scanner = new Scanner(it.next());
@@ -170,21 +168,26 @@ class PartialDiscEdgeList implements Iterable<Edge>{
 			}
 	   }
 	   public boolean hasNext() {
-		   if(scanner.hasNext())
-			   return true ;
-		   else
+		   if(!scanner.hasNext() && !it.hasNext() )
 			   return false ;
+		   else// if last file &last line
+			   return true ;
 	   }
 	   public Edge next(){
-		   //if(!scanner.hasNextLine()) {
-			  // scanner.close();
-			   //try {
-				  // scanner = new Scanner(it.next());
-			   //}
-			   //catch (FileNotFoundException e) {
-					//e.printStackTrace();
-			 //}		   
-		   //}
+		   if(scanner == null) {
+			 try {
+				   scanner = new Scanner(it.next());
+			   }
+			  catch (FileNotFoundException e) {
+					e.printStackTrace();
+			 }
+		   }
+		   else {
+			   if(!scanner.hasNextLine()) {
+				   scanner.close();
+				   scanner = null ;
+			   }
+		   }
 		   String[] stringNodes = scanner.nextLine().split(",");
 		   stringNodes[0] = stringNodes[0].strip();
 		   stringNodes[1] = stringNodes[1].strip();
