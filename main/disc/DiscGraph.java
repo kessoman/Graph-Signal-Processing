@@ -61,12 +61,30 @@ public class DiscGraph extends  Graph{
 		 return counter ;
 	 }
 	 public  void addEdge(Node sourceNode, Node destinationNode){
-		 Path p = Paths.get(fileName);
-			String s = System.lineSeparator() + sourceNode.toString() + " , " + destinationNode.toString();
+		    File file = new File(fileName);
+		    Path p = Paths.get(fileName);
+			String s1 = sourceNode.toString() + " , " + destinationNode.toString();
+			String s2 = System.lineSeparator() + sourceNode.toString() + " , " + destinationNode.toString();
+			boolean result;
 			try {
-			    Files.write(p, s.getBytes(), StandardOpenOption.APPEND);
+				result = file.createNewFile();
+				if (result) {
+					System.out.println("file created " + file.getCanonicalPath());
+					try {
+						Files.write(p, s1.getBytes(), StandardOpenOption.APPEND);
+					} catch (IOException e) {
+						System.err.println(e);
+					}
+				} else {
+					System.out.println("File already exist at location: " + file.getCanonicalPath());
+					try {
+						Files.write(p, s2.getBytes(), StandardOpenOption.APPEND);
+					} catch (IOException e) {
+						System.err.println(e);
+					}
+				}
 			} catch (IOException e) {
-			    System.err.println(e);
+				e.printStackTrace();
 			}
 			outDegree.put(sourceNode, outDegree.get(sourceNode) + 1);
 			inDegree.put(destinationNode, inDegree.get(destinationNode) + 1);
@@ -89,16 +107,22 @@ public class DiscGraph extends  Graph{
 
 			      String line = null;
 			      String lineToRemove = sourceNode.toString() + " , " + destinationNode.toString();
-
+			      boolean nextLine = false ;
 			      //Read from the original file and write to the new
 			      //unless content matches data to be removed.
 			      while ((line = br.readLine()) != null) {
 
-			        if (!line.trim().equals(lineToRemove)) {
-
-			          pw.println(line);
-			          pw.flush();
-			        }
+			    	  if (!line.trim().equals(lineToRemove)) {
+				        	if (nextLine == false) {
+				          pw.print(line); //if line = first xwris /n alliws /n + line
+				          pw.flush();
+				          nextLine = true;
+				        	}
+				        	else {
+						          pw.print('\n' +line); //if line = first xwris /n alliws /n + line
+						          pw.flush();     
+				        	}
+				        }
 			      }
 			      pw.close();
 			      br.close();
