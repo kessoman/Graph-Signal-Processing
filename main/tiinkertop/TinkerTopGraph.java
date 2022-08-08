@@ -31,10 +31,14 @@ public class TinkerTopGraph extends core.Graph{
 		g = graph.traversal();
 				}
 	public  void addEdge(Node sourceNode, Node destinationNode){
+		if(!nodes.containsKey(sourceNode.toString()))
+			nodes.put(sourceNode.toString(), sourceNode);
+		if(!nodes.containsKey(destinationNode.toString()))
+			nodes.put(destinationNode.toString(), destinationNode);
 		List<Vertex> v1 =  g.V().hasLabel(sourceNode.toString()).fold().coalesce(unfold(),addV(sourceNode.toString())).toList();
 		List<Vertex> v2 =  g.V().hasLabel(destinationNode.toString()).fold().coalesce(unfold(),addV(destinationNode.toString())).toList();
 		g.addE("connexts to").from(V().hasLabel(sourceNode.toString())).to(V().hasLabel(destinationNode.toString())).iterate();
-	 }
+		}
 	public Iterable<core.Edge> getEdges() {
 		return new Iterable<core.Edge>() {
 			@Override
@@ -54,7 +58,7 @@ public class TinkerTopGraph extends core.Graph{
 					@Override
 					public core.Edge next() {
 						Edge edge = graphEdgeIterator.next();
-						return new TinkerTopEdge(nodes.get(edge.inVertex().label()), nodes.get(edge.outVertex().label()));
+						return new TinkerTopEdge(nodes.get(edge.outVertex().label()), nodes.get(edge.inVertex().label()));
 					}
 				};
 				return newEdgeIterator;
@@ -72,15 +76,15 @@ public class TinkerTopGraph extends core.Graph{
 		 throw new RuntimeException();
 	 }
 	 public  Double getInDegree (Node destinationNode){
-		 throw new RuntimeException();
-	 }
+			double d = g.V().hasLabel(destinationNode.toString()).inE().count().next();
+			return d ;	 
+	}
 	 public  Double getOutDegree (Node sourceNode){
-		 double d =g.V(sourceNode.toString()).group().by().by(inE().count()).toList().size();
-		return	d ;
-		 //throw new RuntimeException();
+		double d = g.V().hasLabel(sourceNode.toString()).outE().count().next();
+		return d ;
 	 }
 	 public  int getNumberOfNodes() {
-		 System.out.println(g.V().toList().size());
+		 System.out.println("Test "  + g.V().toList().size());
 		 return nodes.size();
 	 }
 	 public  int getNumberOfEdges(){

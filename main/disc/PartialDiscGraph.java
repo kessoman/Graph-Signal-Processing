@@ -42,7 +42,9 @@ public class PartialDiscGraph extends Graph{
 		inDegree.put(destinationNode, inDegree.get(destinationNode) + 1);
 		outDegree.put(sourceNode, outDegree.get(sourceNode) + 1);
 		File nodeFile = new File(file + "\\" + sourceNode.toString() + ".neighbours");
-		String s = System.lineSeparator() + sourceNode.toString() + " , " + destinationNode.toString();
+		//2 strings me kai xwris lineseperator
+		String s1 = sourceNode.toString() + " , " + destinationNode.toString();
+		String s2 = System.lineSeparator() + sourceNode.toString() + " , " + destinationNode.toString();
 		boolean result;
 		Path p = nodeFile.toPath();
 		try {
@@ -50,14 +52,14 @@ public class PartialDiscGraph extends Graph{
 			if (result) {
 				System.out.println("file created " + nodeFile.getCanonicalPath());
 				try {
-					Files.write(p, s.getBytes(), StandardOpenOption.APPEND);
+					Files.write(p, s1.getBytes(), StandardOpenOption.APPEND);
 				} catch (IOException e) {
 					System.err.println(e);
 				}
 			} else {
 				System.out.println("File already exist at location: " + nodeFile.getCanonicalPath());
 				try {
-					Files.write(p, s.getBytes(), StandardOpenOption.APPEND);
+					Files.write(p, s2.getBytes(), StandardOpenOption.APPEND);
 				} catch (IOException e) {
 					System.err.println(e);
 				}
@@ -89,15 +91,21 @@ public class PartialDiscGraph extends Graph{
 		      PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
 		      String line = null;
 		      String lineToRemove = sourceNode.toString() + " , " + destinationNode.toString();
-
+		      boolean nextLine = false;
 		      //Read from the original file and write to the new
 		      //unless content matches data to be removed.
 		      while ((line = br.readLine()) != null) {
 
 		        if (!line.trim().equals(lineToRemove)) {
-
-		          pw.println(line); // if has next add /n else nothing
+		        	if (nextLine == false) {
+		          pw.print(line); //if line = first xwris /n alliws /n + line
 		          pw.flush();
+		          nextLine = true;
+		        	}
+		        	else {
+				          pw.print('\n' +line); //if line = first xwris /n alliws /n + line
+				          pw.flush();     
+		        	}
 		        }
 		      }
 		      pw.close();
@@ -129,11 +137,11 @@ public class PartialDiscGraph extends Graph{
 	}
 
 	public Double getInDegree(Node destinationNode) {
-		throw new RuntimeException();
+		return inDegree.get(destinationNode);
 	}
 
 	public Double getOutDegree(Node sourceNode) {
-		throw new RuntimeException();
+		return outDegree.get(sourceNode);
 	}
 
 	public int getNumberOfNodes() {
@@ -141,8 +149,11 @@ public class PartialDiscGraph extends Graph{
 	}
 
 	public int getNumberOfEdges() {
-		throw new RuntimeException();
-	}
+		 int counter = 0 ;
+		 for(Edge edge : getEdges())
+		  counter++ ;
+		 return counter ;	
+		 }
 
 class PartialDiscEdgeList implements Iterable<Edge>{
     protected File file ;
@@ -185,8 +196,14 @@ class PartialDiscEdgeList implements Iterable<Edge>{
 		   else {
 			   if(!scanner.hasNextLine()) {
 				   scanner.close();
-				   scanner = null ;
-			   }
+				   try {
+					   File nameFile = it.next();
+					   System.out.println(nameFile.toString());
+					   scanner = new Scanner(nameFile);
+				   }
+				  catch (FileNotFoundException e) {
+						e.printStackTrace();
+				 }			   }
 		   }
 		   String[] stringNodes = scanner.nextLine().split(",");
 		   stringNodes[0] = stringNodes[0].strip();

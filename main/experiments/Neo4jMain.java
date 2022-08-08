@@ -26,6 +26,7 @@ public class Neo4jMain {
 	public static void main(String[] args) throws IOException {
 		File file = new File("pagetest.csv");
 		Graph graph = TinkerGraph.open();
+		long tinkerPopGrpahTic =System.currentTimeMillis();
 		core.Graph coreGraph = new TinkerTopGraph(graph);
 		try {
 			Scanner scanner = new Scanner(file);
@@ -37,9 +38,10 @@ public class Neo4jMain {
 				Node node2 = new LoadedNode(links[1]);
 				coreGraph.addEdge(node1, node2);				
 			}
-			System.out.println(coreGraph.getNumberOfNodes() + coreGraph.getNumberOfEdges());
-			//for(Node node : coreGraph.getNodes())
-				//System.out.println("NodeName" + " " + node.toString() + " " + coreGraph.getOutDegree(node));
+		long tinkerPopGrpahToc =System.currentTimeMillis();
+		System.out.println("TinkerPopGraph" + " " + (tinkerPopGrpahToc - tinkerPopGrpahTic)/1000);
+		for(core.Edge edge : coreGraph.getEdges())
+			System.out.println(edge.toString());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

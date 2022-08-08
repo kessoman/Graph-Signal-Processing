@@ -6,6 +6,7 @@ import java.io.* ;
 import java.util.* ;
 import core.*;
 import disc.*;
+import filters.HeatKernels;
 import filters.PageRank;
 import loaded.*;
 import normalizations.*;
@@ -22,6 +23,7 @@ public class Main   {
 			HashMap<String, Node> nodes = new HashMap<String, Node>();
 			ArrayList<Edge> edges = new ArrayList<Edge>();
 			System.out.println("Importing");
+			long mainGraphTic = System.currentTimeMillis();
 			while (scanner.hasNextLine()) {
 				String[] links = scanner.nextLine().split(",");	
 				Node node1 = null;
@@ -46,15 +48,27 @@ public class Main   {
 				edges.add(new LoadedEdges(node2, node1));	
 			}
 			System.out.println("Creating graph");
+			//long mainGraphTic = System.currentTimeMillis();
 			Graph graphtest = new LoadedGraph(edges, nodes);
-			GraphSignal testingSignal = new LoadedGraphSignal();
+			long mainGraphToc = System.currentTimeMillis();
+			System.out.println("Main Graph" + " " + (mainGraphToc - mainGraphTic)/1000);
+			GraphSignal testingSignal = new LoadedGraphSignal(graphtest);
 			for(Node node : graphtest.getNodes()) { 
+				if(node.toString().contains("org.apache.mina") && Math.random()< 0.5) {
 					testingSignal.setNodeScore(node, 1.);
-			}
+				  }			}
 			//GraphNorm graphNorm = new GraphNorm(graphTest);
 			System.out.println("Calculating Pagerank");
 			PageRank p = new PageRank();
-			//p.run(graphtest, testingSignal);
+			long mainGrpahPagerankTic = System.currentTimeMillis();
+			p.run(graphtest, testingSignal);
+			long mainGraphPagerankToc = System.currentTimeMillis();
+			System.out.println("MianGraphPagerank" + " " + (mainGraphPagerankToc -mainGrpahPagerankTic)/1000);
+			HeatKernels hk = new HeatKernels();
+			long mainHeatKernlesTic = System.currentTimeMillis();
+			hk.run(graphtest, testingSignal);
+			long mainHeatKernelsToc = System.currentTimeMillis();
+			System.out.println("MainHeatKernels" + " " + (mainHeatKernelsToc - mainHeatKernlesTic)/1000);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
