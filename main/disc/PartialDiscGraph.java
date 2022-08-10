@@ -35,6 +35,7 @@ public class PartialDiscGraph extends Graph{
 	public void addEdge(Node sourceNode, Node destinationNode) {
 		if(!nodes.containsKey(sourceNode.toString())) {
 			nodes.put(sourceNode.toString(), sourceNode);
+			uuids.put(sourceNode.toString(), UUID.randomUUID());
 			outDegree.put(sourceNode, 0.);
 			inDegree.put(sourceNode, 0.);
 		}
@@ -43,13 +44,14 @@ public class PartialDiscGraph extends Graph{
 				}
 		if(!nodes.containsKey(destinationNode.toString())) {
 			nodes.put(destinationNode.toString(), destinationNode);
+			uuids.put(destinationNode.toString(), UUID.randomUUID());
 			outDegree.put(destinationNode, 0.);
 			inDegree.put(destinationNode, 0.);
 		}
 		   else {
 			   destinationNode = nodes.get(destinationNode.toString());
 				}
-		File nodeFile = new File(file + "\\" + sourceNode.toString() + ".neighbours");
+		File nodeFile = new File(file + "\\" + uuids.get(sourceNode.toString()).toString() + ".neighbours");
 		String s1 = sourceNode.toString() + " , " + destinationNode.toString();
 		String s2 = System.lineSeparator() + sourceNode.toString() + " , " + destinationNode.toString();
 		boolean result;
