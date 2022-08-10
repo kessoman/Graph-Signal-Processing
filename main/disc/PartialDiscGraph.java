@@ -1,7 +1,8 @@
 package disc;
 import core.*;
-import loaded.LoadedEdges;
 
+import loaded.LoadedEdges;
+import java.util.UUID;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -23,10 +24,13 @@ import org.apache.commons.io.FileUtils;
 public class PartialDiscGraph extends Graph{
 	private File file ;
 	public HashMap<String, Node> nodes = new HashMap<String, Node>();
-	public HashMap<Node, Double> inDegree = new HashMap<Node, Double>();
-	public HashMap<Node, Double> outDegree = new HashMap<Node, Double>();
+	public HashMap<String, UUID> uuids = new HashMap<String, UUID>();
+	public HashMap<Node, Double> inDegree = null;
+	public HashMap<Node, Double> outDegree =null;
 	public PartialDiscGraph(File file) {
 		this.file = file;
+		inDegree = new HashMap<Node, Double>();
+		outDegree = new HashMap<Node, Double>();
 	}
 	public void addEdge(Node sourceNode, Node destinationNode) {
 		if(!nodes.containsKey(sourceNode.toString())) {
@@ -34,15 +38,18 @@ public class PartialDiscGraph extends Graph{
 			outDegree.put(sourceNode, 0.);
 			inDegree.put(sourceNode, 0.);
 		}
+		   else {
+			   sourceNode = nodes.get(sourceNode.toString());
+				}
 		if(!nodes.containsKey(destinationNode.toString())) {
 			nodes.put(destinationNode.toString(), destinationNode);
 			outDegree.put(destinationNode, 0.);
 			inDegree.put(destinationNode, 0.);
 		}
-		inDegree.put(destinationNode, inDegree.get(destinationNode) + 1);
-		outDegree.put(sourceNode, outDegree.get(sourceNode) + 1);
+		   else {
+			   destinationNode = nodes.get(destinationNode.toString());
+				}
 		File nodeFile = new File(file + "\\" + sourceNode.toString() + ".neighbours");
-		//2 strings me kai xwris lineseperator
 		String s1 = sourceNode.toString() + " , " + destinationNode.toString();
 		String s2 = System.lineSeparator() + sourceNode.toString() + " , " + destinationNode.toString();
 		boolean result;
@@ -67,6 +74,8 @@ public class PartialDiscGraph extends Graph{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		inDegree.put(destinationNode, inDegree.get(destinationNode) + 1);
+		outDegree.put(sourceNode, outDegree.get(sourceNode) + 1);
 	}
 	public Iterable<Edge> getEdges() {
 		PartialDiscEdgeList edgeList = new PartialDiscEdgeList(file);

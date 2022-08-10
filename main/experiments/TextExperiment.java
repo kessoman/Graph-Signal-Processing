@@ -3,6 +3,7 @@ import core.*;
 import disc.PartialDiscGraph;
 import loaded.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,33 +11,37 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class TextExperiment {
 
 	public static void main(String[] args) {
 		File file = new File("C:\\Users\\kesso\\Documents\\Edges\\");
 		PartialDiscGraph graph = new PartialDiscGraph(file);
-		
-		//Path p = Paths.get("pagetest.csv");	
-		Node sourceNode = new LoadedNode("Q");
-		Node middleNode = new LoadedNode("R");
-		Node destinationNode = new LoadedNode("S");
-		graph.addEdge(sourceNode, destinationNode);
-		graph.addEdge(sourceNode, middleNode);
-		graph.addEdge(middleNode, destinationNode);
-		for(Edge edge : graph.getEdges())
-			System.out.println(edge.toString());
-		System.out.println(graph.getNumberOfEdges()
-				);
+		File infile = new File("pagetest.csv");
 		long tic = System.currentTimeMillis();
-		graph.removeEdge(sourceNode, destinationNode);
-		graph.addEdge(sourceNode, destinationNode);
-		graph.removeEdge(sourceNode, middleNode);
-		graph.addEdge(sourceNode, destinationNode);
-		graph.addEdge(sourceNode, middleNode);
+		Scanner scanner = null ;
+		try {
+			 scanner = new Scanner(infile);
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+			while (scanner.hasNextLine()) {
+				String[] links = scanner.nextLine().split(",");
+				links[1] = links[1].strip();
+				links[0] = links[0].strip();
+				Node node1 = new LoadedNode(links[0]);
+				Node node2 = new LoadedNode(links[1]);
+				graph.addEdge(node1, node2);
+			}
 		long toc = System.currentTimeMillis();
-		System.out.println((toc - tic)/1000);
-        
-	}
+		System.out.println("PartialDiscGraph" + (toc - tic)/1000);
+	//} catch (FileNotFoundException e) {
+		//e.printStackTrace();
+	
+	//}
+
+}
 
 }
