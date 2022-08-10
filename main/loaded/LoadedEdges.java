@@ -32,7 +32,7 @@ public class LoadedEdges extends Edge {
 	}
 	
 	public String toString() {
-		return "Sourcenode : " + this.sourcenode.toString() + "Destinationnode : " + this.destinationnode.toString();
+		return "Sourcenode : " + this.sourcenode.toString() + " " + "Destinationnode : " + this.destinationnode.toString();
 	}
 	public double getEdgeWeight() {
 		return edgeWeight ;
