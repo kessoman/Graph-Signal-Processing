@@ -1,7 +1,4 @@
 package experiments;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.io.* ;
 import java.util.* ;
 import core.*;
@@ -15,20 +12,37 @@ public class DiscMain {
 
 	public static void main(String[] args) {
 		System.out.println("Creating graph");
+		File file = new File("C:\\Users\\kesso\\Documents\\DiscGraph\\");
+		File infile = new File("pagetest.csv");
 		long discGraphTic = System.currentTimeMillis();
-		DiscGraph discGraph = new DiscGraph("links_all.csv");
+		DiscGraph discGraph = new DiscGraph(file);
 		long discGraphToc = System.currentTimeMillis();
+		Scanner scanner = null ;
+		try {
+			 scanner = new Scanner(infile);
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+			while (scanner.hasNextLine()) {
+				String[] links = scanner.nextLine().split(",");
+				links[1] = links[1].strip();
+				links[0] = links[0].strip();
+				Node node1 = new LoadedNode(links[0]);
+				Node node2 = new LoadedNode(links[1]);
+				discGraph.addEdge(node1, node2);
+			}
 		System.out.println("DiscGraph creation" + (discGraphToc - discGraphTic)/1000);
-		GraphSignal graphSignal = new LoadedGraphSignal(discGraph);
-		//GraphSignal randomSignal = new LoadedGraphSignal(discGraph);
+		//GraphSignal graphSignal = new LoadedGraphSignal(discGraph);
+		GraphSignal randomSignal = new LoadedGraphSignal(discGraph);
 		//GraphSignal secondSignal = new LoadedGraphSignal(discGraph);
 		for(Node node : discGraph.getNodes()) {
-			//randomSignal.setNodeScore(node, Math.random());
-		   if(node.toString().contains("org.apache.mina") && Math.random()< 0.5) {
-			graphSignal.setNodeScore(node, 1.);//yest me randomsignal
-		  }
+			randomSignal.setNodeScore(node, Math.random());
+			System.out.println(node.toString() + " " + discGraph.getOutDegree(node));
+		   //if(node.toString().contains("org.apache.mina") && Math.random()< 0.5) {
+			//graphSignal.setNodeScore(node, 1.);//yest me randomsignal
+		  //}
 		}
-		
 		//for(Node node : discGraph.getNodes()) {
 			//if(Math.random() < 0.5)
 				//secondSignal.setNodeScore(node, 1.);
@@ -61,11 +75,13 @@ public class DiscMain {
 		GraphNormalization graphNorm = new GraphNorm(discGraph);
 		GraphNormalization degreeAquared = new DegreesSquared(discGraph);
 		long discGraphHeatTic = System.currentTimeMillis();
-		GraphSignal heatKernelsSignal = hk.run(degreeAquared, graphSignal);
+		//GraphSignal heatKernelsSignal = hk.run(degreeAquared, randomSignal);
+		hk.run(discGraph, randomSignal);
 		long discGraphHeatToc = System.currentTimeMillis();
 		System.out.println("discGraphHeatKenrels" + (discGraphHeatToc - discGraphHeatTic)/1000);
 		long discGraphPagerankTIc = System.currentTimeMillis();
-		GraphSignal outputSignal = np.run(graphNorm, graphSignal);
+		//GraphSignal outputSignal = np.run(graphNorm, randomSignal);
+		np.run(discGraph, randomSignal);
 		long discGraphPagerankToc = System.currentTimeMillis();
 		System.out.println("discGraphPagerank" + (discGraphPagerankToc - discGraphPagerankTIc)/1000);
 		Msqrt msqrt = new Msqrt();

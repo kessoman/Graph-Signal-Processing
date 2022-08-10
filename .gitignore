@@ -1,3 +1,7 @@
 bin/
 target/
 links_all.csv
+links_3d.csv
+links_1k.csv
+links_2k.csv
+links_3k.csv
