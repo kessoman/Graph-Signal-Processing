@@ -33,7 +33,7 @@ public class PagerankTest {
 		sample2.add(3, 4.);
 		sample2.add(4, 5.);
 		sample2.add(5, 6.);
-	    RandomExperiments.mergeSort(sample1, sample1.size());
+	    //RandomExperiments.mergeSort(sample1, sample1.size());
 	    Assert.assertArrayEquals(sample2.toArray(), sample1.toArray());
 	}
 }

@@ -17,7 +17,7 @@ import normalizations.*;
 public class Main   {
 
 	public static void main(String[] args) throws IOException {
-		File file = new File("links_all.csv");
+		File file = new File("links_3k.csv");
 		try {
 			Scanner scanner = new Scanner(file);
 			HashMap<String, Node> nodes = new HashMap<String, Node>();
@@ -53,20 +53,23 @@ public class Main   {
 			long mainGraphToc = System.currentTimeMillis();
 			System.out.println("Main Graph" + " " + (mainGraphToc - mainGraphTic)/1000);
 			GraphSignal testingSignal = new LoadedGraphSignal(graphtest);
-			for(Node node : graphtest.getNodes()) { 
-				if(node.toString().contains("org.apache.mina") && Math.random()< 0.5) {
-					testingSignal.setNodeScore(node, 1.);
-				  }			}
+			GraphSignal randomSignal = new LoadedGraphSignal(graphtest);
+			for(Node node : graphtest.getNodes()) {
+				randomSignal.setNodeScore(node, Math.random());
+				//if(node.toString().contains("org.apache.mina") && Math.random()< 0.5) {
+					//testingSignal.setNodeScore(node, 1.);
+				  //}			
+			}
 			//GraphNorm graphNorm = new GraphNorm(graphTest);
 			System.out.println("Calculating Pagerank");
 			PageRank p = new PageRank();
 			long mainGrpahPagerankTic = System.currentTimeMillis();
-			p.run(graphtest, testingSignal);
+			p.run(graphtest, randomSignal);
 			long mainGraphPagerankToc = System.currentTimeMillis();
 			System.out.println("MianGraphPagerank" + " " + (mainGraphPagerankToc -mainGrpahPagerankTic)/1000);
 			HeatKernels hk = new HeatKernels();
 			long mainHeatKernlesTic = System.currentTimeMillis();
-			hk.run(graphtest, testingSignal);
+			hk.run(graphtest, randomSignal);
 			long mainHeatKernelsToc = System.currentTimeMillis();
 			System.out.println("MainHeatKernels" + " " + (mainHeatKernelsToc - mainHeatKernlesTic)/1000);
 		} catch (FileNotFoundException e) {
@@ -75,7 +78,6 @@ public class Main   {
 		//GraphNorm graphNorm = new GraphNorm(discGraph);
 	 }
 }
-  
 
 
 
