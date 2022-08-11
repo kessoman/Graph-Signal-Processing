@@ -37,6 +37,7 @@ public class TextExperiment {
 			}
 		long toc = System.currentTimeMillis();
 		System.out.println("PartialDiscGraph" + (toc - tic)/1000);
+		graph.clearGraphHistory();
 	//} catch (FileNotFoundException e) {
 		//e.printStackTrace();
 	

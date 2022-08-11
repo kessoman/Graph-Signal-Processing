@@ -13,10 +13,9 @@ public class DiscMain {
 	public static void main(String[] args) {
 		System.out.println("Creating graph");
 		File file = new File("C:\\Users\\kesso\\Documents\\DiscGraph\\");
-		File infile = new File("pagetest.csv");
+		File infile = new File("links_thirty.csv");
 		long discGraphTic = System.currentTimeMillis();
 		DiscGraph discGraph = new DiscGraph(file);
-		long discGraphToc = System.currentTimeMillis();
 		Scanner scanner = null ;
 		try {
 			 scanner = new Scanner(infile);
@@ -32,13 +31,14 @@ public class DiscMain {
 				Node node2 = new LoadedNode(links[1]);
 				discGraph.addEdge(node1, node2);
 			}
+		long discGraphToc = System.currentTimeMillis();	
 		System.out.println("DiscGraph creation" + (discGraphToc - discGraphTic)/1000);
 		//GraphSignal graphSignal = new LoadedGraphSignal(discGraph);
 		GraphSignal randomSignal = new LoadedGraphSignal(discGraph);
 		//GraphSignal secondSignal = new LoadedGraphSignal(discGraph);
 		for(Node node : discGraph.getNodes()) {
 			randomSignal.setNodeScore(node, Math.random());
-			System.out.println(node.toString() + " " + discGraph.getOutDegree(node));
+			//System.out.println(node.toString() + " " + discGraph.getOutDegree(node));
 		   //if(node.toString().contains("org.apache.mina") && Math.random()< 0.5) {
 			//graphSignal.setNodeScore(node, 1.);//yest me randomsignal
 		  //}
@@ -78,12 +78,12 @@ public class DiscMain {
 		//GraphSignal heatKernelsSignal = hk.run(degreeAquared, randomSignal);
 		hk.run(discGraph, randomSignal);
 		long discGraphHeatToc = System.currentTimeMillis();
-		System.out.println("discGraphHeatKenrels" + (discGraphHeatToc - discGraphHeatTic)/1000);
+		System.out.println("discGraphHeatKenrels" + " " + (discGraphHeatToc - discGraphHeatTic)/1000);
 		long discGraphPagerankTIc = System.currentTimeMillis();
 		//GraphSignal outputSignal = np.run(graphNorm, randomSignal);
 		np.run(discGraph, randomSignal);
 		long discGraphPagerankToc = System.currentTimeMillis();
-		System.out.println("discGraphPagerank" + (discGraphPagerankToc - discGraphPagerankTIc)/1000);
+		System.out.println("discGraphPagerank" + " " +  (discGraphPagerankToc - discGraphPagerankTIc)/1000);
 		Msqrt msqrt = new Msqrt();
 		KLDivergence klDivergence = new KLDivergence();
 		MannUTest mannUTest = new MannUTest();

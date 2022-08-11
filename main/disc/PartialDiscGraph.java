@@ -139,6 +139,14 @@ public class PartialDiscGraph extends Graph{
 		      ex.printStackTrace();
 		    }
 	}
+	public void clearGraphHistory () {
+		try {
+        FileUtils.cleanDirectory(file);
+		}
+	    catch (IOException ex) {
+		      ex.printStackTrace();
+		    }
+	}
 	public Iterable<Edge> getIncomingEdges(Node destinationnode) {
 		throw new RuntimeException();
 	}
