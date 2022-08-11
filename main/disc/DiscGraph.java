@@ -39,6 +39,14 @@ public class DiscGraph extends  Graph{
 			 outDegree.put(edge.getSource(), outDegree.get(edge.getSource()) + edge.getEdgeWeight());
 		 }
 	 }
+	public void clearGraphHistory () {
+			try {
+	        FileUtils.cleanDirectory(file);
+			}
+		    catch (IOException ex) {
+			      ex.printStackTrace();
+			    }
+		}
 	 public  Iterable<Edge> getIncomingEdges(Node destinationnode){
 		 throw new RuntimeException();
 	 }

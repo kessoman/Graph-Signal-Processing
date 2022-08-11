@@ -13,7 +13,7 @@ public class DiscMain {
 	public static void main(String[] args) {
 		System.out.println("Creating graph");
 		File file = new File("C:\\Users\\kesso\\Documents\\DiscGraph\\");
-		File infile = new File("links_thirty.csv");
+		File infile = new File("pagetest.csv");
 		long discGraphTic = System.currentTimeMillis();
 		DiscGraph discGraph = new DiscGraph(file);
 		Scanner scanner = null ;
@@ -33,6 +33,7 @@ public class DiscMain {
 			}
 		long discGraphToc = System.currentTimeMillis();	
 		System.out.println("DiscGraph creation" + (discGraphToc - discGraphTic)/1000);
+		discGraph.clearGraphHistory();
 		//GraphSignal graphSignal = new LoadedGraphSignal(discGraph);
 		GraphSignal randomSignal = new LoadedGraphSignal(discGraph);
 		//GraphSignal secondSignal = new LoadedGraphSignal(discGraph);
@@ -84,9 +85,9 @@ public class DiscMain {
 		np.run(discGraph, randomSignal);
 		long discGraphPagerankToc = System.currentTimeMillis();
 		System.out.println("discGraphPagerank" + " " +  (discGraphPagerankToc - discGraphPagerankTIc)/1000);
-		Msqrt msqrt = new Msqrt();
-		KLDivergence klDivergence = new KLDivergence();
-		MannUTest mannUTest = new MannUTest();
+		//Msqrt msqrt = new Msqrt();
+		//KLDivergence klDivergence = new KLDivergence();
+		//MannUTest mannUTest = new MannUTest();
 		//System.out.println(mannUTest.calculate(heatKernelsSignal, secondSignal));
 		//System.out.println(mannUTest.calculate(randomSignal, secondSignal));
 	    //System.out.println(klDivergence.calculate(outputSignal, secondSignal));
