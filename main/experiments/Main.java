@@ -17,7 +17,7 @@ import normalizations.*;
 public class Main   {
 
 	public static void main(String[] args) throws IOException {
-		File file = new File("links_3k.csv");
+		File file = new File("links_100.csv");
 		try {
 			Scanner scanner = new Scanner(file);
 			HashMap<String, Node> nodes = new HashMap<String, Node>();
@@ -49,9 +49,17 @@ public class Main   {
 			}
 			System.out.println("Creating graph");
 			//long mainGraphTic = System.currentTimeMillis();
-			Graph graphtest = new LoadedGraph(edges, nodes);
+			LoadedGraph graphtest = new LoadedGraph(edges, nodes);
 			long mainGraphToc = System.currentTimeMillis();
-			System.out.println("Main Graph" + " " + (mainGraphToc - mainGraphTic)/1000);
+			long edgeRemovalTic = System.currentTimeMillis();
+			int counter = 0 ;
+			for(Edge edge : graphtest.getEdges()) {
+			  if(edge.getSource().toString().contains("org.apache.velocity")) {
+					counter++ ;
+					graphtest.removeEdge(edge.getSource(), edge.getDestination());
+				}	
+			}
+			long edgeRemovalToc = System.currentTimeMillis();
 			GraphSignal testingSignal = new LoadedGraphSignal(graphtest);
 			GraphSignal randomSignal = new LoadedGraphSignal(graphtest);
 			for(Node node : graphtest.getNodes()) {
@@ -66,11 +74,13 @@ public class Main   {
 			long mainGrpahPagerankTic = System.currentTimeMillis();
 			p.run(graphtest, randomSignal);
 			long mainGraphPagerankToc = System.currentTimeMillis();
-			System.out.println("MianGraphPagerank" + " " + (mainGraphPagerankToc -mainGrpahPagerankTic)/1000);
 			HeatKernels hk = new HeatKernels();
 			long mainHeatKernlesTic = System.currentTimeMillis();
 			hk.run(graphtest, randomSignal);
 			long mainHeatKernelsToc = System.currentTimeMillis();
+			System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter + " edges");
+			System.out.println("Main Graph" + " " + (mainGraphToc - mainGraphTic)/1000);
+			System.out.println("MianGraphPagerank" + " " + (mainGraphPagerankToc -mainGrpahPagerankTic)/1000);
 			System.out.println("MainHeatKernels" + " " + (mainHeatKernelsToc - mainHeatKernlesTic)/1000);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

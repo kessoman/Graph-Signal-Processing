@@ -91,14 +91,16 @@ public class PartialDiscGraph extends Graph{
 		outDegree.put(sourceNode, outDegree.get(sourceNode) - 1);
 		inDegree.put(destinationNode, inDegree.get(destinationNode) - 1);
 		try {
-		      File inFile = new File(file + "\\" + sourceNode.toString() + ".neighbours");
+		      File inFile = new File(file + "\\" + uuids.get(sourceNode.toString()).toString() + ".neighbours");
+		      //File inFile = new File(file + "\\" + sourceNode.toString() + ".neighbours");
 		      if (!inFile.isFile()) {
 		        System.out.println("Parameter is not an existing file");
 		        return;
 		      }
 		      //Construct the new file that will later be renamed to the original filename.
 		      File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
-		      BufferedReader br = new BufferedReader(new FileReader(file + "\\" + sourceNode.toString() + ".neighbours"));
+		      BufferedReader br = new BufferedReader(new FileReader(file + "\\" +  uuids.get(sourceNode.toString()).toString()  + ".neighbours"));
+		      //BufferedReader br = new BufferedReader(new FileReader(file + "\\" + sourceNode.toString() + ".neighbours"));
 		      PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
 		      String line = null;
 		      String lineToRemove = sourceNode.toString() + " , " + destinationNode.toString();
@@ -106,13 +108,12 @@ public class PartialDiscGraph extends Graph{
 		      //Read from the original file and write to the new
 		      //unless content matches data to be removed.
 		      while ((line = br.readLine()) != null) {
-
 		        if (!line.trim().equals(lineToRemove)) {
-		        	if (nextLine == false) {
-		          pw.print(line); //if line = first xwris /n alliws /n + line
-		          pw.flush();
-		          nextLine = true;
-		        	}
+					if (nextLine == false) {
+						pw.print(line); // if line = first xwris /n alliws /n + line
+						pw.flush();
+						nextLine = true;
+					}
 		        	else {
 				          pw.print('\n' +line); //if line = first xwris /n alliws /n + line
 				          pw.flush();     
@@ -188,8 +189,9 @@ class PartialDiscEdgeList implements Iterable<Edge>{
 	   protected Iterator<File> it ;
 	   public PartialEdgeIterator(File file) {
 		   this.file = file ; 
-		   Collection<File> listFiles = FileUtils.listFiles(file, null, true);
-		   it = listFiles.iterator();
+		   //Collection<File> listFiles = FileUtils.listFiles(file, null, true);
+		   //it = listFiles.iterator();
+		   it = FileUtils.iterateFiles(file, null, true);
 		   try {
 			   scanner = new Scanner(it.next());
 		   }
@@ -217,7 +219,6 @@ class PartialDiscEdgeList implements Iterable<Edge>{
 				   scanner.close();
 				   try {
 					   File nameFile = it.next();
-					   System.out.println(nameFile.toString());
 					   scanner = new Scanner(nameFile);
 				   }
 				  catch (FileNotFoundException e) {

@@ -58,11 +58,9 @@ public class LoadedGraph extends Graph {
 			}
 		}
 	public void removeEdge(Node sourceNode, Node destinationNode) {
-		for(Edge edge : edges) {
-			if(edge.getSource().toString() == sourceNode.toString() && edge.getDestination().toString() == destinationNode.toString()) {
-				edges.remove(edge);
-			}
-		}
+		Edge edge = new LoadedEdges(sourceNode, destinationNode);
+		if(edges.contains(edge))
+			edges.remove(edge);
 		outDegree.put(sourceNode, outDegree.get(sourceNode) - 1);
 		inDegree.put(destinationNode, inDegree.get(destinationNode) - 1);
 	}	

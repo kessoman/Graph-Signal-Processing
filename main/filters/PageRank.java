@@ -25,12 +25,15 @@ public class PageRank extends GraphFilter {
 		// Initialization
 		while (iterationStep < maxIterations) {
 			GraphSignal tempSignal = new LoadedGraphSignal(graph);
+			long firstStepTic = System.currentTimeMillis();
 			for(Edge edge : graph.getEdges()) {
 				Node s = edge.getSource();
 				Node d = edge.getDestination();
 				tempSignal.setNodeScore(d, (tempSignal.getNodeScore(d) +
 						(previousSignal.getNodeScore(s) * edge.getEdgeWeight())));
 			}
+		long firstStepToc = System.currentTimeMillis();
+		System.out.println("FirstStep : " + (firstStepToc - firstStepTic)/1000);
 			//for (Edge tempEdge : graph.getEdges()) {
 				//Node s = tempEdge.getSource();
 				//Node d = tempEdge.getDestination();

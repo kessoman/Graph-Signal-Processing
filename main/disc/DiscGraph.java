@@ -190,8 +190,9 @@ class DiscEdgeList implements Iterable<Edge>{
 	   protected Iterator<File> it ;
 	   public EdgeIterator(File file) {
 		   this.file = file ; 
-		   Collection<File> listFiles = FileUtils.listFiles(file, null, true);
-		   it = listFiles.iterator();
+		   //Collection<File> listFiles = FileUtils.listFiles(file, null, true);
+		   //it = listFiles.iterator();
+		   it = FileUtils.iterateFiles(file, null, true);
 		   try {
 			   scanner = new Scanner(it.next());
 		   }
@@ -219,7 +220,6 @@ class DiscEdgeList implements Iterable<Edge>{
 				   scanner.close();
 				   try {
 					   File nameFile = it.next();
-					   System.out.println(nameFile.toString());
 					   scanner = new Scanner(nameFile);
 				   }
 				  catch (FileNotFoundException e) {

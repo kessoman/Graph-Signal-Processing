@@ -13,10 +13,11 @@ public class DiscMain {
 	public static void main(String[] args) {
 		System.out.println("Creating graph");
 		File file = new File("C:\\Users\\kesso\\Documents\\DiscGraph\\");
-		File infile = new File("pagetest.csv");
+		File infile = new File("links_1k.csv");
 		long discGraphTic = System.currentTimeMillis();
 		DiscGraph discGraph = new DiscGraph(file);
 		Scanner scanner = null ;
+		discGraph.clearGraphHistory();
 		try {
 			 scanner = new Scanner(infile);
 		}
@@ -33,7 +34,7 @@ public class DiscMain {
 			}
 		long discGraphToc = System.currentTimeMillis();	
 		System.out.println("DiscGraph creation" + (discGraphToc - discGraphTic)/1000);
-		discGraph.clearGraphHistory();
+		//discGraph.clearGraphHistory();
 		//GraphSignal graphSignal = new LoadedGraphSignal(discGraph);
 		GraphSignal randomSignal = new LoadedGraphSignal(discGraph);
 		//GraphSignal secondSignal = new LoadedGraphSignal(discGraph);
@@ -75,16 +76,37 @@ public class DiscMain {
 		HeatKernels hk = new HeatKernels();
 		GraphNormalization graphNorm = new GraphNorm(discGraph);
 		GraphNormalization degreeAquared = new DegreesSquared(discGraph);
-		long discGraphHeatTic = System.currentTimeMillis();
+		long edgeRemovalTic = System.currentTimeMillis();
+		int counter = 0 ;
+		//for(Edge edge : discGraph.getEdges()) {
+			//if(edge.getSource().toString().contains("org.apache.velocity")) {
+				//counter++ ;
+				//discGraph.removeEdge(edge.getSource(), edge.getDestination());
+			//}	
+		//}
+		long edgeRemovalToc = System.currentTimeMillis();
+		long discPageRankTic =  System.currentTimeMillis();
+		PageRank p = new PageRank();
+		p.run(discGraph, randomSignal);
+		long discPageRankToc = System.currentTimeMillis();
+		System.out.println("DiscPagerank :" + (discPageRankToc - discPageRankTic)/1000);
+		long discHeatKernelsTic =  System.currentTimeMillis();
+		HeatKernels h = new HeatKernels();
+		h.run(discGraph, randomSignal);
+		long discHeatKernelsToc = System.currentTimeMillis();
+		System.out.println("DiscGraph creation" + (discGraphToc - discGraphTic)/1000);
+		System.out.println("DiscHeatKernels :" + (discHeatKernelsToc - discHeatKernelsTic)/1000);
+		System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter + " edges");
+		//long discGraphHeatTic = System.currentTimeMillis();
 		//GraphSignal heatKernelsSignal = hk.run(degreeAquared, randomSignal);
-		hk.run(discGraph, randomSignal);
-		long discGraphHeatToc = System.currentTimeMillis();
-		System.out.println("discGraphHeatKenrels" + " " + (discGraphHeatToc - discGraphHeatTic)/1000);
-		long discGraphPagerankTIc = System.currentTimeMillis();
+		//hk.run(discGraph, randomSignal);
+		//long discGraphHeatToc = System.currentTimeMillis();
+		//System.out.println("discGraphHeatKenrels" + " " + (discGraphHeatToc - discGraphHeatTic)/1000);
+		//long discGraphPagerankTIc = System.currentTimeMillis();
 		//GraphSignal outputSignal = np.run(graphNorm, randomSignal);
-		np.run(discGraph, randomSignal);
-		long discGraphPagerankToc = System.currentTimeMillis();
-		System.out.println("discGraphPagerank" + " " +  (discGraphPagerankToc - discGraphPagerankTIc)/1000);
+		//np.run(discGraph, randomSignal);
+		//long discGraphPagerankToc = System.currentTimeMillis();
+		//System.out.println("discGraphPagerank" + " " +  (discGraphPagerankToc - discGraphPagerankTIc)/1000);
 		//Msqrt msqrt = new Msqrt();
 		//KLDivergence klDivergence = new KLDivergence();
 		//MannUTest mannUTest = new MannUTest();
