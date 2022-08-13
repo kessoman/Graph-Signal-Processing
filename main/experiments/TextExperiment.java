@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class TextExperiment {
 	public static void main(String[] args) {
 		File file = new File("C:\\Users\\kesso\\Documents\\Edges\\");
 		PartialDiscGraph graph = new PartialDiscGraph(file);
-		File infile = new File("links_1k.csv");
+		File infile = new File("pagetest.csv");
 		long tic = System.currentTimeMillis();
 		Scanner scanner = null ;
 		graph.clearGraphHistory();
@@ -42,33 +43,33 @@ public class TextExperiment {
 			for(Node node : graph.getNodes()) {
 				randomSignal.setNodeScore(node, Math.random());
 			}
+			
 		//long toc = System.currentTimeMillis();
-			GraphSignal tempSignal = new LoadedGraphSignal(graph);
-			long firstStepTic = System.currentTimeMillis();
-			for(Edge edge : graph.getEdges()) {
-				Node s = edge.getSource();
-				Node d = edge.getDestination();
-				tempSignal.setNodeScore(d, (tempSignal.getNodeScore(d) +
-						(randomSignal.getNodeScore(s) * edge.getEdgeWeight())));
-			}
-		long firstStepToc = System.currentTimeMillis();
-		System.out.println("Step : " + (firstStepToc - firstStepTic)/1000);	
-		//int counter = 0 ;
-		//for(Edge edge : graph.getEdges()) {
-			//System.out.println(edge.toString());
-		//}
-		//System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter + " edges");
+	    ArrayList<Edge> edgesToRemove = new ArrayList<Edge>();
+	    for(Edge edge : graph.getEdges()) {
+	    	if(Math.random() < 0.01)
+	    		edgesToRemove.add(edge);
+	    }
+	    //long firstStepTic = System.currentTimeMillis();
+		int counter2 = 0 ;
+		long edgeRemovalTic = System.currentTimeMillis();
+		for(Edge edge : edgesToRemove) {
+			counter2 ++;
+			graph.removeEdge(edge.getSource(), edge.getDestination());
+		}
+		long edgeRemovalToc = System.currentTimeMillis();
+		System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter2 + " edges");
 		//System.out.println("PartialDiscGraphgetEdges" + (edgeRemovalToc - edgeRemovalTic)/1000);
-		long partialPageRankTic =  System.currentTimeMillis();
-		PageRank p = new PageRank();
-		p.run(graph, randomSignal);
-		long partialPageRankToc = System.currentTimeMillis();
-		System.out.println("PartialPagerank :" + (partialPageRankToc - partialPageRankTic)/1000);
-		long partialHeatKernelsTic =  System.currentTimeMillis();
-		HeatKernels h = new HeatKernels();
-		h.run(graph, randomSignal);
-		long partialHeatKernelsToc = System.currentTimeMillis();
-		System.out.println("PartialHeatKernels :" + (partialHeatKernelsToc - partialHeatKernelsTic)/1000);
+		//long partialPageRankTic =  System.currentTimeMillis();
+		//P/ageRank p = new PageRank();
+		//p.run(graph, randomSignal);
+		//long partialPageRankToc = System.currentTimeMillis();
+		//System.out.println("PartialPagerank :" + (partialPageRankToc - partialPageRankTic)/1000);
+		//long partialHeatKernelsTic =  System.currentTimeMillis();
+		//HeatKernels h = new HeatKernels();
+		//h.run(graph, randomSignal);
+		//long partialHeatKernelsToc = System.currentTimeMillis();
+		//System.out.println("PartialHeatKernels :" + (partialHeatKernelsToc - partialHeatKernelsTic)/1000);
 		//System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter + " edges");
 }
 

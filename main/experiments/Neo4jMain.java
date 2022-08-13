@@ -39,7 +39,7 @@ public class Neo4jMain {
 				coreGraph.addEdge(node1, node2);				
 			}
 		long tinkerPopGrpahToc =System.currentTimeMillis();
-		for(core.Edge edge: coreGraph.getEdges())
+		for(core.Ed edge: coreGraph.getEdges())
 			System.out.println(edge.toString());
 		System.out.println("TinkerPopGraph" + " " + (tinkerPopGrpahToc - tinkerPopGrpahTic)/1000.0);
 		System.out.println(coreGraph.getNumberOfEdges() + " " + coreGraph.getNumberOfNodes());

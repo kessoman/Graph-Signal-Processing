@@ -33,7 +33,7 @@ public class PageRank extends GraphFilter {
 						(previousSignal.getNodeScore(s) * edge.getEdgeWeight())));
 			}
 		long firstStepToc = System.currentTimeMillis();
-		System.out.println("FirstStep : " + (firstStepToc - firstStepTic)/1000);
+		System.out.println("FirstStep : " + (firstStepToc - firstStepTic)/1000.0);
 			//for (Edge tempEdge : graph.getEdges()) {
 				//Node s = tempEdge.getSource();
 				//Node d = tempEdge.getDestination();
