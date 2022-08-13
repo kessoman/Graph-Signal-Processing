@@ -28,8 +28,9 @@ public class GraphSignalTest {
 	public Node node8 = new LoadedNode("node8");
 	public Node node9 = new LoadedNode("node9");
 	public Node node10 = new LoadedNode("node10");
-	public GraphSignal graphSignal = new LoadedGraphSignal();
-	public GraphSignal secondSignal = new LoadedGraphSignal();
+	public Graph graph = new LoadedGraph();
+	public GraphSignal graphSignal = new LoadedGraphSignal(graph);
+	public GraphSignal secondSignal = new LoadedGraphSignal(graph);
 	@Test
 	public  void testAuc() {
 		graphSignal.setNodeScore(node1, 0.1);
