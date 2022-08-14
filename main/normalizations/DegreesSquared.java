@@ -63,6 +63,12 @@ public class DegreesSquared extends GraphNormalization{
 	 public  int getNumberOfNodes() {
 		 throw new RuntimeException();
 	 }
+	 public void removeEdge(Node sourceNode, Node destinationNode) {
+		 throw new RuntimeException();
+	 }
+	 public void clearGraphHistory() {
+		 throw new RuntimeException();
+	 }
 	 public  int getNumberOfEdges() {
 		 throw new RuntimeException();
 	 }

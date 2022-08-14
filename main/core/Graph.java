@@ -12,4 +12,6 @@ import java.util.stream.Stream;
 	 public abstract  int getNumberOfNodes();
 	 public abstract  int getNumberOfEdges();
 	 public abstract  void addEdge(Node sourceNode, Node destinationNode);
+	 public abstract  void removeEdge(Node sourceNode, Node destinationNode);
+	 public  abstract void clearGraphHistory();
 }

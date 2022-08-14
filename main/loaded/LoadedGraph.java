@@ -108,7 +108,9 @@ public class LoadedGraph extends Graph {
 		return outEdgesIterable;
 
 	}
-	
+	 public void clearGraphHistory() {
+		 throw new RuntimeException();
+	 }
 	public Double getInDegree(Node destinationNode) {
 		if(destinationNode == null)
 			throw new IllegalArgumentException("DestinationNode is null");

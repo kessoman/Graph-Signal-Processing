@@ -87,6 +87,12 @@ public class TinkerTopGraph extends core.Graph{
 	 public  Iterable<core.Edge> getOutgoingEdges(Node sourcenode){
 		 throw new RuntimeException();
 	 }
+	 public void removeEdge(Node sourceNode, Node destinationNode) {
+		 throw new RuntimeException();
+	 }
+	 public void clearGraphHistory() {
+		 throw new RuntimeException();
+	 }
 	 public  Double getInDegree (Node destinationNode){
 			double d = g.V().hasLabel(destinationNode.toString()).inE().count().next();
 			return d ;	 
