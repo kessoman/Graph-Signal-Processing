@@ -26,8 +26,6 @@ public class DiscGraph extends  Graph{
 	}
 	public Iterable<Node> getNodes() {
 		return nodes.values();
-		//return edgesList.getIteratorNodes().values();
-		// throw new RuntimeException();
 	}
 	 private void calcualateInOutDegree() { 
 		 for(Edge edge : edgesList) {
@@ -55,11 +53,9 @@ public class DiscGraph extends  Graph{
 	 }
 	 public  Double getInDegree (Node destinationNode){
 		 return inDegree.get(destinationNode);
-		 //throw new RuntimeException();
 	 }
 	 public  Double getOutDegree (Node sourceNode){
 		 return outDegree.get(sourceNode);
-		 //throw new RuntimeException();
 	 }
 	 public  int getNumberOfNodes() {
 		 return nodes.size();
@@ -123,19 +119,13 @@ public class DiscGraph extends  Graph{
 			        System.out.println("Parameter is not an existing file");
 			        return;
 			      }
-			      //Construct the new file that will later be renamed to the original filename.
 			      File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
-
 			      BufferedReader br = new BufferedReader(new FileReader(inFile));
 			      PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
-
 			      String line = null;
 			      String lineToRemove = sourceNode.toString() + " , " + destinationNode.toString();
 			      boolean nextLine = false ;
-			      //Read from the original file and write to the new
-			      //unless content matches data to be removed.
 			      while ((line = br.readLine()) != null) {
-
 			    	  if (!line.trim().equals(lineToRemove)) {
 				        	if (nextLine == false) {
 				          pw.print(line); //if line = first xwris /n alliws /n + line
@@ -150,17 +140,12 @@ public class DiscGraph extends  Graph{
 			      }
 			      pw.close();
 			      br.close();
-
-			      //Delete the original file
 			      if (!inFile.delete()) {
 			        System.out.println("Could not delete file");
 			        return;
 			      }
-
-			      //Rename the new file to the filename the original file had.
 			      if (!tempFile.renameTo(inFile))
 			        System.out.println("Could not rename file");
-
 			    }
 			    catch (FileNotFoundException ex) {
 			      ex.printStackTrace();
@@ -172,10 +157,8 @@ public class DiscGraph extends  Graph{
 			inDegree.put(destinationNode, inDegree.get(destinationNode) - 1);
 		}
 class DiscEdgeList implements Iterable<Edge>{
-    protected File file ;
 	public HashMap<String, Node> discNodes = new HashMap<String, Node>();
     public DiscEdgeList(File file) {
-    	this.file = file ;
     }
 	public Iterator<Edge> iterator(){
 		return new EdgeIterator(file) ;
@@ -184,13 +167,9 @@ class DiscEdgeList implements Iterable<Edge>{
 		return discNodes ;
 	}	
  class EdgeIterator implements Iterator<Edge>{
-	    protected File file ;
 	   protected Scanner scanner ;
 	   protected Iterator<File> it ;
 	   public EdgeIterator(File file) {
-		   this.file = file ; 
-		   //Collection<File> listFiles = FileUtils.listFiles(file, null, true);
-		   //it = listFiles.iterator();
 		   it = FileUtils.iterateFiles(file, null, true);
 		   try {
 			   scanner = new Scanner(it.next());
