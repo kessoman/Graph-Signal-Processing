@@ -88,7 +88,9 @@ public class TinkerTopGraph extends core.Graph{
 		 throw new RuntimeException();
 	 }
 	 public void removeEdge(Node sourceNode, Node destinationNode) {
-		 throw new RuntimeException();
+	        Vertex fromVertex = vertices.get(sourceNode.toString());
+	        Vertex toVertex = vertices.get(destinationNode.toString());
+	        g.V(fromVertex).outE("connexts to").where(__.otherV().is(toVertex)).drop().iterate();
 	 }
 	 public void clearGraphHistory() {
 		 throw new RuntimeException();

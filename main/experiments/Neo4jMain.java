@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -40,6 +41,22 @@ public class Neo4jMain {
 			}
 		long tinkerPopGrpahToc =System.currentTimeMillis();
 		System.out.println("TinkerPopGraph" + " " + (tinkerPopGrpahToc - tinkerPopGrpahTic)/1000.0);
+		System.out.println(coreGraph.getNumberOfEdges() + " " + coreGraph.getNumberOfNodes());
+	    ArrayList<core.Edge> edgesToRemove = new ArrayList<core.Edge>();
+	    for(core.Edge edge : coreGraph.getEdges()) {
+	    	if(Math.random() < 0.01) {
+	    		edgesToRemove.add(edge);
+	    	}
+	    }
+	    //long firstStepTic = System.currentTimeMillis();
+		int counter2 = 0 ;
+		long edgeRemovalTic = System.currentTimeMillis();
+		for(core.Edge edge : edgesToRemove) {
+			counter2 ++;
+			coreGraph.removeEdge(edge.getSource(), edge.getDestination());
+		}
+		long edgeRemovalToc = System.currentTimeMillis();
+		System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter2 + " edges" + " " + edgesToRemove.size());
 		System.out.println(coreGraph.getNumberOfEdges() + " " + coreGraph.getNumberOfNodes());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
