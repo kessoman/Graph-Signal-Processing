@@ -1,3 +1,4 @@
+
 package disc;
 import core.*;
 
@@ -87,17 +88,14 @@ public class PartialDiscGraph extends Graph{
 		return nodes.values();
 	}
 	public void removeEdge(Node sourceNode , Node destinationNode) {
-		
 		outDegree.put(sourceNode, outDegree.get(sourceNode) - 1);
 		inDegree.put(destinationNode, inDegree.get(destinationNode) - 1);
 		try {
 		      File inFile = new File(file + "\\" + uuids.get(sourceNode.toString()).toString() + ".neighbours");
-		      //File inFile = new File(file + "\\" + sourceNode.toString() + ".neighbours");
 		      if (!inFile.isFile()) {
 		        System.out.println("Parameter is not an existing file");
 		        return;
 		      }
-		      //Construct the new file that will later be renamed to the original filename.
 		      File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
 		      BufferedReader br = new BufferedReader(new FileReader(file + "\\" +  uuids.get(sourceNode.toString()).toString()  + ".neighbours"));
 		      //BufferedReader br = new BufferedReader(new FileReader(file + "\\" + sourceNode.toString() + ".neighbours"));
@@ -105,8 +103,6 @@ public class PartialDiscGraph extends Graph{
 		      String line = null;
 		      String lineToRemove = sourceNode.toString() + " , " + destinationNode.toString();
 		      boolean nextLine = false;
-		      //Read from the original file and write to the new
-		      //unless content matches data to be removed.
 		      while ((line = br.readLine()) != null) {
 		        if (!line.trim().equals(lineToRemove)) {
 					if (nextLine == false) {
@@ -122,13 +118,10 @@ public class PartialDiscGraph extends Graph{
 		      }
 		      pw.close();
 		      br.close();
-		      //Delete the original file
 		      if (!inFile.delete()) {
 		        System.out.println("Could not delete file"); //anti gia system.out system.err
 		        return;
 		      }
-
-		      //Rename the new file to the filename the original file had.
 		      if (!tempFile.renameTo(inFile))
 		        System.out.println("Could not rename file");
 
@@ -151,23 +144,18 @@ public class PartialDiscGraph extends Graph{
 	public Iterable<Edge> getIncomingEdges(Node destinationnode) {
 		throw new RuntimeException();
 	}
-
 	public Iterable<Edge> getOutgoingEdges(Node sourcenode) {
 		throw new RuntimeException();
 	}
-
 	public Double getInDegree(Node destinationNode) {
 		return inDegree.get(destinationNode);
 	}
-
 	public Double getOutDegree(Node sourceNode) {
 		return outDegree.get(sourceNode);
 	}
-
 	public int getNumberOfNodes() {
 		return nodes.size();
 	}
-
 	public int getNumberOfEdges() {
 		 int counter = 0 ;
 		 for(Edge edge : getEdges())
@@ -176,21 +164,15 @@ public class PartialDiscGraph extends Graph{
 		 }
 
 class PartialDiscEdgeList implements Iterable<Edge>{
-    protected File file ;
     public PartialDiscEdgeList(File file) {
-    	this.file = file ;
     }
 	public Iterator<Edge> iterator(){
 		return new PartialEdgeIterator(file) ;
 	}	
  class PartialEdgeIterator implements Iterator<Edge>{
-	   protected File file ;
 	   protected Scanner scanner ;
 	   protected Iterator<File> it ;
 	   public PartialEdgeIterator(File file) {
-		   this.file = file ; 
-		   //Collection<File> listFiles = FileUtils.listFiles(file, null, true);
-		   //it = listFiles.iterator();
 		   it = FileUtils.iterateFiles(file, null, true);
 		   try {
 			   scanner = new Scanner(it.next());
@@ -200,14 +182,12 @@ class PartialDiscEdgeList implements Iterable<Edge>{
 			}
 	   }
 	   public boolean hasNext() {
-		   boolean var = scanner != null && scanner.hasNext() ;
-		   if(!var && scanner!=null)
-		     scanner.close();
-		   return var ;
-		   //if(!scanner.hasNext() && !it.hasNext() )
-			   //return false ;
-		   //else //if last file &last line
-			  // return true ;
+		   if(!scanner.hasNext() && !it.hasNext() ) {
+			   scanner.close();
+			   return false ;
+		   }
+		   else
+			   return true ;
 	   }
 	   public Edge next(){
 		   if(scanner == null) {

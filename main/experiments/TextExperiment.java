@@ -47,8 +47,9 @@ public class TextExperiment {
 		//long toc = System.currentTimeMillis();
 	    ArrayList<Edge> edgesToRemove = new ArrayList<Edge>();
 	    for(Edge edge : graph.getEdges()) {
-	    	if(Math.random() < 0.1)
+	    	if(Math.random() < 0.1) {
 	    		edgesToRemove.add(edge);
+	    	}
 	    }
 	    //long firstStepTic = System.currentTimeMillis();
 		int counter2 = 0 ;
@@ -58,7 +59,7 @@ public class TextExperiment {
 			graph.removeEdge(edge.getSource(), edge.getDestination());
 		}
 		long edgeRemovalToc = System.currentTimeMillis();
-		System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter2 + " edges");
+		System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter2 + " edges" + " " + edgesToRemove.size());
 		//System.out.println("PartialDiscGraphgetEdges" + (edgeRemovalToc - edgeRemovalTic)/1000);
 		//long partialPageRankTic =  System.currentTimeMillis();
 		//P/ageRank p = new PageRank();
