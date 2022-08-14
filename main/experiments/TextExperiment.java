@@ -47,7 +47,7 @@ public class TextExperiment {
 		//long toc = System.currentTimeMillis();
 	    ArrayList<Edge> edgesToRemove = new ArrayList<Edge>();
 	    for(Edge edge : graph.getEdges()) {
-	    	if(Math.random() < 0.01)
+	    	if(Math.random() < 0.1)
 	    		edgesToRemove.add(edge);
 	    }
 	    //long firstStepTic = System.currentTimeMillis();

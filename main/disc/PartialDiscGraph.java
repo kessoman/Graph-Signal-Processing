@@ -200,10 +200,14 @@ class PartialDiscEdgeList implements Iterable<Edge>{
 			}
 	   }
 	   public boolean hasNext() {
-		   if(!scanner.hasNext() && !it.hasNext() )
-			   return false ;
-		   else// if last file &last line
-			   return true ;
+		   boolean var = scanner != null && scanner.hasNext() ;
+		   if(!var && scanner!=null)
+		     scanner.close();
+		   return var ;
+		   //if(!scanner.hasNext() && !it.hasNext() )
+			   //return false ;
+		   //else //if last file &last line
+			  // return true ;
 	   }
 	   public Edge next(){
 		   if(scanner == null) {

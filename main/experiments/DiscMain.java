@@ -11,9 +11,10 @@ import normalizations.*;
 public class DiscMain {
 
 	public static void main(String[] args) {
+		//throwsIoException
 		System.out.println("Creating graph");
 		File file = new File("C:\\Users\\kesso\\Documents\\DiscGraph\\");
-		File infile = new File("links_1k.csv");
+		File infile = new File("pagetest.csv");
 		long discGraphTic = System.currentTimeMillis();
 		DiscGraph discGraph = new DiscGraph(file);
 		Scanner scanner = null ;
@@ -78,7 +79,7 @@ public class DiscMain {
 		//GraphNormalization degreeAquared = new DegreesSquared(discGraph);
 	    ArrayList<Edge> edgesToRemove = new ArrayList<Edge>();
 	    for(Edge edge : discGraph.getEdges()) {
-	    	if(Math.random() < 0.01)
+	    	if(Math.random() < 0.1)
 	    		edgesToRemove.add(edge);
 	    }
 	    //long firstStepTic = System.currentTimeMillis();
@@ -89,7 +90,7 @@ public class DiscMain {
 			discGraph.removeEdge(edge.getSource(), edge.getDestination());
 		}
 		long edgeRemovalToc = System.currentTimeMillis();
-		System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter2 + " edges");
+		System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter2 + " edges" + " " + edgesToRemove.size());
 		//long discPageRankTic =  System.currentTimeMillis();
 		//PageRank p = new PageRank();
 		//p.run(discGraph, randomSignal);

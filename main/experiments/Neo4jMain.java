@@ -24,7 +24,7 @@ import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSo
 
 public class Neo4jMain {
 	public static void main(String[] args) throws IOException {
-		File file = new File("pagetest.csv");
+		File file = new File("links_thirty.csv");
 		Graph graph = TinkerGraph.open();
 		long tinkerPopGrpahTic =System.currentTimeMillis();
 		core.Graph coreGraph = new TinkerTopGraph(graph);
@@ -39,8 +39,6 @@ public class Neo4jMain {
 				coreGraph.addEdge(node1, node2);				
 			}
 		long tinkerPopGrpahToc =System.currentTimeMillis();
-		for(core.Ed edge: coreGraph.getEdges())
-			System.out.println(edge.toString());
 		System.out.println("TinkerPopGraph" + " " + (tinkerPopGrpahToc - tinkerPopGrpahTic)/1000.0);
 		System.out.println(coreGraph.getNumberOfEdges() + " " + coreGraph.getNumberOfNodes());
 		} catch (FileNotFoundException e) {

@@ -123,7 +123,6 @@ public class DiscGraph extends  Graph{
 			        System.out.println("Parameter is not an existing file");
 			        return;
 			      }
-
 			      //Construct the new file that will later be renamed to the original filename.
 			      File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
 
@@ -201,10 +200,14 @@ class DiscEdgeList implements Iterable<Edge>{
 			}
 	   }
 	   public boolean hasNext() {
-		   if(!scanner.hasNext() && !it.hasNext() )
-			   return false ;
-		   else// if last file &last line
-			   return true ;
+		   boolean var = scanner != null && scanner.hasNext() ;
+		   if(!var && scanner!=null)
+		     scanner.close();
+		   return var ;
+		   //if(!scanner.hasNext() && !it.hasNext() )
+			 //  return false ;
+		   //else// if last file &last line
+			  // return true ;
 	   }
 	   public Edge next(){
 		   if(scanner == null) {

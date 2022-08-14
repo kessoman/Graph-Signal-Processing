@@ -41,7 +41,7 @@ public class TinkerTopGraph extends core.Graph{
         }
         Vertex fromVertex = vertices.get(sourceNode.toString());
         Vertex toVertex = vertices.get(destinationNode.toString());
-        g.addE("connexts to").from(fromVertex).to(toVertex).iterate();
+        g.addE("connexts to").from(fromVertex).to(toVertex).iterate();	
 		if(!nodes.containsKey(sourceNode.toString()))
 			nodes.put(sourceNode.toString(), sourceNode);
 		if(!nodes.containsKey(destinationNode.toString()))
