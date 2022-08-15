@@ -14,8 +14,7 @@ public class GraphTest {
 	Node node = new LoadedNode("node");
 	Iterable<Node> nodeIterable = graph.getNodes();
 	Iterable<Edge> edgeIterable = graph.getEdges();
-	Iterable<Edge> incomingEdges = graph.getIncomingEdges(node);
-	Iterable<Edge> outgoingEdges = graph.getOutgoingEdges(node);
+
 	
 	public GraphTest (){
 		
@@ -44,14 +43,6 @@ public class GraphTest {
 		Assert.assertEquals(nodeIterable, graph.getNodes());
 	}
 	@Test
-	public void testGetIncomingEdges() {
-		Assert.assertEquals(incomingEdges, graph.getIncomingEdges(new LoadedNode("A")));
-	}
-	@Test
-	public void testGetOutgoingEdges() {
-		Assert.assertEquals(outgoingEdges, graph.getOutgoingEdges(new LoadedNode("A")));
-	}
-	@Test
 	public void testCreateGraph() {
 		GraphTest graph = new GraphTest();
 		Graph newGraph = graph.createGraph();
@@ -72,12 +63,8 @@ public class GraphTest {
 		testGraph.addEdge(node1, node2);
 		testGraph.addEdge(node1, node3);
 		ArrayList<Edge> list = new ArrayList<Edge>();
-		newGraph.getOutgoingEdges(node3).forEach(list :: add);
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		newGraph.getNodes().forEach(nodes :: add);
-		Assert.assertEquals(inDegree, 2);
-		Assert.assertEquals(outDegree, 2);
-		Assert.assertEquals((double)newGraph.getOutDegree(node3), list.size());
 		Assert.assertTrue(nodes.contains(node4));
 		for(Edge edge : list)
 			Assert.assertEquals(edge.getSource(), node3);

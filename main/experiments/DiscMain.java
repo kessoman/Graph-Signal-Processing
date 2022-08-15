@@ -73,24 +73,30 @@ public class DiscMain {
 		//for(Node node :discGraph.getNodes())
 			//r1 += secondSignal.getNodeScore(node);
 		System.out.println("Calculating Pagerank");
+		Normalization norm = new DividedByOutDegree(discGraph);
+		long discPageRankTic =  System.currentTimeMillis();
+		PageRank p = new PageRank();
+		p.run(norm, randomSignal);
+		long discPageRankToc = System.currentTimeMillis();
+		System.out.println("DiscPagerank :" + (discPageRankToc - discPageRankTic)/1000);
 		//PageRank np = new PageRank();
 		//HeatKernels hk = new HeatKernels();
 		//GraphNormalization graphNorm = new GraphNorm(discGraph);
 		//GraphNormalization degreeAquared = new DegreesSquared(discGraph);
-	    ArrayList<Edge> edgesToRemove = new ArrayList<Edge>();
-	    for(Edge edge : discGraph.getEdges()) {
-	    	if(Math.random() < 0.1)
-	    		edgesToRemove.add(edge);
-	    }
+	    //ArrayList<Edge> edgesToRemove = new ArrayList<Edge>();
+	    //for(Edge edge : discGraph.getEdges()) {
+	    	//if(Math.random() < 0.1)
+	    		//edgesToRemove.add(edge);
+	    //}
 	    //long firstStepTic = System.currentTimeMillis();
-		int counter2 = 0 ;
-		long edgeRemovalTic = System.currentTimeMillis();
-		for(Edge edge : edgesToRemove) {
-			counter2 ++;
-			discGraph.removeEdge(edge.getSource(), edge.getDestination());
-		}
-		long edgeRemovalToc = System.currentTimeMillis();
-		System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter2 + " edges" + " " + edgesToRemove.size());
+		//int counter2 = 0 ;
+		//long edgeRemovalTic = System.currentTimeMillis();
+		//for(Edge edge : edgesToRemove) {
+			//counter2 ++;
+			//discGraph.removeEdge(edge.getSource(), edge.getDestination());
+		//}
+		//long edgeRemovalToc = System.currentTimeMillis();
+		//System.out.println("Time to remove Edges : " + (edgeRemovalToc - edgeRemovalTic)/1000 + "and removed " + counter2 + " edges" + " " + edgesToRemove.size());
 		//long discPageRankTic =  System.currentTimeMillis();
 		//PageRank p = new PageRank();
 		//p.run(discGraph, randomSignal);

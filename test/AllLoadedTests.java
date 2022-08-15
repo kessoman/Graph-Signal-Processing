@@ -19,7 +19,7 @@ public class AllLoadedTests {
 	ArrayList<Edge> edges = new ArrayList<Edge>();
 	Graph graph = new LoadedGraph(edges, nodes);
 	Node node = new LoadedNode("");
-	Iterable<Edge> incomingEdges = graph.getIncomingEdges(node);
+	//Iterable<Edge> incomingEdges = graph.getIncomingEdges(node);
 	
 	//@Test
 	//public void testPagerankAlgorithms() {
@@ -76,18 +76,6 @@ public class AllLoadedTests {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void nullIncomingEdges() {
-	 Graph graph = new LoadedGraph();
-	 graph.getIncomingEdges(null);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void nullOutgoingEdges() {
-	 Graph graph = new LoadedGraph();
-	 graph.getOutgoingEdges(null);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
 	public void nullInDegree() {
 	 Graph graph = new LoadedGraph();
 	 graph.getInDegree(null);
@@ -98,12 +86,5 @@ public class AllLoadedTests {
 	 Graph graph = new LoadedGraph();
 	 graph.getOutDegree(null);
 	}
-	
-	//Graph
-	@Test
-	public void testIncomingEdges() {
-		Assert.assertEquals(incomingEdges, graph.getIncomingEdges(node));
-	}
-	
 
 }
