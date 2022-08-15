@@ -141,12 +141,6 @@ public class PartialDiscGraph extends Graph{
 		      ex.printStackTrace();
 		    }
 	}
-	public Iterable<Edge> getIncomingEdges(Node destinationnode) {
-		throw new RuntimeException();
-	}
-	public Iterable<Edge> getOutgoingEdges(Node sourcenode) {
-		throw new RuntimeException();
-	}
 	public Double getInDegree(Node destinationNode) {
 		return inDegree.get(destinationNode);
 	}

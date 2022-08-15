@@ -92,22 +92,6 @@ public class LoadedGraph extends Graph {
 			throw new IllegalArgumentException("Couldnot initialize graph withouth nodes");
 		 return nodes.values();
 	 }
-
-	public Iterable<Edge> getIncomingEdges(Node destinationnode) {
-		if(destinationnode == null)
-			throw new IllegalArgumentException("DestinationNode is null");
-        Iterable<Edge> inEdgesIterable = inGoingEdges.get(destinationnode);
-		return inEdgesIterable;
-
-	}
-
-	public Iterable<Edge> getOutgoingEdges(Node sourcenode) {
-		if(sourcenode == null)
-			throw new IllegalArgumentException("SourceNode is null");
-		Iterable<Edge> outEdgesIterable = outGoingEdges.get(sourcenode);
-		return outEdgesIterable;
-
-	}
 	 public void clearGraphHistory() {
 		 throw new RuntimeException();
 	 }

@@ -68,14 +68,6 @@ public class GraphNorm extends GraphNormalization {
 	public double calculateWeight(Edge edge) {
 		return 1 / graph.getOutDegree(edge.getSource());
 	}
-
-	public Iterable<Edge> getIncomingEdges(Node destinationnode) {
-		throw new RuntimeException();
-	}
-
-	public Iterable<Edge> getOutgoingEdges(Node sourcenode) {
-		throw new RuntimeException();
-	}
 	 public void removeEdge(Node sourceNode, Node destinationNode) {
 		 throw new RuntimeException();
 	 }

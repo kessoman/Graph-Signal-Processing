@@ -81,16 +81,10 @@ public class TinkerTopGraph extends core.Graph{
 	public Iterable<Node> getNodes() {
 		 return nodes.values();
 	}
-	public  Iterable<core.Edge> getIncomingEdges(Node destinationnode){
-		 throw new RuntimeException();
-	 }
-	 public  Iterable<core.Edge> getOutgoingEdges(Node sourcenode){
-		 throw new RuntimeException();
-	 }
 	 public void removeEdge(Node sourceNode, Node destinationNode) {
 	        Vertex fromVertex = vertices.get(sourceNode.toString());
 	        Vertex toVertex = vertices.get(destinationNode.toString());
-	        g.V(fromVertex).outE("connexts to").where(__.otherV().is(toVertex)).drop().iterate();
+	        g.V(fromVertex).outE("connexts to").where(otherV().is(toVertex)).drop().iterate();
 	 }
 	 public void clearGraphHistory() {
 		 throw new RuntimeException();

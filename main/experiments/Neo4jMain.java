@@ -25,7 +25,7 @@ import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSo
 
 public class Neo4jMain {
 	public static void main(String[] args) throws IOException {
-		File file = new File("links_thirty.csv");
+		File file = new File("pagetest.csv");
 		Graph graph = TinkerGraph.open();
 		long tinkerPopGrpahTic =System.currentTimeMillis();
 		core.Graph coreGraph = new TinkerTopGraph(graph);

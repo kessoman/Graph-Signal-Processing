@@ -75,10 +75,4 @@ public class DegreesSquared extends GraphNormalization{
 	 public  void addEdge(Node sourceNode, Node destinationNode) {
 		 throw new RuntimeException();
 	 }
-	 public  Iterable<Edge> getIncomingEdges(Node destinationnode){
-		 throw new RuntimeException();
-	 }
-	 public  Iterable<Edge> getOutgoingEdges(Node sourcenode){
-		 throw new RuntimeException();
-	 }
 }
