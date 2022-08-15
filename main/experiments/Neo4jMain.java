@@ -35,8 +35,8 @@ public class Neo4jMain {
 				String[] links = scanner.nextLine().split(",");
 				links[1] = links[1].strip();
 				links[0] = links[0].strip();
-				Node node1 = new LoadedNode(links[0]);
-				Node node2 = new LoadedNode(links[1]);
+				Node node1 = coreGraph.getOrCreateNode(links[0]);
+				Node node2 = coreGraph.getOrCreateNode(links[1]);
 				coreGraph.addEdge(node1, node2);				
 			}
 		long tinkerPopGrpahToc =System.currentTimeMillis();

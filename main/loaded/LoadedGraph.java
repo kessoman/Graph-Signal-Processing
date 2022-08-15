@@ -35,7 +35,15 @@ public class LoadedGraph extends Graph {
 	 public  int getNumberOfEdges() {
 		 return edges.size();
 	 }
-	
+		public Node getOrCreateNode(String name) {
+			if (!nodes.containsKey(name)) {
+				Node node = new LoadedNode(name);
+				nodes.put(name, node);
+				inDegree.put(node, 0.0);
+				outDegree.put(node, 0.0);
+			}
+			return nodes.get(name);
+		}
 		public void addEdge(Node sourceNode, Node destinationNode) {
 			Edge edge = new LoadedEdges(sourceNode, destinationNode);
 			if (!edges.contains(edge))
@@ -44,18 +52,8 @@ public class LoadedGraph extends Graph {
 				nodes.put(edge.getSource().toString(), edge.getSource());
 			if (!nodes.containsValue(edge.getDestination()))
 				nodes.put(edge.getDestination().toString(), edge.getDestination());
-			for (Node n : nodes.values()) {
-				inGoingEdges.put(n, new ArrayList<Edge>());
-				outGoingEdges.put(n, new ArrayList<Edge>());
-				inDegree.put(n, 0.0);
-				outDegree.put(n, 0.0);
-			}
-			for (Edge newEdge : edges) {
-				inGoingEdges.get(newEdge.getDestination()).add(newEdge);
-				inDegree.put(newEdge.getDestination(), inDegree.get(newEdge.getDestination()) + 1);
-				outGoingEdges.get(newEdge.getSource()).add(newEdge);
-				outDegree.put(newEdge.getSource(), outDegree.get(newEdge.getSource()) + 1);
-			}
+			inDegree.put(destinationNode, inDegree.get(destinationNode) + 1);
+			outDegree.put(sourceNode, outDegree.get(sourceNode) + 1);
 		}
 	public void removeEdge(Node sourceNode, Node destinationNode) {
 		Edge edge = new LoadedEdges(sourceNode, destinationNode);

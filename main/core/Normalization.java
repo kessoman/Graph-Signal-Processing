@@ -70,4 +70,7 @@ public abstract class Normalization extends Graph{
 	public void clearGraphHistory() {
 		throw new RuntimeException();
 	}
+	public Node getOrCreateNode(String string) {
+		throw new RuntimeException();
+	}
 }

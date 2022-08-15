@@ -3,6 +3,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
  public abstract class Graph  {
+	 public abstract Node getOrCreateNode(String string);
 	 public abstract  Iterable<Edge> getEdges() ;
 	 public abstract  Iterable<Node> getNodes() ;
 	 public abstract  Double getInDegree (Node destinationNode);

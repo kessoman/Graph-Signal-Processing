@@ -32,6 +32,13 @@ public class TinkerTopGraph extends core.Graph{
 		graph = TinkerGraph.open();
 		g = graph.traversal();
 				}
+	public Node getOrCreateNode(String name) {
+		if (!nodes.containsKey(name)) {
+			Node node = new LoadedNode(name);
+			nodes.put(name, node);
+		}
+		return nodes.get(name);
+	}
 	public  void addEdge(Node sourceNode, Node destinationNode){
 		if(!vertices.containsKey(sourceNode.toString())) {
             vertices.put(sourceNode.toString(), g.addV(sourceNode.toString()).next());
@@ -41,11 +48,7 @@ public class TinkerTopGraph extends core.Graph{
         }
         Vertex fromVertex = vertices.get(sourceNode.toString());
         Vertex toVertex = vertices.get(destinationNode.toString());
-        g.addE("connexts to").from(fromVertex).to(toVertex).iterate();	
-		if(!nodes.containsKey(sourceNode.toString()))
-			nodes.put(sourceNode.toString(), sourceNode);
-		if(!nodes.containsKey(destinationNode.toString()))
-			nodes.put(destinationNode.toString(), destinationNode);
+        g.addE("connexts to").from(fromVertex).to(toVertex).iterate();
 		//check v.haslabel.fold
 		//List<Vertex> v1 =  g.V().hasLabel(sourceNode.toString()).fold().coalesce(unfold(),addV(sourceNode.toString())).toList();
 		//List<Vertex> v2 =  g.V().hasLabel(destinationNode.toString()).fold().coalesce(unfold(),addV(destinationNode.toString())).toList();

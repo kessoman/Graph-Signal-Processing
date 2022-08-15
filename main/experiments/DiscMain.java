@@ -14,7 +14,7 @@ public class DiscMain {
 		//throwsIoException
 		System.out.println("Creating graph");
 		File file = new File("C:\\Users\\kesso\\Documents\\DiscGraph\\");
-		File infile = new File("pagetest.csv");
+		File infile = new File("links_1k.csv");
 		long discGraphTic = System.currentTimeMillis();
 		DiscGraph discGraph = new DiscGraph(file);
 		Scanner scanner = null ;
@@ -29,8 +29,10 @@ public class DiscMain {
 				String[] links = scanner.nextLine().split(",");
 				links[1] = links[1].strip();
 				links[0] = links[0].strip();
-				Node node1 = new LoadedNode(links[0]);
-				Node node2 = new LoadedNode(links[1]);
+				Node node1 = discGraph.getOrCreateNode(links[0]);
+				Node node2 = discGraph.getOrCreateNode(links[1]);
+				//Node node1 = new LoadedNode(links[0]);
+				//Node node2 = new LoadedNode(links[1]);
 				discGraph.addEdge(node1, node2);
 			}
 		long discGraphToc = System.currentTimeMillis();	
@@ -41,7 +43,6 @@ public class DiscMain {
 		//GraphSignal secondSignal = new LoadedGraphSignal(discGraph);
 		for(Node node : discGraph.getNodes()) {
 			randomSignal.setNodeScore(node, Math.random());
-			//System.out.println(node.toString() + " " + discGraph.getOutDegree(node));
 		   //if(node.toString().contains("org.apache.mina") && Math.random()< 0.5) {
 			//graphSignal.setNodeScore(node, 1.);//yest me randomsignal
 		  //}
@@ -76,9 +77,9 @@ public class DiscMain {
 		Normalization norm = new DividedByOutDegree(discGraph);
 		long discPageRankTic =  System.currentTimeMillis();
 		PageRank p = new PageRank();
-		p.run(norm, randomSignal);
+		p.run(discGraph, randomSignal);
 		long discPageRankToc = System.currentTimeMillis();
-		System.out.println("DiscPagerank :" + (discPageRankToc - discPageRankTic)/1000);
+		System.out.println("DiscPagerank :" + (discPageRankToc - discPageRankTic)/1000 + " " + discGraph.getNumberOfNodes() + " " + discGraph.getNumberOfEdges());
 		//PageRank np = new PageRank();
 		//HeatKernels hk = new HeatKernels();
 		//GraphNormalization graphNorm = new GraphNorm(discGraph);
